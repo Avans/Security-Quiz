@@ -1,0 +1,29 @@
+body {
+    background-color: #e8eef7;
+}
+
+form {
+    display: block;
+    margin: 0.5em auto 2.5em;
+    padding: 1em;
+    width: 45em;
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+.question {
+    margin: 3em;
+}
+
+.question-string {
+    font-weight: bold;
+}
+
+textarea {
+    width: 75%;
+    height: 7em;
+}
+
+input {
+    width: 75%;
+}

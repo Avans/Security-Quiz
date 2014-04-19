@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Security 1</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    Ingelogd als <strong>{{ user }}</strong>. <a href="/logout">Uitloggen</a>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+
+      <h1>SQL Injection</h1>
+      <h2>Bank</h2>
+      <p>Bob is al jaren trouwe klant en gebruikt de site dagelijks om te kijken hoeveel geld er op zijn rekening staat. Achter op zijn poespas pas heeft hij met een viltstift „Niet vergeten: Bob 123456” geschreven. Gebruik de site om te kijken hoeveel geld Bob op zijn rekening heeft staan.</p>
+
+      <p>Alice is ook klant van de bank en wij willen ook graag weten hoeveel geld zij op haar rekening heeft staan. We gaan daarom haar rekening hacken met behulp van SQL.</p>
+
+      <p>Lees op deze website de verschillende SQL injectie technieken: <a href="http://www.sqltutorial.nl/artikelen/sqlinjections/soorten_sql_injection.html">http://www.sqltutorial.nl/artikelen/sqlinjections/soorten_sql_injection.html</a>
+
+      <p>Ga nu aan de slag en hack het account van Alice!</p>
+
+      <p><strong>Hint 1:</strong> Kijk eerst eens wat er gebeurt als je inlogt met een enkele quote in de gebruikersnaam (').</p>
+
+      <p><strong>Hint 2:</strong> Met --  (twee streepjes gevolgd door een spatie) kan je commentaar achter een regel zetten in SQL.</p>
+
+      <p><strong>Hint 3:</strong> Bekijk de broncode achter de site: <a href="https://github.com/Avans/Security-Workshop/blob/master/bank/index.php#L51">https://github.com/Avans/Security-Workshop/blob/master/bank/index.php#L51</a>
+      De code beschouwt een gebruiker als ingelogd als de query een rij uit de gebruikerstabel teruggeeft. Manipuleer de query zodat deze de gegevens van Alice teruggeeft, zonder dat je het wachtwoord hoeft te weten.</p>
+
+      <img src="/static/img/poespas.png" style="width: 70%">
+
+      <div class="question">
+        <span class="question-string">Hoeveel geld heeft Alice op haar rekening staan?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_sql_money_alice" value="{{ answers.answer_sql_money_alice }}"></input>
+      </div>
+
+      <div class="question">
+        <span class="question-string">Wat heb je als gebruikersnaam ingevuld om zonder wachtwoord in te loggen als Alice?</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_sql_username_alice" value="{{answers.answer_sql_username_alice}}"></input>
+      </div>
+
+      <p>Waarschijnlijk heb je SQL commentaar (--) gebruikt in de vorige opdracht. Voer nu een andere SQL injectie uit door alleen het wachtwoord veld te gebruiken. Gebruik niet de SQL commentaar techniek maar verander nu de logica van de query (AND, OR) zodat er niet meer gecontroleerd wordt op het wachtwoord.</p>
+
+      <div class="question">
+        <span class="question-string">Met welk 'wachtwoord' lukt het altijd om in te loggen?</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_sql_always_password" value="{{answers.answer_sql_always_password}}"></input>
+      </div>
+
+      <div class="question">
+        <span class="question-string">Bekijk de PHP broncode en los het probleem op. Type de regels code die je verbeterd hebt in onderstaand tekstveld. (denk terug aan je mysql WEBS2 practicum)</span>
+        <div class="points"><span class="question-points">15</span> punten</div>
+        <textarea class="question-input" name="answer_sql_fix_query">{{answers.answer_sql_fix_query}}</textarea>
+      </div>
+
+      <p>Open de "Bank (multi_query)" pagina. Op deze pagina werken ook SQL Injection technieken die gebruik maken van meerdere queries (queries gescheiden door een ; ).</p>
+
+      <div class="question">
+        <span class="question-string">Met welke gebruikersnaam kan je (alleen) Bob miljonair maken? (Het saldo staat in een kolom "balans")</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_sql_bob_millionaire" value="{{answers.answer_sql_bob_millionaire}}"></input>
+      </div>
+
+      <img src="/static/img/bank_schema.png">
+
+      <h2>Webshop</h2>
+
+      <p>Inloggen in een ander account is leuk. Maar echte hackers stelen kostbare data uit een website. Dat gaan we nu doen met de webshop van Leaky's.</p>
+
+      <p>Je kan de broncode vinden op: <a href="https://github.com/Avans/Security-Workshop/blob/master/webshop/product_detail.php#L62">https://github.com/Avans/Security-Workshop/blob/master/webshop/product_detail.php#L62</a>
+
+      <p>Zoals je ziet hebben ze hier gebruik gemaakt van mysql_real_escape_string(). Je kan dus geen gebruik meer maken van rare quotejes om de query aan te passen.</p>
+
+      <p>Maar met behulp van de UNION techniek kunnen we alsnog data stelen uit de website. Lees in de tutorial hoe je deze techniek kan toepassen om data uit andere tabellen te lezen.</p>
+
+      <p>In de database is er nog een tabel "gebruikers" waar gebruikersnamen en wachtwoorden in staan. Steel deze informatie uit de database!</p>
+
+      <p><strong>Hint:</strong> Verander het cijfer in de url van de product_details.php pagina in de letter 'a' zodat je de query kan lezen.</p>
+
+      <img src="/static/img/webshop_schema.png">
+
+      <div class="question">
+        <span class="question-string">Wat zijn de gebruikersnamen en wachtwoorden van de 4 gebruikers in de database? (de id's van de gebruikers zijn 1,2,3 en 4)</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <textarea class="question-input" name="answer_sql_usernames_passwords_webshop">{{answers.answer_sql_usernames_passwords_webshop}}</textarea>
+      </div>
+
+      <div class="question">
+        <span class="question-string">Met welke URL heb je het wachtwoord van Marco achterhaald?</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_sql_url_marco_password" value="{{answers.answer_sql_url_marco_password}}"></input>
+      </div>
+
+      <div class="question">
+        <span class="question-string">Bekijk de broncode en verbeter deze zodat je geen SQL injection meer kan gebruiken.</span>
+        <div class="points"><span class="question-points">15</span> punten</div>
+        <textarea class="question-input" name="answer_sql_fix_injection_webshop">{{answers.answer_sql_fix_injection_webshop}}</textarea>
+      </div>
+
+      <p>Open de pagina "Webshop (replace)". De maker van deze website heeft extra maatregelen genomen en woorden als SELECT en UNION uit de invoer gefilterd.</p>
+
+      <p><strong>Hint:</strong> SELSELECTECT</p>
+
+      <div class="question">
+        <span class="question-string">Met welke URL kan je nu het wachtwoord van Marco achterhalen?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_sql_url_marco_replace_password" value="{{answers.answer_sql_url_marco_replace_password}}"></input>
+      </div>
+
+      <h2>Hacking Lab</h2>
+
+      <p>Ga aan de slag met hacking-lab.com. Volg de instructies op de site en begin met de A1 Injection opdracht. Deze staat in de OWASP Top Ten event.</p>
+
+      <div class="question">
+        <span class="question-string">Wat is het creditcardnummer van "hacker10"?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_sql_hackinglab_creditcardnumber" value="{{answers.answer_sql_hackinglab_creditcardnumber}}"></input>
+      </div>
+
+      <div class="question">
+        <span class="question-string">Beschrijf hoe je de aanval hebt uitgevoerd.</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_sql_hackinglab_explain">{{answers.answer_sql_hackinglab_explain}}</textarea>
+      </div>
+
+      <button class="btn-primary" type="submit">Opslaan</button>
+
+    </form>
+  <body>
+</html>
