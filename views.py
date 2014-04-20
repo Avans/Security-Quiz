@@ -5,8 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from quiz.models import Answer
-import oauth2 as oauth, cgi, json
+import oauth2 as oauth, cgi, json, git, os, signal
 import securityquiz.secrets as secrets
+import securityquiz.settings as settings
 
 AVANS_KEY = secrets.AVANS_KEY
 AVANS_SECRET = secrets.AVANS_SECRET
@@ -61,6 +62,19 @@ def avans_callback(request):
 def avans_logout(request):
     logout(request)
     return HttpResponse('Je bent nu uitgelogd... <a href="/">Opnieuw inloggen</a>')
+
+def pull(request):
+    if request.method == 'POST':
+        g = git.cmd.Git(settings.PROJECT_PATH)
+        output = str(g.pull())
+
+        # Reload source code
+        os.kill(os.getpid(), signal.SIGINT)
+
+        return HttpResponse(output)
+    else:
+        return HttpResponseRedirect('/')
+
 
 def home(request):
     if not request.user.is_authenticated():
