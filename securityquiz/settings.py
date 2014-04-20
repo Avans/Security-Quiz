@@ -28,7 +28,7 @@ if 'runserver' in sys.argv:
     DEBUG = True
     TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['security.aardappelschilmesje.nl']
 
 
 # Application definition
