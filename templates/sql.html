@@ -1,21 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Security 1</title>
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
-  </head>
-  <body>
-    Ingelogd als <strong>{{ user }}</strong>. <a href="/logout">Uitloggen</a>
+{% extends "base.html" %}
 
-    <form method="POST">
-      {% csrf_token %}
-
-      {% if messages %}
-        {% for message in messages %}
-          <div class="alert alert-info">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
+{% block content %}
 
       <h1>SQL Injection</h1>
       <h2>Bank</h2>
@@ -34,7 +19,7 @@
       <p><strong>Hint 3:</strong> Bekijk de broncode achter de site: <a href="https://github.com/Avans/Security-Workshop/blob/master/bank/index.php#L51">https://github.com/Avans/Security-Workshop/blob/master/bank/index.php#L51</a>
       De code beschouwt een gebruiker als ingelogd als de query een rij uit de gebruikerstabel teruggeeft. Manipuleer de query zodat deze de gegevens van Alice teruggeeft, zonder dat je het wachtwoord hoeft te weten.</p>
 
-      <img src="/static/img/poespas.png" style="width: 70%">
+      <img src="/static/img/poespas.png" style="width: 70%" class="center-block">
 
       <div class="question">
         <span class="question-string">Hoeveel geld heeft Alice op haar rekening staan?</span>
@@ -132,8 +117,4 @@
         <textarea class="question-input" name="answer_sql_hackinglab_explain">{{answers.answer_sql_hackinglab_explain}}</textarea>
       </div>
 
-      <button class="btn-primary" type="submit">Opslaan</button>
-
-    </form>
-  <body>
-</html>
+{% endblock %}

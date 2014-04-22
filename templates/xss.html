@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+      <h1>Cross-site Scripting</h1>
+      <p>Voor veel van deze opdrachten heb je een eigen website nodig. Als je niet een eigen website hebt kan je natuurlijk ook gebruik maken van de student.aii.avans.nl webruimte</p>
+
+      <p>Zorg dat je de VM op NAT zet zodat deze de de laatste opdrachten kan dowloaden.</p>
+
+      <h2>Bank</h2>
+      <p>We gaan opnieuw kijken naar de Bank website. Ze hebben tijdelijk hun login formulier uitgeschakeld, maar daarmee zijn ze nog steeds niet veilig van hun beveiligingsproblemen.</p>
+
+      <p>Ga naar de "Bank (xss)" pagina voor de volgende opdrachten.</a>
+
+      <div class="question">
+        <span class="question-string">Maak een URL die Javascript aan de pagina toevoegd zodat deze 'XSS' in een alert-dialoog weergeeft.</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_xss_add_alert" value="{{answers.answer_xss_add_alert}}">
+      </div>
+
+      <div class="question">
+        <span class="question-string">Maak een URL die een nep inlogformulier laat zien. Bij het verzenden van dit formulier wordt de informatie naar jouw eigen website verstuurd!</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_xss_fake_form" value="{{answers.answer_xss_fake_form}}">
+      </div>
+
+      <div class="question">
+        <span class="question-string">Bekijk de broncode: <a href="https://github.com/Avans/Security-Workshop/blob/master/bank/message.php#L38">https://github.com/Avans/Security-Workshop/blob/master/bank/message.php#L38</a> Voeg een fix toe om deze aanval te voorkomen.</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_xss_fix_bank">{{answers.answer_xss_fix_bank}}</textarea>
+      </div>
+
+      <h2>Webshop</h2>
+      <p>Leaky heeft zijn webshop uitgebreid: je kan nu op de product pagina's doorklikken op de plaatjes voor een grote ingezoomde afbeelding. Op deze pagina is echter ook een XSS beveiligingslek.</p>
+
+      <p>De website heeft nu ook PHP session cookies waar jij als hacker natuurlijk erg in geïnteresseerd bent.</p>
+
+      <p>Verander de pagina zodat deze automatisch de cookie naar jouw eigen website toestuurt.</p>
+
+      <p><strong>Hint 1:</strong> Bekijk de HTML, zoek naar plekken waar de parameter uit de URL worden gebruikt</p>
+
+      <p><strong>Hint 2:</strong> Cookies kan je in JavaScript uitlezen met document.cookie</p>
+
+      <p><strong>Hint 3:</strong> Onderzoek het 'onload' attribuut van een img tag in HTML.</p>
+
+      <p><strong>Hint 4:</strong> Als de src niet naar een geldige afbeelding wijst zal de onload niet uitgevoerd worden</p>
+
+      <p><strong>Hint 5:</strong> Als je in een URL het + tekentje gebruikt wordt dit vertaald naar een spatie. Als je ook echt een + wilt gebruiken moet je de url encoded versie gebruiken: %2B</p>
+
+      <div class="question">
+        <span class="question-string">Met welke URL kan je de sessie cookies van gebruikers ontfutselen? (Dus doorsturen naar je eigen site)</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_xss_url_redirect" value="{{answers.answer_xss_url_redirect}}">
+      </div>
+
+      <div class="question">
+        <span class="question-string">Verander de url naar image_zoom_escapehtml.php. Alle speciale HTML tekens (&lt;&gt;"&amp;) zijn nu geëscapet. Maar het is nog steeds mogelijk om een aanval uit te voeren! Maak een nieuwe URL die de sessie cookie naar je eigen website verstuurd. Let goed op de quotejes.</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_xss_url_redirect_escape" value="{{answers.answer_xss_url_redirect_escape}}">
+      </div>
+
+      <div class="question">
+        <span class="question-string">Bekijk de broncode op <a href="https://github.com/Avans/Security-Workshop/blob/master/webshop/image_zoom_escapehtml.php#L55">https://github.com/Avans/Security-Workshop/blob/master/webshop/image_zoom_escapehtml.php#L55</a> Voeg een simpele fix toe die dit probleem oplost. Je kan dit op twee manieren doen: 1. HTML aanpassen 2. PHP aanpassen (lees documentatie op <a href="http://php.net/htmlspecialchars">http://php.net/htmlspecialchars</a> )</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_xss_webshop_fix">{{answers.answer_xss_webshop_fix}}</textarea>
+      </div>
+
+
+      <h2>Nieuws</h2>
+
+      <p>We gaan nu een aanval doen op een populaire nieuwssite. Ga naar de "Nieuws" pagina voor de volgende opdrachten.</p>
+
+      <p>Deze site heeft geen plekken waar we via de URL's javascript aan de pagina kunnen toevoegen. Bovendien zijn de administrators van deze site veel te slim om op rare links te klikken in vage e-mailtjes.  We gaan het via een stored XSS attack te doen.</p>
+
+      <p>1. Voeg via de reacties javascript aan de pagina toe die cookies steelt. Je moet deze cookies nu ook echt naar een eigen server sturen om de opdracht te kunnen maken. Zet op een eigen website een scriptje die alle requests in een bestandje/database logt zodat je daar later de cookies kunt uitlezen. Voorbeeld: student.aii.avans.nl/ICT/pwagener/logcookie.php?PHPSESSID=2394fh3dk</p>
+
+      <p>2. Je kan nu een ingelogde administrator naar de pagina (met jouw javascript) laten kijken door een melding te maken. Onderaan de reactiepagina staat een link (je kan ook rechtstreeks naar /nieuws/admincheck.php).</p>
+
+      <p>3. Als het goed is heb je nu de cookie van de administrator gestolen. Verander in de browser jouw eigen cookie naar de cookie van de administrator. Zoek naar een browserplugin als je dit niet al kan met jouw browser.</p>
+
+      <p>4. Bekijk opnieuw de reactiepagina. Je bent nu ingelogd als de administrator!</p>
+
+      <p>Tip: op /nieuws/reset.php is een speciale pagina die al het commentaar wist. Dit is handig als je jouw aanval wil verbeteren.</p>
+
+      <p>(Let op dat je de VM op NAT hebt ingesteld zodat deze verbinding kan maken naar het internet)</p>
+
+      <div class="question">
+        <span class="question-string">Welke reactie heb je geplaatst waardoor je achter de cookie van de administrator kwam?</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_xss_news_reaction">{{answers.answer_xss_news_reaction}}</textarea>
+      </div>
+
+      <div class="question">
+        <span class="question-string">Wat is de geheime code die alleen administrators kunnen zien?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_xss_news_secret_code" value="{{answers.answer_xss_news_secret_code}}">
+      </div>
+
+      <div class="question">
+        <span class="question-string">Plak het script dat je op je eigen website hebt gebruikt waarmee je de cookie van de admin hebt vastgelegd.</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_xss_news_script">{{answers.answer_xss_news_script}}</textarea>
+      </div>
+
+      <h2>Hacking Lab</h2>
+
+      <p>Maak de opgave "6112 - OWASP 2010 - A2 - Cross-Site Scripting" uit het OWASP Top Ten event.</p>
+
+      <div class="question">
+        <span class="question-string">Beschrijf hoe je de aanval hebt uitgevoerd. Hoe had deze aanval voorkomen kunnen worden?</span>
+        <div class="points"><span class="question-points">15</span> punten</div>
+        <textarea class="question-input" name="answer_xss_hacking_lab">{{answers.answer_xss_hacking_lab}}</textarea>
+      </div>
+
+
+
+
+{% endblock %}

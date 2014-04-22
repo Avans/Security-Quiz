@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.http import HttpResponseNotFound
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -76,7 +77,7 @@ def pull(request):
         return HttpResponseRedirect('/')
 
 
-def home(request):
+def home(request, url):
     if not request.user.is_authenticated():
         return avans_login(request)
 
@@ -88,11 +89,18 @@ def home(request):
                 answer.save()
 
         messages.add_message(request, messages.INFO, 'Je antwoorden zijn opgeslagen')
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/' + url)
 
     answers = Answer.objects.filter(user=request.user)
     answers_dict = {}
     for answer in answers:
         answers_dict[answer.question] = answer.string
 
-    return render(request, 'index.html', {'answers': answers_dict})
+    if url == 'sql' or url == '':
+        template = 'sql.html'
+    elif url == 'xss':
+        template = 'xss.html'
+    else:
+        return HttpResponseNotFound('404')
+
+    return render(request, template, {'answers': answers_dict})

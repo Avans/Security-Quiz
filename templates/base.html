@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Security 1</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="row-fluid">
+        <div class="well span2" style="position: fixed">
+          <p>Ingelogd als <strong>{{ user }}</strong>.</p>
+
+          <ul>
+            <li><a href="/sql">SQL Injection</a></li>
+            <li><a href="/xss">Cross-site Scripting</a></li>
+          </ul>
+
+          <a href="/logout" class="btn">Uitloggen</a>
+          <button class="btn-primary" type="submit">Opslaan</button>
+        </div>
+
+        <div id="quiz" class="span8 offset2">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-info">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+
+        {% block content %}{% endblock %}
+
+
+    </div>
+    </div>
+    </form>
+  <body>
+</html>
