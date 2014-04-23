@@ -36,10 +36,12 @@
       <p>Waarschijnlijk heb je SQL commentaar (--) gebruikt in de vorige opdracht. Voer nu een andere SQL injectie uit door alleen het wachtwoord veld te gebruiken. Gebruik niet de SQL commentaar techniek maar verander nu de logica van de query (AND, OR) zodat er niet meer gecontroleerd wordt op het wachtwoord.</p>
 
       <div class="question">
-        <span class="question-string">Met welk 'wachtwoord' lukt het altijd om in te loggen?</span>
+        <span class="question-string">Met welk 'wachtwoord' lukt het altijd om in te loggen? (gebruikersnaam moet je leeglaten)</span>
         <div class="points"><span class="question-points">10</span> punten</div>
         <input class="question-input" name="answer_sql_always_password" value="{{answers.answer_sql_always_password}}"></input>
       </div>
+
+      <p><strong>Hint:</strong> Maak er een query van die alle gebruikers teruggeeft, de site logt dan in als de eerste gebruiker. Het maakt voor de opdracht niet uit als wie je inlogt.</p>
 
       <div class="question">
         <span class="question-string">Bekijk de PHP broncode en los het probleem op. Type de regels code die je verbeterd hebt in onderstaand tekstveld. (denk terug aan je mysql WEBS2 practicum)</span>
