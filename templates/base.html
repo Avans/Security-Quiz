@@ -4,9 +4,12 @@
     <title>Security 1</title>
     <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/static/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.base64.min.js"></script>
+    <script type="text/javascript" src="/static/js/quiz.js"></script>
   </head>
   <body>
-    <form method="POST">
+    <form method="POST" id="form-quiz">
       {% csrf_token %}
 
       <div class="row-fluid">
@@ -19,7 +22,8 @@
           </ul>
 
           <a href="/logout" class="btn">Uitloggen</a>
-          <button class="btn-primary" type="submit">Opslaan</button>
+          <button class="btn-primary" type="submit" id="save-button">Opslaan</button>
+          <div class="alert alert-info" id="js-message" style="display: none;"></div>
         </div>
 
         <div id="quiz" class="span8 offset2">

@@ -2,11 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from quiz.models import Answer
-import oauth2 as oauth, cgi, json, git, os, signal
+import oauth2 as oauth, cgi, json, base64, urlparse
 import securityquiz.secrets as secrets
 import securityquiz.settings as settings
 
@@ -64,29 +65,26 @@ def avans_logout(request):
     logout(request)
     return HttpResponse('Je bent nu uitgelogd... <a href="/">Opnieuw inloggen</a>')
 
-def pull(request):
-    if request.method == 'POST':
-        g = git.cmd.Git(settings.PROJECT_PATH)
-        output = str(g.pull())
+@csrf_exempt
+def save(request):
+    data = dict(urlparse.parse_qsl(base64.b64decode(request.body), True))
+    print data
+    save_data(data, request.user)
+    return HttpResponse('ok')
 
-        # Reload source code
-        os.kill(os.getpid(), signal.SIGINT)
-
-        return HttpResponse(output)
-    else:
-        return HttpResponseRedirect('/')
-
+def save_data(data, user):
+    for key in data:
+        if key.startswith('answer'):
+            answer, created = Answer.objects.get_or_create(user=user, question=key)
+            answer.string = data[key]
+            answer.save()
 
 def home(request, url):
     if not request.user.is_authenticated():
         return avans_login(request)
 
     if request.method == 'POST':
-        for key in request.POST:
-            if key.startswith('answer'):
-                answer, created = Answer.objects.get_or_create(user=request.user, question=key)
-                answer.string = request.POST[key]
-                answer.save()
+        save_data(request.POST, request.user)
 
         messages.add_message(request, messages.INFO, 'Je antwoorden zijn opgeslagen')
         return HttpResponseRedirect('/' + url)
