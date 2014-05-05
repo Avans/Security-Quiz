@@ -98,6 +98,8 @@ def home(request, url):
         template = 'sql.html'
     elif url == 'xss':
         template = 'xss.html'
+    elif url == 'path':
+        template = 'path.html'
     else:
         return HttpResponseNotFound('404')
 

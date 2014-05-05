@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+      <h1>Insecure Direct Object References</h1>
+      <h2>Image site</h2>
+      <p>Ons nieuwe doelwit is de site "imgr", een populaire website waar vaak meme plaatjes naar worden geupload. Er is geen database dus we kunnen geen SQL injection uitvoeren, en cross-site scripting is ook geen mogelijkheid meer op deze site (...toch?).</p>
+
+      <p>We zijn geïnteresseerd in de inhoud van een bestandje wat staat in de VM: "/etc/geheim.txt". Hack de website en vind uit wat de inhoud van dit bestandje is.</p>
+
+      <p><strong>Hint:</strong> het lijkt er op dat je niet alleen plaatjes kan uploaden...</p>
+
+      <p><strong>Hint:</strong> Zoek een manier om een eigen php script te uploaden</p>
+
+      <div class="question">
+        <span class="question-string">Wat staat er in /etc/geheim.txt?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_path_secret" value="{{ answers.answer_path_secret }}"></input>
+      </div>
+
+      <div class="question">
+        <span class="question-string">Plak het script dat je hebt gebruikt</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_path_secret_script">{{ answers.answer_path_secret_script }}</textarea>
+      </div>
+
+
+
+      <h2>Image site 2</h2>
+      <p>Ga naar image site 2. De site heeft het probleem opgelost door de bestanden niet meer naar een publieke map te schrijven.</p>
+
+      <div class="question">
+        <span class="question-string">Met welke URL kan je nu rechtstreeks de inhoud van /etc/geheim.txt uitlezen?</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_path_image_url" value="{{ answers.answer_path_image_url }}">
+      </div>
+
+      <p>Verander image.php in image_check_prefix.php. In dit bestand is een extra beveiliging die checkt of het pad begint met de map 'uploads'</p>
+
+      <div class="question">
+        <span class="question-string">Met welke URL kan je met dit meer 'beveiligde' script de inhoud van /etc/geheim.txt uitlezen?</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_path_image_url_prefix" value="{{ answers.answer_path_image_url_prefix }}">
+      </div>
+
+      <p>Verander de bestandsnaam in image_remove_traversal.php, dit script heeft nu een beveiliging die alle '../' uit de string verwijderd.</p>
+
+      <div class="question">
+        <span class="question-string">Met welke URL kan je met het image_remove_traversal.php script de inhoud van /etc/geheim.txt uitlezen?</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_path_image_url_remove_traversal" value="{{ answers.answer_path_image_url_remove_traversal }}">
+      </div>
+
+      <div class="question">
+        <span class="question-string">Verbeter het image.php script zodat dit soort aanvallen niet meer mogelijk zijn</span>
+        <div class="points"><span class="question-points">15</span> punten</div>
+        <textarea class="question-input" name="answer_path_image_fix">{{ answers.answer_path_image_fix }}</textarea>
+      </div>
+
+      <h2>Image site 3</h2>
+
+      <p>Ga naar image site 3. imgr heeft hun site uitgebreid met extra pagina's. De afbeeldingen hebben ze maar weggehaald omdat er teveel security problemen mee waren.</p>
+
+      <div class="question">
+        <span class="question-string">Beschrijf hoe je met deze site de inhoud van /etc/geheim.txt kan achterhalen</span>
+        <div class="points"><span class="question-points">15</span> punten</div>
+        <textarea class="question-input" name="answer_path_include_explain">{{ answers.answer_path_include_explain }}</textarea>
+      </div>
+
+{% endblock %}
