@@ -29,5 +29,8 @@ $(function() {
         }
     }
 
-
+    // Hints
+    $('.hint').replaceWith(function() {
+        return '<div><a href="#" onclick="$(this).next().slideToggle(); return false;">Bekijk hint</a>'+$(this).hide()[0].outerHTML+'</div>';
+    });
 });
