@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+      <h1>Wachtwoorden</h1>
+
+      <div class="question">
+        <span class="question-string">Je hebt uit een database het volgende gehashte wachtwoord gehaald: d59084b66e167f13bef93b1a5d07acd2 Welk wachtwoord had deze gebruiker?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_password_crack" value="{{answers.answer_password_crack}}">
+      </div>
+
+      <div class="question">
+        <span class="question-string">Hoe had de programmeur dit kunnen voorkomen?</span>
+        <div class="points"><span class="question-points">15</span> punten</div>
+        <textarea class="question-input" name="answer_password_crack_prevent">{{answers.answer_password_crack_prevent}}</textarea>
+      </div>
+
+      <h2>Nieuws</h2>
+      <p>Een andere hacker heeft de gegevens van de inlogpagina van Nieuws.nl online gepost. Gelukkig voor de site zijn de wachtwoorden gehasht en gesalt, dus aan de hash zelf kunnen we geen informatie afleiden. Op de nieuws (gebruikers) pagina kan je de tabel inzien.</p>
+
+      <p>Maar er valt je wel iets op aan de hashes. Heleboel gebruikers hebben dezelfde hash. Waarschijnlijk hebben deze gebruikers een veelgebruikt wachtwoord.</p>
+
+      <p>Je bent geïnteresseerd in het wachtwoord van Pete, brute-force zijn wachtwoord door in te loggen op de inlogpagina!</p>
+
+      <p>Hint: Zoek op internet naar lijsten van veelgebruikte wachtwoorden en probeer ze uit.</p>
+
+      <p>Hint 2: Het wachtwoord is allemaal kleine letters</p>
+
+      <div class="question">
+        <span class="question-string">Wat is het wachtwoord van Pete?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_password_pete" value="{{answers.answer_password_pete}}">
+      </div>
+
+      <div class="question">
+        <span class="question-string">Hoe had de programmeur kunnen voorkomen dat een hacker kon zien dat al deze gebruikers hetzelfde wachtwoord hebben?</span>
+        <div class="points"><span class="question-points">15</span> punten</div>
+        <textarea class="question-input" name="answer_password_brute_force_prevent">{{answers.answer_password_brute_force_prevent}}</textarea>
+      </div>
+
+      <h2>Project</h2>
+
+      <p>Open een eigen PHP project waarin je wachtwoorden van gebruikers opslaat. Dit mag ook een project zijn wat je op school in een project hebt gemaakt.</p>
+
+      <p>Sla je de wachtwoorden van gebruikers op een veilige manier op?</p>
+
+      <div class="question">
+        <span class="question-string">Copy-paste het stukje PHP code waarmee je wachtwoorden opslaat en leg uit welke technieken je hebt gebruikt om dit veilig te doen.</span>
+        <div class="points"><span class="question-points">15</span> punten</div>
+        <textarea class="question-input" name="answer_password_brute_force_prevent">{{answers.answer_password_brute_force_prevent}}</textarea>
+      </div>
+
+{% endblock %}

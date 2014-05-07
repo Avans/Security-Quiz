@@ -100,6 +100,8 @@ def home(request, url):
         template = 'xss.html'
     elif url == 'path':
         template = 'path.html'
+    elif url == 'wachtwoorden':
+        template = 'wachtwoorden.html'
     else:
         return HttpResponseNotFound('404')
 
