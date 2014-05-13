@@ -3,6 +3,15 @@
 {% block content %}
 
       <h1>SQL Injection</h1>
+
+      <p>Voordat je gaat beginnen, voor welk vak maak je de opgave?</p>
+
+      <select name="answer_course">
+        <option value="security_hacking">Security &amp; Hacking</option>
+        <option value="security1"{% if answers.answer_course == 'security1' %} selected{% endif %}>Security 1 (herkansing)</option>
+      </select>
+
+
       <h2>Bank</h2>
       <p>Bob is al jaren trouwe klant en gebruikt de site dagelijks om te kijken hoeveel geld er op zijn rekening staat. Achter op zijn poespas pas heeft hij met een viltstift „Niet vergeten: Bob 123456” geschreven. Gebruik de site om te kijken hoeveel geld Bob op zijn rekening heeft staan.</p>
 
