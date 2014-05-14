@@ -31,6 +31,30 @@ $(function() {
 
     // Hints
     $('.hint').replaceWith(function() {
-        return '<div><a href="#" onclick="$(this).next().slideToggle(); return false;">Bekijk hint</a>'+$(this).hide()[0].outerHTML+'</div>';
+        return '<div><a href="#" class="hintlink" onclick="$(this).next().slideToggle(); return false;">Bekijk hint</a>'+$(this).hide()[0].outerHTML+'</div>';
     });
+
+    $('#difficulty').change(function(e) {
+        var option = $(this).find(':selected').val();
+
+
+        $('.hintlink').toggle(option == 'normal');
+        $('.hint').toggle(option == 'easy');
+
+
+        window.localStorage.setItem('difficulty', option);
+    });
+
+    // Set the selected property
+    if(window.localStorage['difficulty']) {
+        var difficulty = window.localStorage['difficulty'];
+    } else {
+        var difficulty = 'normal';
+    }
+
+    $('#difficulty option').filter(function() {
+        return $(this).val() == difficulty;
+    }).prop('selected', true);
+    $('#difficulty').trigger('change');
+
 });
