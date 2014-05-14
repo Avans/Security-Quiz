@@ -36,15 +36,15 @@
 
       <p>Verander de pagina zodat deze automatisch de cookie naar jouw eigen website toestuurt.</p>
 
-      <p><strong>Hint 1:</strong> Bekijk de HTML, zoek naar plekken waar de parameter uit de URL worden gebruikt</p>
+      <p class="hint"><strong>Hint 1:</strong> Bekijk de HTML, zoek naar plekken waar de parameter uit de URL worden gebruikt</p>
 
-      <p><strong>Hint 2:</strong> Cookies kan je in JavaScript uitlezen met document.cookie</p>
+      <p class="hint"><strong>Hint 2:</strong> Cookies kan je in JavaScript uitlezen met document.cookie</p>
 
-      <p><strong>Hint 3:</strong> Onderzoek het 'onload' attribuut van een img tag in HTML.</p>
+      <p class="hint"><strong>Hint 3:</strong> Onderzoek het 'onload' attribuut van een img tag in HTML.</p>
 
-      <p><strong>Hint 4:</strong> Als de src niet naar een geldige afbeelding wijst zal de onload niet uitgevoerd worden</p>
+      <p class="hint"><strong>Hint 4:</strong> Als de src niet naar een geldige afbeelding wijst zal de onload niet uitgevoerd worden</p>
 
-      <p><strong>Hint 5:</strong> Als je in een URL het + tekentje gebruikt wordt dit vertaald naar een spatie. Als je ook echt een + wilt gebruiken moet je de url encoded versie gebruiken: %2B</p>
+      <p class="hint"><strong>Hint 5:</strong> Als je in een URL het + tekentje gebruikt wordt dit vertaald naar een spatie. Als je ook echt een + wilt gebruiken moet je de url encoded versie gebruiken: %2B</p>
 
       <div class="question">
         <span class="question-string">Met welke URL kan je de sessie cookies van gebruikers ontfutselen? (Dus doorsturen naar je eigen site)</span>
@@ -73,13 +73,13 @@
 
       <p>Deze site heeft geen plekken waar we via de URL's javascript aan de pagina kunnen toevoegen. Bovendien zijn de administrators van deze site veel te slim om op rare links te klikken in vage e-mailtjes.  We gaan het via een stored XSS attack te doen.</p>
 
-      <p>1. Voeg via de reacties javascript aan de pagina toe die cookies steelt. Je moet deze cookies nu ook echt naar een eigen server sturen om de opdracht te kunnen maken. Zet op een eigen website een scriptje die alle requests in een bestandje/database logt zodat je daar later de cookies kunt uitlezen. Voorbeeld: student.aii.avans.nl/ICT/pwagener/logcookie.php?PHPSESSID=2394fh3dk</p>
+      <p class="hint">1. Voeg via de reacties javascript aan de pagina toe die cookies steelt. Je moet deze cookies nu ook echt naar een eigen server sturen om de opdracht te kunnen maken. Zet op een eigen website een scriptje die alle requests in een bestandje/database logt zodat je daar later de cookies kunt uitlezen. Voorbeeld: student.aii.avans.nl/ICT/pwagener/logcookie.php?PHPSESSID=2394fh3dk</p>
 
-      <p>2. Je kan nu een ingelogde administrator naar de pagina (met jouw javascript) laten kijken door een melding te maken. Onderaan de reactiepagina staat een link (je kan ook rechtstreeks naar /nieuws/admincheck.php).</p>
+      <p class="hint">2. Je kan nu een ingelogde administrator naar de pagina (met jouw javascript) laten kijken door een melding te maken. Onderaan de reactiepagina staat een link (je kan ook rechtstreeks naar /nieuws/admincheck.php).</p>
 
-      <p>3. Als het goed is heb je nu de cookie van de administrator gestolen. Verander in de browser jouw eigen cookie naar de cookie van de administrator. Zoek naar een browserplugin als je dit niet al kan met jouw browser.</p>
+      <p class="hint">3. Als het goed is heb je nu de cookie van de administrator gestolen. Verander in de browser jouw eigen cookie naar de cookie van de administrator. Zoek naar een browserplugin als je dit niet al kan met jouw browser.</p>
 
-      <p>4. Bekijk opnieuw de reactiepagina. Je bent nu ingelogd als de administrator!</p>
+      <p class="hint">4. Bekijk opnieuw de reactiepagina. Je bent nu ingelogd als de administrator!</p>
 
       <p>Tip: op /nieuws/reset.php is een speciale pagina die al het commentaar wist. Dit is handig als je jouw aanval wil verbeteren.</p>
 
