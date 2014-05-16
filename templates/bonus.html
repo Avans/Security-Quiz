@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+      <h1>Bonus</h1>
+
+      <div class="question">
+        <span class="question-string">Geef een beveiligingsprobleem aan met deze website (<a href="https://github.com/Avans/Security-Quiz">source</a>)</span>
+        <div class="points"><span class="question-points">0</span> punten (je naam vereeuwigd op deze website als hacker)</div>
+        <textarea class="question-input" name="answer_bonus_fix_this_site">{{answers.answer_bonus_fix_this_site}}</textarea>
+      </div>
+
+      <div class="alert alert-warning">Het daadwerkelijk uitvoeren van dergelijke hacks voor eigen gewin of verstoren van de functionaliteit van de website is <strong>niet toegestaan</strong>!</div>
+
+{% endblock %}

@@ -102,6 +102,8 @@ def home(request, url):
         template = 'path.html'
     elif url == 'wachtwoorden':
         template = 'wachtwoorden.html'
+    elif url == 'bonus':
+        template = 'bonus.html'
     else:
         return HttpResponseNotFound('404')
 
