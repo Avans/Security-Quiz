@@ -1,0 +1,6 @@
+<h1>Upload hier je certificate signing request (.csr):</h1>
+<form enctype="multipart/form-data" method="POST">
+  {% csrf_token %}
+  <input type="file" name="csr">
+  <input type="submit">
+</form>

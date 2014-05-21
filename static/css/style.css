@@ -31,3 +31,17 @@ textarea {
 input {
     width: 75%;
 }
+
+code.terminal {
+    background-color: black;
+    color: white;
+    font-family: Courier, monospace;
+    padding: 1em;
+    margin: 1em;
+    display: block;
+}
+
+.argument {
+    font-family: Courier, monospace;
+    font-weight: bold;
+}
