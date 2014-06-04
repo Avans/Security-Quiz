@@ -7,6 +7,10 @@ class Answer(models.Model):
     question = models.CharField(max_length=128)
     string = models.TextField()
 
+    # Feedback
+    points = models.IntegerField(null=True)
+    comment = models.TextField(null=True)
+
     class Meta:
         unique_together = ('user', 'question')
 
