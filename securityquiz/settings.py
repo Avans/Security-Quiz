@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os, secrets, sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+CLOSED = False
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -99,4 +100,12 @@ TEMPLATE_DIRS = (
 
 STATICFILES_DIRS = (
     PROJECT_PATH + '/static',
+)
+
+def closed(request):
+    return {'CLOSED': CLOSED}
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'securityquiz.settings.closed'
 )
