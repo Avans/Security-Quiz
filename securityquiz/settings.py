@@ -29,7 +29,7 @@ if 'runserver' in sys.argv:
     DEBUG = True
     TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['security.aardappelschilmesje.nl']
+ALLOWED_HOSTS = ['sec1.aii.avans.nl']
 
 
 # Application definition
@@ -95,7 +95,7 @@ MEDIA_ROOT = PROJECT_PATH + '/media/'
 
 # Additional locations of static files
 TEMPLATE_DIRS = (
-    PROJECT_PATH + '/templates'
+    PROJECT_PATH + '/templates',
 )
 
 STATICFILES_DIRS = (
