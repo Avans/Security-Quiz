@@ -21,7 +21,7 @@ consumer = oauth.Consumer(AVANS_KEY, AVANS_SECRET)
 client = oauth.Client(consumer)
 
 def git_pull(request):
-    output = subprocess.check_output(["git", "pull"])
+    output = subprocess.check_output(["git", "-C", "/var/www/sec1.aii.avans.nl", "pull"])
     return HttpResponse(output)
 
 def avans_login(request):
