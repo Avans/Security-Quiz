@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from quiz.models import Answer
-import oauth2 as oauth, cgi, json, base64, urlparse
+import oauth2 as oauth, cgi, json, base64, urlparse, subprocess
 import securityquiz.secrets as secrets
 import securityquiz.settings as settings
 
@@ -19,6 +19,10 @@ AUTHORIZE_URL = 'https://publicapi.avans.nl/oauth/saml.php?oauth_token=%s'
 
 consumer = oauth.Consumer(AVANS_KEY, AVANS_SECRET)
 client = oauth.Client(consumer)
+
+def git_pull(request):
+    output = subprocess.check_output(["git", "pull"])
+    return HttpResponse(output)
 
 def avans_login(request):
 

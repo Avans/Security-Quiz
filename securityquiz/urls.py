@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^callback$', 'views.avans_callback'),
     url(r'^logout$', 'views.avans_logout'),
+    url(r'^pull$', 'views.git_pull'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^save$', 'views.save'),
     url(r'^sign$', 'views.sign'),
