@@ -20,6 +20,7 @@ AUTHORIZE_URL = 'https://publicapi.avans.nl/oauth/saml.php?oauth_token=%s'
 consumer = oauth.Consumer(AVANS_KEY, AVANS_SECRET)
 client = oauth.Client(consumer)
 
+@csrf_exempt
 def git_pull(request):
     output = subprocess.check_output(["git", "-C", "/var/www/sec1.aii.avans.nl", "pull"])
     return HttpResponse(output)
