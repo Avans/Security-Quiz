@@ -13,15 +13,13 @@
       {% csrf_token %}
 
       <div class="row-fluid">
-        <div class="well span2" style="position: fixed">
+        <div class="well span3" style="position: fixed">
           <p>Ingelogd als <strong>{{ user }}</strong>.</p>
 
           <ul>
             <li><a href="/sql">SQL Injection</a></li>
             <li><a href="/xss">Cross-site Scripting</a></li>
-            <li><a href="/path">Insecure Direct Object References</a></li>
             <li><a href="/wachtwoorden">Wachtwoorden</a></li>
-            <li><a href="/openssl">Encryptie &amp; certificaten</a></li>
             <li><a href="/bonus">Bonus</a></li>
           </ul>
 
@@ -33,11 +31,11 @@
           </select>
 
           <a href="/logout" class="btn">Uitloggen</a>
-          {% if CLOSED %}<br>Inzendingen kunnen niet meer worden ingezonden{% else %}<button class="btn-primary btn-disabled" type="submit" id="save-button" disabled>Opslaan</button>{% endif %}
+          {% if CLOSED %}<br>Inzendingen kunnen niet meer worden ingezonden{% else %}<button class="btn-primary btn-disabled" type="submit" id="save-button">Opslaan</button>{% endif %}
           <div class="alert alert-info" id="js-message" style="display: none;"></div>
         </div>
 
-        <div id="quiz" class="span8 offset2">
+        <div id="quiz" class="span8 offset3">
           {% if messages %}
             {% for message in messages %}
               <div class="alert alert-info">{{ message }}</div>

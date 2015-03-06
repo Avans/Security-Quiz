@@ -2,22 +2,92 @@
 
 {% block content %}
 
-      <h1>SQL Injection</h1>
+      <style>
+      code i {
+        color: blue;
+        font-style: normal;
+        font-weight: bold;
+      }
+      p code {
+        padding: 0;
+        margin: 2px;
+      }
+      </style>
 
-      <p>Voordat je gaat beginnen, voor welk vak maak je de opgave?</p>
+      <h1>Security 1</h1>
 
-      <select name="answer_course">
-        <option value="security_hacking">Security &amp; Hacking</option>
-        <option value="security1"{% if answers.answer_course == 'security1' %} selected{% endif %}>Security 1 (herkansing)</option>
-      </select>
+      <p>Welkom bij Security 1! Dit vak gaan we ons richten op het hacken van websites. En met die zin komen we meteen bij onze gouden regel voor dit vak:</p>
 
+      <blockquote>Het hacken van websites zonder toestemming is <strong>niet</strong> toegestaan</blockquote>
+
+      <p>Om de opdrachten te kunnen maken krijg je van ons toestemming om de websites in de VM te mogen hacken ;).
+      We gaan in dit vak verschillende manieren bekijken om in te breken op een website. Aan jullie de taak om die tijdens
+      de workshop in de praktijk te brengen</p>
+
+      <img src="/static/img/security_banner.jpg" style="width: 50%" class="center-block">
+
+      <h1>SQL injection</h1>
+
+      <p>We beginnen deze week bij één van de meest veelvoorkomende beveiligingslekken die er bij webapplicaties voorkomen. Dagelijks nog zijn er <a href="https://www.google.nl/webhp?#safe=off&amp;tbm=nws&amp;q=sql+injection" target="_blank">nieuwsberichten</a> van websites die hun code niet goed op orde hebben en kwetsbaar zijn tegen deze aanval. Deze week gaan we kijken hoe deze aanval werkt en hoe je er tegen kunt beveiligen.</p>
+
+      <p>In bijna alle webapplicatie projecten heb je te maken met een database waar je mee communiceert via SQL. Een typische query die wordt uitgevoerd is bijvoorbeeld deze:</p>
+
+      <code>SELECT * FROM leden WHERE naam='<i>paul</i>' AND heeftbetaald='ja'</code>
+
+      <p>Waarbij het groene gedeelte invoer is uit bijvoorbeeld een GET parameter ('?naam=paul'). Er lijkt niks aan de hand, maar als we de invoer niet zorgvuldig filteren geven de gebruiker de kans om de query op onbedoelde manier te veranderen.</p>
+
+      <h5>Commentaar</h5>
+      <p>Met <code>-- </code> (streepje, streepje, spatie) is het in SQL mogelijk om commentaar te zetten in je query, hetzelfde wat je in PHP met <code>//</code> zou doen. Met een slim gekozen invoer kunnen we de query er zo uit laten zien:</p>
+
+      <code>SELECT * FROM leden WHERE naam='<i>paul' -- </i>' AND heeftbetaald='ja'</code>
+
+      <p>De database voert de query uit, maar niet zoals de gebruiker hem heeft bedoeld: alles achter de -- wordt genegeerd als commentaar. De query zal dus ook rijen teruggeven waar <i>heeftbetaald</i> niet op 'ja' staat, wat afhankelijk van de code van de website kan betekenen dat we gratis dingen kunnen kopen :)</p>
+
+      <h5>AND, OR</h5>
+
+      <p>Een andere manier om queries te veranderen is om nieuwe logica (AND, OR) te injecteren in de SQL. We kunnen bijvoorbeeld de volgende query maken met de juiste invoer:</p>
+
+      <code>SELECT * FROM leden WHERE naam='<i>paul' OR 'bla'='</i>' AND heeftbetaald='ja'</code>
+
+      <p>Deze query maakt weer het <i>heeftbetaald='ja'</i> gedeelte nutteloos. Als de naam al overeenkomt maakt het niet uit wat er achter de OR staat, het resultaat is altijd true (de haakjes worden als volgt geplaatst: <code>. OR ( . AND . )</code>).
+
+      <h5>Meerdere queries</h5>
+      <p>Eén van de meest gevaarlijke is als het mogelijk is om compleet nieuwe queries uit te kunnen voeren op de database. Bedenk eens wat er gebeurt als de gebruiker deze invoer geeft:</p>
+
+      <code>SELECT naam FROM leden WHERE id=<i>0; DROP TABLE leden;</i></code>
+
+      <p>Met <code>;</code> geven we aan dat we een nieuwe query beginnen, waarna we vervolgens vrij zijn om elke query uit te voeren die we maar willen. Let wel dat het uitvoeren van meerdere queries met bijvoorbeeld mysqli_query() is iets wat standaard uit staat. Deze techniek is extra gevaarlijk omdat deze immuun is tegen escapen als het invoer is die niet tussen quotejes staat.</p>
+
+      <h5>UNION</h5>
+
+      <p>We kunnen met behulp van de <a href="http://www.w3schools.com/sql/sql_union.asp" target="_blank">UNION</a> operator ook informatie halen uit andere tabellen in de database:</p>
+
+      <code>SELECT naam FROM leden WHERE id=<i>0 UNION SELECT wachtwoord FROM admins</i></code>
+
+      <p>De query haalt nu namen van leden op, samen met wachtwoorden uit de admins tabel. Belangrijk voor de UNION is dat beide queries evenveel kolommen teruggeven.</p>
+
+      <img src="/static/img/shield.png" style="float: right">
+      <h4>Countermeasures</h4>
+
+      <p>Het is niet moeilijk om bovenstaande aanvallen te voorkomen, met een paar simpele aanpassingen kan je ervoor zorgen dat je SQL altijd wordt uitgevoerd zoals je die bedoeld hebt.</p>
+
+      <h5>Stored procedures</h5>
+      <p>Je slaat de SQL op als stored procedure in de database en roept deze aan vanuit je code. Omdat de SQL in de database staat in plaats op de server is SQL injectie niet mogelijk</p>
+
+      <h5>Prepared statements</h5>
+      <p>De meest gebruikte veilige manier, met vraagtekentjes geef je aan op welke plekken de invoer moet komen en vul die later in. De SQL wordt altijd uitgevoerd zoals je hem hebt bedoeld, en ook hier is SQL injectie onmogelijk. Lees <a href="http://php.net/manual/en/mysqli.prepare.php" target="_blank">hier</a> verder</p>
+
+      <h5>Escaping</h5>
+      <p>Je kan ook alle invoer zelf escapen met functies zoals <a href="http://php.net/manual/en/mysqli.real-escape-string.php" target="_blank">mysqli_real_escape_string()</a>. Zorg ervoor dat je dan consequent alle strings escaped met die functie en alle getallen cast naar int's voordat je ze in je SQL plakt. Als je er ook maar eentje mist heb je al een SQL injection mogelijkheid op je website!</p>
+
+      <p>Op <a href="http://www.sqltutorial.nl/artikelen/sqlinjections/soorten_sql_injection.html" target="_blank">deze site</a> kan je het allemaal extra nalezen. Maar voor nu genoeg theorie, let's HACK!</p>
+
+      <img src="/static/img/sql_injectie.png" class="center-block">
 
       <h2>Bank</h2>
       <p>Bob is al jaren trouwe klant en gebruikt de site dagelijks om te kijken hoeveel geld er op zijn rekening staat. Achter op zijn poespas pas heeft hij met een viltstift „Niet vergeten: Bob 123456” geschreven. Gebruik de site om te kijken hoeveel geld Bob op zijn rekening heeft staan.</p>
 
       <p>Alice is ook klant van de bank en wij willen ook graag weten hoeveel geld zij op haar rekening heeft staan. We gaan daarom haar rekening hacken met behulp van SQL.</p>
-
-      <p>Lees op deze website de verschillende SQL injectie technieken: <a href="http://www.sqltutorial.nl/artikelen/sqlinjections/soorten_sql_injection.html">http://www.sqltutorial.nl/artikelen/sqlinjections/soorten_sql_injection.html</a>
 
       <p>Ga nu aan de slag en hack het account van Alice!</p>
 
@@ -25,7 +95,7 @@
 
       <p class="hint"><strong>Hint 2:</strong> Met --  (twee streepjes gevolgd door een spatie) kan je commentaar achter een regel zetten in SQL.</p>
 
-      <p class="hint"><strong>Hint 3:</strong> Bekijk de broncode achter de site: <a href="https://github.com/Avans/Security-Workshop/blob/master/bank/index.php#L51">https://github.com/Avans/Security-Workshop/blob/master/bank/index.php#L51</a>
+      <p class="hint"><strong>Hint 3:</strong> Bekijk de broncode achter de site: <a href="https://github.com/Avans/Security-Workshop/blob/master/bank/index.php#L51" target="_blank">https://github.com/Avans/Security-Workshop/blob/master/bank/index.php#L51</a>
       De code beschouwt een gebruiker als ingelogd als de query een rij uit de gebruikerstabel teruggeeft. Manipuleer de query zodat deze de gegevens van Alice teruggeeft, zonder dat je het wachtwoord hoeft te weten.</p>
 
       <img src="/static/img/poespas.png" style="width: 70%" class="center-block">
@@ -53,7 +123,7 @@
       <p class="hint"><strong>Hint:</strong> Maak er een query van die alle gebruikers teruggeeft, de site logt dan in als de eerste gebruiker. Het maakt voor de opdracht niet uit als wie je inlogt.</p>
 
       <div class="question">
-        <span class="question-string">Bekijk de PHP broncode en los het probleem op. Type de regels code die je verbeterd hebt in onderstaand tekstveld. (denk terug aan je mysql WEBS2 practicum)</span>
+        <span class="question-string">Bekijk de <a href="https://github.com/Avans/Security-Workshop/blob/master/bank/index.php#L51" target="_blank">PHP broncode</a> en los het probleem op. Type de regels code die je verbeterd hebt in onderstaand tekstveld. (denk terug aan je mysql WEBS2 practicum)</span>
         <div class="points"><span class="question-points">15</span> punten</div>
         <textarea class="question-input" name="answer_sql_fix_query">{{answers.answer_sql_fix_query}}</textarea>
       </div>
@@ -72,11 +142,11 @@
 
       <p>Inloggen in een ander account is leuk. Maar echte hackers stelen kostbare data uit een website. Dat gaan we nu doen met de webshop van Leaky's.</p>
 
-      <p>Je kan de broncode vinden op: <a href="https://github.com/Avans/Security-Workshop/blob/master/webshop/product_detail.php#L62">https://github.com/Avans/Security-Workshop/blob/master/webshop/product_detail.php#L62</a>
+      <p>Je kan de broncode vinden op: <a href="https://github.com/Avans/Security-Workshop/blob/master/webshop/product_detail.php#L62" target="_blank">https://github.com/Avans/Security-Workshop/blob/master/webshop/product_detail.php#L62</a>
 
-      <p>Zoals je ziet hebben ze hier gebruik gemaakt van mysql_real_escape_string(). Je kan dus geen gebruik meer maken van rare quotejes om de query aan te passen.</p>
+      <p>Zoals je ziet hebben ze hier gebruik gemaakt van mysqli::real_escape_string(). Je kan dus geen gebruik meer maken van rare quotejes om de query aan te passen.</p>
 
-      <p>Maar met behulp van de UNION techniek kunnen we alsnog data stelen uit de website. Lees in de tutorial hoe je deze techniek kan toepassen om data uit andere tabellen te lezen.</p>
+      <p>Maar met behulp van de UNION techniek kunnen we alsnog data stelen uit de website.</p>
 
       <p>In de database is er nog een tabel "gebruikers" waar gebruikersnamen en wachtwoorden in staan. Steel deze informatie uit de database!</p>
 
@@ -97,7 +167,7 @@
       </div>
 
       <div class="question">
-        <span class="question-string">Bekijk de broncode en verbeter deze zodat je geen SQL injection meer kan gebruiken.</span>
+        <span class="question-string">Bekijk de <a href="https://github.com/Avans/Security-Workshop/blob/master/webshop/product_detail.php#L62" target="_blank">broncode</a> en verbeter deze zodat je geen SQL injection meer kan gebruiken.</span>
         <div class="points"><span class="question-points">15</span> punten</div>
         <textarea class="question-input" name="answer_sql_fix_injection_webshop">{{answers.answer_sql_fix_injection_webshop}}</textarea>
       </div>
@@ -112,20 +182,22 @@
         <input class="question-input" name="answer_sql_url_marco_replace_password" value="{{answers.answer_sql_url_marco_replace_password}}"></input>
       </div>
 
-      <h2>Hacking Lab</h2>
+      <h2>Wereldwijs</h2>
 
-      <p>Ga aan de slag met hacking-lab.com. Volg de instructies op de site en begin met de A1 Injection opdracht. Deze staat in de OWASP Top Ten event.</p>
+      <p>Ga in de VM naar de Wereldwijs pagina. Op deze pagina kunnen studenten op spelenderwijs leren over de wereld. Maar deze site heeft een diep donker geheim die het niet toont aan de wereld, er is een geheime pagina met id 0.</p>
+
+      <p>Geen hints en geen broncode deze keer. Aan jullie de taak om de site te hacken. (meerdere manieren mogelijk)</p>
 
       <div class="question">
-        <span class="question-string">Wat is het creditcardnummer van "hacker10"?</span>
+        <span class="question-string">Wat is het onderwerp van de geheime pagina?</span>
         <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_sql_hackinglab_creditcardnumber" value="{{answers.answer_sql_hackinglab_creditcardnumber}}"></input>
+        <input class="question-input" name="answer_sql_wereldwijs_title" value="{{answers.answer_sql_wereldwijs_title}}"></input>
       </div>
 
       <div class="question">
-        <span class="question-string">Beschrijf hoe je de aanval hebt uitgevoerd.</span>
+        <span class="question-string">Met welke URL heb je de website de geheime pagina laten tonen?</span>
         <div class="points"><span class="question-points">10</span> punten</div>
-        <textarea class="question-input" name="answer_sql_hackinglab_explain">{{answers.answer_sql_hackinglab_explain}}</textarea>
+        <textarea class="question-input" name="answer_sql_wereldwijs_url">{{answers.answer_sql_wereldwijs_url}}</textarea>
       </div>
 
 {% endblock %}
