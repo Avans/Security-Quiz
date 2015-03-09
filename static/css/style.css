@@ -45,3 +45,9 @@ code.terminal {
     font-family: Courier, monospace;
     font-weight: bold;
 }
+
+.website{
+  font-style: italic;
+  font-variant: small-caps;
+  color:dodgerblue;
+}
