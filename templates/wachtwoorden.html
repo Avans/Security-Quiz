@@ -25,7 +25,7 @@
       <p>Zo moeilijk als het is om een hash terug te <i>rekenen</i>, zo makkelijk is het om een hash terug <i><a href="http://www.google.nl/?q=97307d691e6665ff81acc1783c4da63e" target="_blank">op te zoeken</a></i>. Aanvallers hebben de hashes van alle veel gebruikte wachtwoorden, korte lettercombinaties en woordenboekwoorden al berekend en opgeslagen in zogenaamde rainbow tables. Terug opzoeken wat de originele waarde van een hash was wordt dan zo simpel als een simpele query uitvoeren. Mits de waarde in de tabel zit natuurlijk, en dat is meteen ook de verdediging tegen deze aanval:</p>
 
       <h3>Salt</h3>
-      <p>Om te voorkomen dat zwakke veelvoorkomende kunnen worden teruggevonden in een rainbow table kan je er een salt achter plakken voordat je het hasht. Een salt is een lange string met random inhoud (bijvoorbeeld: 'R!Qo?Og4U]m'). De kans is klein dat zo'n waarde in een rainbow table voorkomt. Dus zelfs als de aanvaller de salt weet is hij terug bij af: hij moet alle combinaties opnieuw uitproberen.</p>
+      <p>Om te voorkomen dat zwakke veelvoorkomende kunnen worden teruggevonden in een rainbow table kan je er een salt achter plakken voordat je het hasht. Een salt is een lange string met random inhoud (bijvoorbeeld: 'R!Qo?Og4U]m'). De kans is klein dat zo'n waarde in een rainbow table voorkomt. Dus zelfs als de aanvaller de salt te weten komt is hij terug bij af: hij moet al zijn combinaties opnieuw uitproberen, dit keer met jouw salt er achter.</p>
 
       <img src="/static/img/password-salt.jpg" class="center-block" style="width: 40%">
 
