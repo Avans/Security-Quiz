@@ -102,38 +102,38 @@
 
       <div class="question">
         <span class="question-string">Hoeveel geld heeft Alice op haar rekening staan?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_sql_money_alice" value="{{ answers.answer_sql_money_alice }}"></input>
+        {% include "points.html" with points=answers.answer_sql_money_alice.points max="5" %}
+        <input class="question-input" name="answer_sql_money_alice" value="{{ answers.answer_sql_money_alice.string }}"></input>
       </div>
 
       <div class="question">
         <span class="question-string">Wat heb je als gebruikersnaam ingevuld om zonder wachtwoord in te loggen als Alice?</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" name="answer_sql_username_alice" value="{{answers.answer_sql_username_alice}}"></input>
+        {% include "points.html" with points=answers.answer_sql_username_alice.points max="10" %}
+        <input class="question-input" name="answer_sql_username_alice" value="{{answers.answer_sql_username_alice.string}}"></input>
       </div>
 
       <p>Waarschijnlijk heb je SQL commentaar (--) gebruikt in de vorige opdracht. Voer nu een andere SQL injectie uit door alleen het wachtwoord veld te gebruiken. Gebruik niet de SQL commentaar techniek maar verander nu de logica van de query (AND, OR) zodat er niet meer gecontroleerd wordt op het wachtwoord.</p>
 
       <div class="question">
         <span class="question-string">Met welk 'wachtwoord' lukt het altijd om in te loggen? (gebruikersnaam moet je leeglaten)</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" name="answer_sql_always_password" value="{{answers.answer_sql_always_password}}"></input>
+        {% include "points.html" with points=answers.answer_sql_always_password.points max="10" %}
+        <input class="question-input" name="answer_sql_always_password" value="{{answers.answer_sql_always_password.string}}"></input>
       </div>
 
       <p class="hint"><strong>Hint:</strong> Maak er een query van die alle gebruikers teruggeeft, de site logt dan in als de eerste gebruiker. Het maakt voor de opdracht niet uit als wie je inlogt.</p>
 
       <div class="question">
         <span class="question-string">Bekijk de <a href="https://github.com/Avans/Security-Workshop/blob/master/bank/index.php#L51" target="_blank">PHP broncode</a> en los het probleem op. Type de regels code die je verbeterd hebt in onderstaand tekstveld. (denk terug aan je mysql WEBS2 practicum)</span>
-        <div class="points"><span class="question-points">15</span> punten</div>
-        <textarea class="question-input" name="answer_sql_fix_query">{{answers.answer_sql_fix_query}}</textarea>
+        {% include "points.html" with points=answers.answer_sql_fix_query.points max="15" %}
+        <textarea class="question-input" name="answer_sql_fix_query">{{answers.answer_sql_fix_query.string}}</textarea>
       </div>
 
 <p>Open de <span class="website">"Bank (multi_query)"</span> pagina. Op deze pagina werken ook SQL Injection technieken die gebruik maken van meerdere queries (queries gescheiden door een ; ).</p>
 
       <div class="question">
         <span class="question-string">Met welke <i>"gebruikersnaam"</i> kan je (alleen) Bob miljonair maken? (Het saldo staat in een kolom "balans")</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" name="answer_sql_bob_millionaire" value="{{answers.answer_sql_bob_millionaire}}"></input>
+        {% include "points.html" with points=answers.answer_sql_bob_millionaire.points max="10" %}
+        <input class="question-input" name="answer_sql_bob_millionaire" value="{{answers.answer_sql_bob_millionaire.string}}"></input>
       </div>
 
       <img src="/static/img/bank_schema.png">
@@ -156,20 +156,20 @@
 
       <div class="question">
         <span class="question-string">Wat zijn de gebruikersnamen en wachtwoorden van de 4 gebruikers in de database? (de id's van de gebruikers zijn 1,2,3 en 4)</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
-        <textarea class="question-input" name="answer_sql_usernames_passwords_webshop">{{answers.answer_sql_usernames_passwords_webshop}}</textarea>
+        {% include "points.html" with points=answers.answer_sql_usernames_passwords_webshop.points max="5" %}
+        <textarea class="question-input" name="answer_sql_usernames_passwords_webshop">{{answers.answer_sql_usernames_passwords_webshop.string}}</textarea>
       </div>
 
       <div class="question">
         <span class="question-string">Met welke URL heb je het wachtwoord van Marco achterhaald?</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" type="url" name="answer_sql_url_marco_password" value="{{answers.answer_sql_url_marco_password}}"></input>
+        {% include "points.html" with points=answers.answer_sql_url_marco_password.points max="10" %}
+        <input class="question-input" type="url" name="answer_sql_url_marco_password" value="{{answers.answer_sql_url_marco_password.string}}"></input>
       </div>
 
       <div class="question">
         <span class="question-string">Bekijk de <a href="https://github.com/Avans/Security-Workshop/blob/master/webshop/product_detail.php#L62" target="_blank">broncode</a> en verbeter deze zodat je geen SQL injection meer kan gebruiken.</span>
-        <div class="points"><span class="question-points">15</span> punten</div>
-        <textarea class="question-input" name="answer_sql_fix_injection_webshop">{{answers.answer_sql_fix_injection_webshop}}</textarea>
+        {% include "points.html" with points=answers.answer_sql_fix_injection_webshop.points max="15" %}
+        <textarea class="question-input" name="answer_sql_fix_injection_webshop">{{answers.answer_sql_fix_injection_webshop.string}}</textarea>
       </div>
 
       <p>Open de pagina <span class="website">"Webshop (replace)"</span>. De maker van deze website heeft extra maatregelen genomen en woorden als SELECT en UNION uit de invoer gefilterd.</p>
@@ -178,8 +178,8 @@
 
       <div class="question">
         <span class="question-string">Met welke URL kan je nu het wachtwoord van Marco achterhalen?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" type="url" name="answer_sql_url_marco_replace_password" value="{{answers.answer_sql_url_marco_replace_password}}"></input>
+        {% include "points.html" with points=answers.answer_sql_url_marco_replace_password.points max="5" %}
+        <input class="question-input" type="url" name="answer_sql_url_marco_replace_password" value="{{answers.answer_sql_url_marco_replace_password.string}}"></input>
       </div>
 
       <h2>Wereldwijs</h2>
@@ -190,14 +190,14 @@
 
       <div class="question">
         <span class="question-string">Wat is het onderwerp van de geheime pagina?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_sql_wereldwijs_title" value="{{answers.answer_sql_wereldwijs_title}}"></input>
+        {% include "points.html" with points=answers.answer_sql_wereldwijs_title.points max="5" %}
+        <input class="question-input" name="answer_sql_wereldwijs_title" value="{{answers.answer_sql_wereldwijs_title.string}}"></input>
       </div>
 
       <div class="question">
         <span class="question-string">Met welke URL heb je de website de geheime pagina laten tonen?</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <textarea class="question-input" type="url" name="answer_sql_wereldwijs_url">{{answers.answer_sql_wereldwijs_url}}</textarea>
+        {% include "points.html" with points=answers.answer_sql_wereldwijs_url.points max="10" %}
+        <textarea class="question-input" type="url" name="answer_sql_wereldwijs_url">{{answers.answer_sql_wereldwijs_url.string}}</textarea>
       </div>
 
 {% endblock %}

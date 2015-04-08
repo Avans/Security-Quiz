@@ -90,20 +90,20 @@ figcaption {
 
       <div class="question">
         <span class="question-string">Maak een URL die Javascript aan de pagina toevoegd zodat deze 'XSS' in een alert-dialoog weergeeft.</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" type="url" name="answer_xss_add_alert" value="{{answers.answer_xss_add_alert}}">
+        {% include "points.html" with points=answers.answer_xss_add_alert.points max="5" %}
+        <input class="question-input" type="url" name="answer_xss_add_alert" value="{{answers.answer_xss_add_alert.string}}">
       </div>
 
       <div class="question">
         <span class="question-string">Maak een URL die een nep inlogformulier laat zien. Bij het verzenden van dit formulier wordt de informatie naar jouw eigen website verstuurd! Je hoeft informatie nog niet op te vangen. Dat doe je straks wel!</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" type="url" name="answer_xss_fake_form" value="{{answers.answer_xss_fake_form}}">
+        {% include "points.html" with points=answers.answer_xss_fake_form.points max="10" %}
+        <input class="question-input" type="url" name="answer_xss_fake_form" value="{{answers.answer_xss_fake_form.string}}">
       </div>
 
       <div class="question">
         <span class="question-string">Bekijk de <a href="https://github.com/Avans/Security-Workshop/blob/master/bank/message.php#L38" target="_blank">broncode</a>. Voeg een fix toe om deze aanval te voorkomen.</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <textarea class="question-input" name="answer_xss_fix_bank">{{answers.answer_xss_fix_bank}}</textarea>
+        {% include "points.html" with points=answers.answer_xss_fix_bank.points max="10" %}
+        <textarea class="question-input" name="answer_xss_fix_bank">{{answers.answer_xss_fix_bank.string}}</textarea>
       </div>
 
       <p>Een slimme gebruiker ziet aan de URL nu natuurlijk meteen dat er iets verdachts aan de hand is. Maar het is met een beetje extra Javascript mogelijk om de URL te veranderen zodat deze er weer onschuldig uitziet.</p>
@@ -112,8 +112,8 @@ figcaption {
 
       <div class="question">
         <span class="question-string">Maak weer een URL die een nep inlogformulier laat zien, en zorg ervoor dat in de adresbalk de URL van de echte inlogpagina komt te staan.</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" type="url" name="answer_xss_fake_form_fake_url" value="{{answers.answer_xss_fake_form_fake_url}}">
+        {% include "points.html" with points=answers.answer_xss_fake_form_fake_url.points max="10" %}
+        <input class="question-input" type="url" name="answer_xss_fake_form_fake_url" value="{{answers.answer_xss_fake_form_fake_url.string}}">
       </div>
 
       <h2>Webshop</h2>
@@ -135,22 +135,22 @@ figcaption {
 
       <div class="question">
         <span class="question-string">Met welke URL kan je de sessie cookies van gebruikers ontfutselen? (Dus doorsturen naar je eigen site)</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" type="url" name="answer_xss_url_redirect" value="{{answers.answer_xss_url_redirect}}">
+        {% include "points.html" with points=answers.answer_xss_url_redirect.points max="10" %}
+        <input class="question-input" type="url" name="answer_xss_url_redirect" value="{{answers.answer_xss_url_redirect.string}}">
       </div>
 
       <p class="hint"><strong>Hint:</strong> Op <a href="http://jdstiles.com/java/cct.html" target="_blank">deze site</a> kan je Javascript zonder quotejes genereren</a></p>
 
       <div class="question">
         <span class="question-string">Verander de url naar image_zoom_escapehtml.php. Alle speciale HTML tekens (&lt;&gt;"&amp;) zijn nu geëscapet. Maar het is nog steeds mogelijk om een aanval uit te voeren! Maak een nieuwe URL die de sessie cookie naar je eigen website verstuurd. Let goed op de quotejes.</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" type="url" name="answer_xss_url_redirect_escape" value="{{answers.answer_xss_url_redirect_escape}}">
+        {% include "points.html" with points=answers.answer_xss_url_redirect_escape.points max="10" %}
+        <input class="question-input" type="url" name="answer_xss_url_redirect_escape" value="{{answers.answer_xss_url_redirect_escap.string}}">
       </div>
 
       <div class="question">
         <span class="question-string">Bekijk de <a href="https://github.com/Avans/Security-Workshop/blob/master/webshop/image_zoom_escapehtml.php#L49" target="_blank">broncode</a>. Voeg een simpele fix toe die dit probleem oplost. Je kan dit op twee manieren doen: 1. HTML aanpassen 2. PHP aanpassen (lees documentatie op <a href="http://php.net/htmlspecialchars" target="_blank">http://php.net/htmlspecialchars</a> )</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <textarea class="question-input" name="answer_xss_webshop_fix">{{answers.answer_xss_webshop_fix}}</textarea>
+        {% include "points.html" with points=answers.answer_xss_webshop_fix.points max="10" %}
+        <textarea class="question-input" name="answer_xss_webshop_fix">{{answers.answer_xss_webshop_fix.string}}</textarea>
       </div>
 
 
@@ -174,20 +174,20 @@ figcaption {
 
       <div class="question">
         <span class="question-string">Welke reactie heb je geplaatst waardoor je achter de cookie van de administrator kwam?</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <textarea class="question-input" name="answer_xss_news_reaction">{{answers.answer_xss_news_reaction}}</textarea>
+        {% include "points.html" with points=answers.answer_xss_news_reaction.points max="10" %}
+        <textarea class="question-input" name="answer_xss_news_reaction">{{answers.answer_xss_news_reaction.string}}</textarea>
       </div>
 
       <div class="question">
         <span class="question-string">Wat is de geheime code die alleen administrators kunnen zien?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_xss_news_secret_code" value="{{answers.answer_xss_news_secret_code}}">
+        {% include "points.html" with points=answers.answer_xss_news_secret_code.points max="5" %}
+        <input class="question-input" name="answer_xss_news_secret_code" value="{{answers.answer_xss_news_secret_code.string}}">
       </div>
 
       <div class="question">
         <span class="question-string">Plak het script dat je op je eigen website hebt gebruikt waarmee je de cookie van de admin hebt vastgelegd.</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <textarea class="question-input" name="answer_xss_news_script">{{answers.answer_xss_news_script}}</textarea>
+        {% include "points.html" with points=answers.answer_xss_news_script.points max="10" %}
+        <textarea class="question-input" name="answer_xss_news_script">{{answers.answer_xss_news_script.string}}</textarea>
       </div>
 
       <h2>Wereldwijs</h2>
@@ -200,8 +200,8 @@ figcaption {
 
       <div class="question">
         <span class="question-string">Met welke URL kan je 'XSS' in een alert printen?</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" type="url" name="answer_xss_jquery" value="{{answers.answer_xss_jquery}}">
+        {% include "points.html" with points=answers.answer_xss_jquery.points max="10" %}
+        <input class="question-input" type="url" name="answer_xss_jquery" value="{{answers.answer_xss_jquery.string}}">
       </div>
 
 

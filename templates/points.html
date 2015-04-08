@@ -1,0 +1,7 @@
+<div class="points">
+  {% if points != None %}
+    <i>{{ points }} van de {{ max }} punten</i>
+  {% else %}
+    <span class="question-points">{{ max }}</span> punten
+  {% endif %}
+</div>

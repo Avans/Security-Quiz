@@ -19,13 +19,13 @@
       <div class="question">
         <span class="question-string">Wat staat er in /etc/geheim.txt? (Het is een supersecret TODO item)</span>
         <div class="points"><span class="question-points">0</span> punten</div>
-        <input class="question-input" name="answer_path_secret" value="{{ answers.answer_path_secret }}"></input>
+        <input class="question-input" name="answer_path_secret" value="{{ answers.answer_path_secret.string }}"></input>
       </div>
 
       <div class="question">
         <span class="question-string">Plak het script dat je hebt gebruikt</span>
         <div class="points"><span class="question-points">0</span> punten</div>
-        <textarea class="question-input" name="answer_path_secret_script">{{ answers.answer_path_secret_script }}</textarea>
+        <textarea class="question-input" name="answer_path_secret_script">{{ answers.answer_path_secret_script.string }}</textarea>
       </div>
 
 
@@ -38,7 +38,7 @@
       <div class="question">
         <span class="question-string">Met welke URL kan je nu rechtstreeks de inhoud van /etc/geheim.txt uitlezen?</span>
         <div class="points"><span class="question-points">0</span> punten</div>
-        <input class="question-input" name="answer_path_image_url" value="{{ answers.answer_path_image_url }}">
+        <input class="question-input" name="answer_path_image_url" value="{{ answers.answer_path_image_url.string }}">
       </div>
 
       <p>Verander image.php in image_check_prefix.php (<a href="https://github.com/Avans/Security-Workshop/blob/master/image/image_check_prefix.php">source</a>) . In dit bestand is een extra beveiliging die checkt of het pad begint met de map 'uploads'</p>
@@ -46,7 +46,7 @@
       <div class="question">
         <span class="question-string">Met welke URL kan je met dit meer 'beveiligde' script de inhoud van /etc/geheim.txt uitlezen?</span>
         <div class="points"><span class="question-points">0</span> punten</div>
-        <input class="question-input" name="answer_path_image_url_prefix" value="{{ answers.answer_path_image_url_prefix }}">
+        <input class="question-input" name="answer_path_image_url_prefix" value="{{ answers.answer_path_image_url_prefix.string }}">
       </div>
 
       <p>Verander de bestandsnaam in image_remove_traversal.php (<a href="https://github.com/Avans/Security-Workshop/blob/master/image/image_remove_traversal.php">source</a>) , dit script heeft nu een beveiliging die alle '../' uit de string verwijderd zodat je niet meer ../ in de URL kan gebruiken.</p>
@@ -56,7 +56,7 @@
       <div class="question">
         <span class="question-string">Met welke URL kan je via het image_remove_traversal.php script de inhoud van /etc/geheim.txt uitlezen?</span>
         <div class="points"><span class="question-points">0</span> punten</div>
-        <input class="question-input" name="answer_path_image_url_remove_traversal" value="{{ answers.answer_path_image_url_remove_traversal }}">
+        <input class="question-input" name="answer_path_image_url_remove_traversal" value="{{ answers.answer_path_image_url_remove_traversal.string }}">
       </div>
 
       <p>Zoek op internet naar 'Directory traversal' en zoek uit wat voor technieken er nog meer mogelijk zijn.</p>
@@ -64,7 +64,7 @@
       <div class="question">
         <span class="question-string">Beschrijf hoe jij de site zou programmeren zodat alle directory traversal aanvallen niet meer mogelijk zijn.</span>
         <div class="points"><span class="question-points">0</span> punten</div>
-        <textarea class="question-input" name="answer_path_image_fix">{{ answers.answer_path_image_fix }}</textarea>
+        <textarea class="question-input" name="answer_path_image_fix">{{ answers.answer_path_image_fix.string }}</textarea>
       </div>
 
       <img src="/static/img/parent_dir.png" class="center-block">
@@ -80,7 +80,7 @@
       <div class="question">
         <span class="question-string">Beschrijf hoe je met deze site de inhoud van /etc/geheim.txt kan achterhalen</span>
         <div class="points"><span class="question-points">0</span> punten</div>
-        <textarea class="question-input" name="answer_path_include_explain">{{ answers.answer_path_include_explain }}</textarea>
+        <textarea class="question-input" name="answer_path_include_explain">{{ answers.answer_path_include_explain.string }}</textarea>
       </div>
 
 {% endblock %}

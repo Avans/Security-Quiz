@@ -33,14 +33,14 @@
 
       <div class="question">
         <span class="question-string">Je hebt uit een database het volgende gehashte wachtwoord gehaald: d59084b66e167f13bef93b1a5d07acd2 Welk wachtwoord had deze gebruiker?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_password_crack" value="{{answers.answer_password_crack}}">
+        {% include "points.html" with points=answers.answer_password_crack.points max="5" %}
+        <input class="question-input" name="answer_password_crack" value="{{answers.answer_password_crack.string}}">
       </div>
 
       <div class="question">
         <span class="question-string">Hoe had de programmeur kunnen voorkomen dat jij achter het wachtwoord kon komen?</span>
-        <div class="points"><span class="question-points">15</span> punten</div>
-        <textarea class="question-input" name="answer_password_crack_prevent">{{answers.answer_password_crack_prevent}}</textarea>
+        {% include "points.html" with points=answers.answer_password_crack_prevent.points max="15" %}
+        <textarea class="question-input" name="answer_password_crack_prevent">{{answers.answer_password_crack_prevent.string}}</textarea>
       </div>
 
       <h2>Nieuws</h2>
@@ -56,14 +56,14 @@
 
       <div class="question">
         <span class="question-string">Wat is het wachtwoord van Pete?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_password_pete" value="{{answers.answer_password_pete}}">
+        {% include "points.html" with points=answers.answer_password_pete.points max="5" %}
+        <input class="question-input" name="answer_password_pete" value="{{answers.answer_password_pete.string}}">
       </div>
 
       <div class="question">
         <span class="question-string">Hoe had de programmeur kunnen voorkomen dat een hacker kon zien dat al deze gebruikers hetzelfde wachtwoord hebben?</span>
-        <div class="points"><span class="question-points">15</span> punten</div>
-        <textarea class="question-input" name="answer_password_brute_force_prevent">{{answers.answer_password_brute_force_prevent}}</textarea>
+        {% include "points.html" with points=answers.answer_password_brute_force_prevent.points max="15" %}
+        <textarea class="question-input" name="answer_password_brute_force_prevent">{{answers.answer_password_brute_force_prevent.string}}</textarea>
       </div>
 
       <p>Na een hoop manuren werk heeft Nieuws.nl hun huiswerk gedaan en slaan ze dit keer wachtwoorden op een echt veilige manier op. Niemand die dit keer de site kan kraken! Eindelijk kunnen mensen weer inloggen en gebruik maken van hun account, de site wordt feestelijk weer geopend.</p>
@@ -82,8 +82,8 @@
 
       <div class="question">
         <span class="question-string">Welke fout hebben de programmeurs van Nieuws.nl gemaakt? Beschrijf kort hoe je de site kan programmeren om deze aanval te voorkomen.</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
-        <textarea class="question-input" name="answer_password_brute_force_login">{{answers.answer_password_brute_force_login}}</textarea>
+        {% include "points.html" with points=answers.answer_password_brute_force_login.points max="10" %}
+        <textarea class="question-input" name="answer_password_brute_force_login">{{answers.answer_password_brute_force_login.string}}</textarea>
       </div>
 
       <img src="/static/img/password2.jpg" class="center-block">
@@ -96,8 +96,8 @@
 
       <div class="question">
         <span class="question-string">Copy-paste het stukje PHP code waarmee je wachtwoorden opslaat en leg uit welke technieken je hebt gebruikt om dit veilig te doen.</span>
-        <div class="points"><span class="question-points">15</span> punten</div>
-        <textarea class="question-input" name="answer_password_project">{{answers.answer_password_project}}</textarea>
+        {% include "points.html" with points=answers.answer_password_project.points max="15" %}
+        <textarea class="question-input" name="answer_password_project">{{answers.answer_password_project.string}}</textarea>
       </div>
 
 <script>

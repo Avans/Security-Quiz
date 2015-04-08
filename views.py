@@ -97,7 +97,8 @@ def home(request, url):
     answers = Answer.objects.filter(user=request.user)
     answers_dict = {}
     for answer in answers:
-        answers_dict[answer.question] = answer.string
+
+        answers_dict[answer.question] = {'string': answer.string, 'points': answer.points}
 
     if url == 'sql' or url == '':
         template = 'sql.html'
