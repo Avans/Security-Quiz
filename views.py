@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from quiz.models import Answer
 import oauth2 as oauth, cgi, json, base64, urlparse, subprocess
+from oauth2_provider.views.generic import ProtectedResourceView
 import securityquiz.secrets as secrets
 import securityquiz.settings as settings
 
@@ -85,6 +86,7 @@ def save_data(data, user):
             answer.save()
 
 def home(request, url):
+    #return HttpResponse('home2')
     if not request.user.is_authenticated():
         return avans_login(request)
 
@@ -112,13 +114,17 @@ def home(request, url):
         template = 'openssl.html'
     elif url == 'bonus':
         template = 'bonus.html'
+    elif url == 'oauth':
+        template = 'oauth.html'
     else:
         return HttpResponseNotFound('404')
 
     return render(request, template, {'answers': answers_dict})
 
 
-
+class SecurityApi(ProtectedResourceView):
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("Geheime code: abguvatgbfrrurerzbirnybat")
 
 def sign(request):
     if request.method == 'POST':
