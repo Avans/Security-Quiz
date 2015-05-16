@@ -16,11 +16,19 @@
         <div class="well span3" style="position: fixed">
           <p>Ingelogd als <strong>{{ user }}</strong>.</p>
 
+          <h5>Security 1</h5>
           <ul>
             <li><a href="/sql">SQL Injection</a></li>
             <li><a href="/xss">Cross-site Scripting</a></li>
             <li><a href="/wachtwoorden">Wachtwoorden</a></li>
             <li><a href="/bonus">Bonus</a></li>
+          </ul>
+
+          <h5>Security 2</h5>
+          <ul>
+            <li><a href="/oauth">OAuth</a></li>
+            <li>Certificaten (under construction)</li>
+            <li>Encryptie (under construction)</li>
           </ul>
 
           Moeilijkheidsgraad:
@@ -33,7 +41,7 @@
           <a href="/logout" class="btn">Uitloggen</a>
           {% if CLOSED %}<br>Inzendingen kunnen niet meer worden ingezonden{% else %}<button class="btn-primary btn-disabled" type="submit" id="save-button">Opslaan</button>{% endif %}
           <div class="alert alert-info" id="js-message" style="display: none;"></div>
-          <p>Deadline: donderdag 2 april 23:59</p>
+          <p>Deadline: woensdag 17 juni 23:59</p>
         </div>
 
         <div id="quiz" class="span8 offset3">

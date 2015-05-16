@@ -6,14 +6,31 @@
       color: #000088;
       font-family: Courier;
 }
+figcaption {
+  text-align: center;
+}
+
+figure img {
+  margin-left: auto;
+  margin-right: auto;
+}
+.screenshot {
+  box-shadow: 0 0 10px #888;
+  border: 1px solid #aaa;
+  border-radius: 7px;
+}
 </style>
       <h1>OAuth</h1>
+
+      <img src="static/img/oauth.png" style="float: right">
 
       <p>Heb je wel eens gebruik gemaakt van een API van Twitter, Facebook of Google? Dan heb je waarschijnlijk te maken gehad <strong>OAuth</strong>, de technologie die je toestemming verleent om gebruik te maken van die API's.</p>
 
       <p>Er zijn veel misverstanden over OAuth waardoor het vaak verkeerd begrepen wordt en er veel frictie ontstaat ontstaat tussen de API en de ontwikkelaar. Het is bijvoorbeeld niet ontworpen om enkel mee in te loggen, hoewel het daar wel veel voor gebruikt wordt. Deze week gaan we kijken naar het probleem van authoriseren en hoe OAuth dat oplost.</p>
 
-      <p>We nemen als voorbeeld de Poespas bank. Een simpele website waarmee gebruikers kunnen inloggen met een gebruikersnaam en wachtwoord. Als ze ingelogd zijn zien ze hun huidige saldo. Ze hebben ook een simpele API waarmee gebruikers hun saldo kunnen checken.</p>
+      <p>We gaan deze week oefenen met OAuth 2.0. Er is ook versie 1.0 en 1.0a die heel anders werken (hoewel ze qua concept wel gelijk zijn). Let altijd op met welke versie je te maken hebt, je kan een 2.0 client niet laten praten met een 1.0 server en vice versa.</p>
+
+      <p>We nemen als voorbeeld de Poespas bank. Een simpele website waarmee gebruikers kunnen inloggen met een gebruikersnaam en wachtwoord. Als ze ingelogd zijn zien ze hun huidige saldo. De bank heeft een simpele API waarmee gebruikers hun saldo kunnen checken.</p>
 
       <h3>Simpele authenticatie</h3>
 
@@ -23,6 +40,8 @@
             <img src="static/img/auth_basic.png">
       </figure>
 
+      <img src="static/img/http_auth.png" style="float: right; width: 30%; margin-left: 10px">
+
       <p>Veel echte API's werkte vroeger op deze manier (vaak op basis van <a href="http://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Authentication</a>). En zolang alles over een beveiligde verbinding tussen de gebruiker en de server loopt is alles veilig. De problemen beginnen echter als een derde partij betrokken raakt bij onze API.</p>
 
       <p>Een startup heeft de <i>BudgetApp</i> ontwikkelt, een nieuwe app die laat zien hoeveel saldo je per maand op je rekening hebt staan. Ze maken gebruik van de Poespas API om het saldo van de gebruiker op te halen. Maar om die API te kunnen gebruiken hebben ze de gebruikersnaam en het wachtwoord van de gebruiker nodig. Op hun inlogscherm vragen ze daarom om de inloggegevens zodat de app goed kan werken.</p>
@@ -31,28 +50,41 @@
             <img src="static/img/auth_basic_app.png">
       </figure>
 
-      <p>Het probleem met deze manier van authenticeren wordt nu snel duidelijk: de app krijgt de gebruikersnaam en wachtwoord van de gebruiker in handen. Daarmee kunnen ze niet alleen het saldo kunnen ophalen met de API. Maar ook alle andere dingen die de gebruiker kan zoals bijvoorbeeld inloggen, geld overschrijven en wachtwoord veranderen.</p>
+      <p>Het probleem met deze manier van authenticeren wordt nu snel duidelijk: de app krijgt de gebruikersnaam en wachtwoord van de gebruiker in handen. Daarmee kunnen ze niet alleen het saldo ophalen met de API. Maar ook alle andere dingen die de gebruiker kan zoals bijvoorbeeld inloggen, geld overschrijven en het wachtwoord veranderen.</p>
 
 
-      <p>Om deze situatie te voorkomen willen we een autorisatiesysteem waarbij de app wel een sleutel krijgt om de API te gebruiken, maar niet het wachtwoord van de gebruiker zelf. Dat moet strict geheim blijven.</p>
+      <p>Om deze situatie te voorkomen willen we een authorisatiesysteem waarbij de app wel een sleutel krijgt om de API te gebruiken, maar niet het wachtwoord van de gebruiker zelf. Dat moet strict geheim blijven.</p>
 
-      <h3>Enter OAuth</h3>
+      <h3>Access tokens</h3>
 
-      ...Access token verhaal...
+      <img src="static/img/access_token.png" class="center-block" style="float: right; width: 25%">
+      <p>OAuth lost dit probleem op door het concept van een <b>access token</b>. Een lange string waarmee je aangeeft dat een bepaalde gebruiker jou toestemming heeft gegeven om de API te mogen gebruiken. Deze token geef je bij elke aanroep van de API mee in een speciale 'Authorization' header, zodat de server deze kan verifiëren.</p>
 
-      <h3>autorisatie</h3>
+      <p>De app heeft nu niet meer de gebruikersnaam en wachtwoord van de gebruiker nodig, de access token is voor de bank een veilige manier om toegang tot de API te geven. En omdat een access token maar tijdelijk geldig is (vaak maar een uur) blijft de schade relatief beperkt als een hacker hier toegang tot krijgt.</p>
 
-      <p>Deze site heeft ook een API die te vinden is op: <a href="/api/hallo">/api/hallo</a>. Die mag je uiteraard alleen gebruiken als je een access token hebt, als je gewoon op de link klikt krijg je een lege 403 pagina (Forbidden). We gaan alle stappen doorlopen om te komen tot de almachtige access token waarmee we de API kunnen aanroepen.</p>
+      <img src="static/img/oauth_facebook.png" class="center-block">
 
-      <p>De eerste stap bij een OAuth provider is om een client aan te maken. Daarmee weet de site altijd wie het is die de API aanroep doet. Voor deze opdracht kan je die aanmaken op <a href="/o/applications/">deze pagina</a>. Maak je eigen applicatie met de volgende gegevens:</p>
+      <p>Access tokens kan je aanvragen door de gebruiker te sturen naar een speciale authorisatie pagina. Je hebt ze vast wel eens eerder gezien: de pagina's waar je moet inloggen en op 'Geef toestemming' moet klikken. Zodra je op die knop klikt wordt je weer teruggestuurd naar de oorspronkelijke app of webapplicatie met de access token in de URL.</p>
+
+      <figure>
+            <img src="static/img/auth_access_token.png" class="center-block">
+      </figure>
+
+      <p>Je kan ook een speciale <b>authorisatie code</b> terugkrijgen in plaats van een access token als je dat in een parameter aanzet. Deze kan je inwisselen voor een access token en een refresh token, een speciale token waarmee je nieuwe access tokens kan maken. Handig als je langer dan een uur van de API gebruik wil blijven maken. Met al die verschillende tokens gaan we oefenen in de opdrachten.</p>
+
+      <h3>Opdrachten</h3>
+
+      <p>Deze site heeft ook een API die te vinden is op: <a href="/api/hello">/api/hello</a>. Die mag je uiteraard alleen gebruiken als je een access token hebt, als je gewoon op de link klikt krijg je een lege 403 pagina (Forbidden). We gaan alle stappen doorlopen om te komen tot de almachtige access token waarmee we de API kunnen aanroepen.</p>
+
+      <p>De eerste stap bij een OAuth provider is om een client aan te maken. Daarmee weet de server altijd wie het is die de API aanroep doet. Voor deze opdracht kan je die aanmaken op <a href="/o/applications/">deze pagina</a>. Maak je eigen applicatie met de volgende gegevens:</p>
 
       <ul>
         <li><b>Name</b>: mag je zelf kiezen</li>
         <li><b>Client id</b>: mag je zelf kiezen, maar moet wel uniek zijn</li>
         <li><b>Client secret</b>: mag je zelf kiezen</li>
-        <li><b>Client type</b>: Public</li>
-        <li><b>Authorization grant type</b>: Authorization code</li>
-        <li><b>Redirect uris</b>: http://example.com/ (mag ook een andere onzin URL zijn)</li>
+        <li><b>Client type</b>: Confidential</li>
+        <li><b>Authorization grant type</b>: Implicit</li>
+        <li><b>Redirect uris</b>: http://example.com/ (mag ook een eigen URL zijn)</li>
       </ul>
 
       <figure>
@@ -65,7 +97,7 @@
         <input class="question-input" name="oauth_client_id" value="{{ answers.oauth_client_id }}"></input>
       </div>
 
-      <p>Elke OAuth server heeft twee endpoints (lees: URL's): de autorisatie endpoint en de token endpoint. Hieronder zie je de endpoints van een aantal bekende servers:</p>
+      <p>Elke OAuth server heeft twee endpoints (lees: URL's): de authorisatie endpoint en de token endpoint. Hieronder zie je de endpoints van een aantal bekende servers:</p>
 
       <table border="1" cellpadding="4">
         <tr>
@@ -95,76 +127,146 @@
         </tr>
       </table>
 
-      <p>De autorisatie endpoint is de URL waar je de gebruiker heenstuurt om hem te laten inloggen op de website en om op 'Toestaan' te laten klikken. Deze site redirect daarna weer terug naar je eigen site / app met een speciale autorisatie code. De token endpoint is de OAuth API waar we al onze access tokens uit kunnen halen, maar dan hebben we wel eerst die autorisatie code nodig.</p>
+      <p>De authorisatie endpoint is de URL waar je de gebruiker heenstuurt om hem te laten inloggen op de website en om op 'Toestaan' te laten klikken. Deze site redirect daarna weer terug naar je eigen site / app met een speciale authorisatie code. De token endpoint is de OAuth API waar we al onze access tokens uit kunnen halen, maar dan hebben we wel eerst die authorisatie code nodig.</p>
 
       <p>Om te authoriseren hebben we de volgende URL parameters nodig: (<a href="http://tools.ietf.org/html/rfc6749#section-4.1.1">documentatie</a>)</p>
 
       <ul>
-        <li><b>response_type</b>: "token" of "code". Met "token" krijg je direct een access token in de redirect URL. Handig als je de API maar 1x hoeft te gebruiken. Minder handig als je de API langer wilt blijven gebruiken, want access tokens blijven vaak niet langer dan een uur geldig. Dan moet je de gebruiker elk uur opnieuw laten inloggen. Met "code" krijg je een autorisatie code die je kan inwisselen voor een speciale refresh_token, daar kan je tot in de oneindigheid nieuwe access tokens mee maken. <i>Voor deze opdracht gebruiken we "code"</i>.</li>
+        <li><b>response_type</b>: "token" of "code". Met "token" krijg je direct een access token in de redirect URL. Handig als je de API maar 1x hoeft te gebruiken. Minder handig als je de API langer wilt blijven gebruiken, want access tokens blijven vaak niet langer dan een uur geldig. Dan moet je de gebruiker elk uur opnieuw laten inloggen. Met "code" krijg je een authorisatie code die je kan inwisselen voor een speciale refresh_token, daar kan je tot in de oneindigheid nieuwe access tokens mee maken. <i>Voor deze opdracht gebruiken we "token"</i>.</li>
         <li><b>client_id</b>: Jouw gekozen client id</li>
-        <li><b>redirect_uri</b>: optioneel, en eigenlijk ook redundant. Want die geef je ook vaak op als je je registreert als client bij de provider. Als de gebruiker op 'Toestaan' heeft geklikt wordt hij naar deze URL teruggestuurt met de autorisatie code of access token</li>
+        <li><b>redirect_uri</b>: optioneel, en eigenlijk ook redundant. Want die geef je ook vaak op als je je registreert als client bij de provider. Als de gebruiker op 'Toestaan' heeft geklikt wordt hij naar deze URL teruggestuurt met de authorisatie code of access token</li>
         <li><b>scope</b>: optioneel, kan je mee aangeven welke gedeeltes van de API je wilt kunnen gebruiken</li>
         <li><b>state</b>: optioneel, een string die je kan meegeven die ook weer wordt teruggestuurd als de gebruiker wordt terug geredirect. Kan handig zijn.</li>
       </ul>
 
-      <p>Een voorbeeld van een autorisatie URL is: <span class="url">http://sec.aii.avans.nl/o/authorize/?client_id=(CLIENT_ID)&amp;response_type=code</span></p>
+      <p>Voor deze site is de authorisatie URL:<br>
+      <span class="url">http://sec1.aii.avans.nl/o/authorize/?client_id=(CLIENT_ID)&amp;response_type=token</span></p>
 
       <div class="question">
-        <span class="question-string">Autoriseer met je eigen client id. Welke autorisatie code heb je gekregen?</span>
+        <span class="question-string">Authoriseer met je eigen client id. Welke access token heb je gekregen?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="oauth_implicit_access_token" value="{{ answers.oauth_implicit_access_token }}"></input>
+      </div>
+
+      <div class="question">
+        <span class="question-string">Hoeveel seconden is deze token code geldig?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="oauth_implicit_access_token_expires" value="{{ answers.oauth_implicit_access_token_expires }}"></input>
+      </div>
+
+      <p>De access token kan je nu gebruiken om een request te doen naar <a href="/api/hello">/api/hello</a>. De token geef je mee door de volgende HTTP header mee te sturen:</p>
+
+      <code class="pre">Authorization: Bearer nW8JkemabiKpxvD1Yen3FCcWM3k7vr</code>
+
+      <p>Uiteraard moet je je eigen access token dan gebruiken. Er zijn vele tools waarmee je HTTP requests mee kan maken met je eigen headers en data. In de screenshots gebruiken we <a href="https://chrome.google.com/webstore/detail/postman-rest-client-packa/fhbjgbiflinjbdggehcddcbncdddomop" target="_blank">Postman</a>.</p>
+
+      <img src="static/img/oauth_call_api.png" class="center-block screenshot" style="width: 80%; margin-top: 20px">
+
+      <div class="question">
+        <span class="question-string">Wat is de geheime code die gestuurd wordt als je de API aanroept?</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="oauth_api_hello" value="{{ answers.oauth_api_hello }}"></input>
+      </div>
+
+
+      <h3>Web applicaties</h3>
+
+      <p>Wat doen we als de token verloopt en je nog steeds de API wil gebruiken? Je kan natuurlijk de gebruiker opnieuw naar de authorisatie URL sturen voor een nieuwe access token. Maar als jouw web applicatie dagelijks de gebruiker meerdere keren per dag redirect om op 'Geef toestemming' te klikken wordt die daar helemaal gek van.</p>
+
+      <p>OAuth heeft hier de zogenaamde refresh tokens voor verzonnen. Dit is een uitgebreidere manier om access tokens te krijgen en is meer geschikt voor webapplicaties. We moeten wel helemaal terug naar het begin en alle stappen net iets anders doen:</p>
+
+      <ol>
+        <li>Ga naar <a href="/o/applications/">/o/applications/</a> en verander jouw applicatie zodat deze nu als <b>Authorization grant type</b> de waarde <b>Authorization code</b> heeft.<br>
+        <img src="static/img/oauth_set_grant_type.png" class="screenshot" style="width: 40%">
+        </li>
+
+        <li>Ga opnieuw naar dezelfde authorisatie URL van vorige keer, maar nu met <b>response_type=code</b> in plaats van response_type=token</li>
+
+        <li>Je wordt nu teruggestuurd met een zogenaamde authorisatie code</li>
+      </ol>
+
+      <div class="question">
+        <span class="question-string">Welke authorisatie code heb je gekregen?</span>
         <div class="points"><span class="question-points">5</span> punten</div>
         <input class="question-input" name="oauth_authorization_code" value="{{ answers.oauth_authorization_code }}"></input>
       </div>
 
-      <h3>Access tokens in zicht</h3>
+      <img src="static/img/oauth_authorization_code.png" style="width: 25%; float: right">
 
-      <p>Ok, we hebben nu een autorisatie code. Met die code heb je nu een bewijsje dat de gebruiker recentelijk jouw client heeft geautoriseerd. Maar na dat alles hebben we nog steeds niet die albelangrijke access tokens die ons toegang geven tot de API. Om daar aan te komen moeten we onze autorisatie code inwisselen bij de token endpoint voor een refresh token en een access token.</p>
 
-      <p>Dit lijkt allemaal nodeloos complex, waarom geeft OAuth nadat de gebruiker zijn zege heeft gegevens ons niet meteen een refresh_token en een access_token? Waarom moet dat nou weer via een aparte 'autorisatie code'? De reden hiervoor is is dat OAuth ontworpen is rond het principe dat webapplicatie's access_token moeten kunnen krijgen, zonder dat de gebruiker die te zien krijgt. De gebruiker kan niet zelf nieuwe access tokens ophalen omdat hij niet de client_secret heeft.</p>
-
-      <p>Om de access_token en de refresh_token te krijgen moeten we POST requests versturen naar de token endpoint. Testen met POST requests is het handigst om met een tool te doen. In de screenshots maken we gebruik van <a href="https://chrome.google.com/webstore/detail/postman-rest-client-packa/fhbjgbiflinjbdggehcddcbncdddomop" target="_blank">Postman</a>.
-
-      We moeten de volgende parameters meesturen: (<a href="http://tools.ietf.org/html/rfc6749#section-4.1.3" target="_blank">documentatie</a>)
+      <p>Deze authorisatie code is nog geen access token op zich, maar kan een webapplicatie wel inwisselen voor een access token. Dit doet het door een POST request te doen naar de token endpoint. We moeten daarvoor de volgende parameters meesturen:</p>
 
       <ul>
         <li><b>grant_type</b>: Moet de waarde "authorization_code" hebben.</li>
-        <li><b>code</b>: De autorisatie code die we hebben gekregen van de autorisatie endpoint.</li>
+        <li><b>code</b>: De authorisatie code die we hebben gekregen van de authorisatie endpoint.</li>
+        <li><b>redirect_uri</b>: Dezelfde URL die we eerder als redirect_uri hebben gebruikt.</li>
+        <li><b>client_id</b>: De client id die je hebt verzonnen</li>
+        <li><b>client_secret</b>: De client secret die je hebt verzonnen</li>
+      </ul>
 
-      <figure>
-          <img src="static/img/oauth_get_token.png" style="width: 50%">
-      </figure>
+      <p>Doe er niet te lang over, authorisatie codes verlopen vaak al na enkele minuten. Als je het goed doet krijg je een response met daarin de refresh_token (en een gratis access_token!). Als je een <code>invalid_grant</code> error krijgt betekent dat dat jouw code verlopen is en dat je een nieuwe moet aanvragen. Als je een <code>invalid_client</code> error krijgt moet je goed controleren of je redirect_uri, client_id en client_secret allemaal goed staan ingesteld.</p>
 
-      ... Wissel om voor een access token (binnen 60 sec!) ...
+      <img src="static/img/oauth_exchange_auth_code.png" class="screenshot" style="margin: 20px; width: 80%; margin-left: auto; margin-right: auto;">
 
-      Welke access_token heb je gekregen? <input></input> 2 punten
-      En welke refresh_token? <input></input> 2 punten
+      <div class="question">
+        <span class="question-string">Welke refresh token heb je gekregen?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="oauth_refresh_token" value="{{ answers.oauth_refresh_token }}"></input>
+      </div>
 
-      Gebruik de access_token om de API /api/hello aan te roepen.
+      <img src="static/img/oauth_refresh_token.png" style="float: right; width: 25%">
+      <p>Gefeliciteerd, je hebt nu een refresh token! Een oneindige bron van nieuwe access tokens. Je vraagt je bijna af waarom OAuth uberhaupt de moeite doet om een authorisatie code te hebben als die toch maar zo kort gebruikt wordt. De reden hiervoor is dat dit mechanisme ervoor zorgt dat alleen de webapplicatie de refresh en access tokens kan ophalen, en niet de gebruiker. Zonder de juiste client_secret kan de gebruiker namelijk helemaal niets met de authorisatie code.</p>
 
-      Welke geheime code is er op de API te downloaden? <input></input> 5 punten
-
-      ... Refresh ...
+      <p>We schakelen voor het gebruik van de refresh token even over naar een hele andere site</p>
 
       <h3>Google</h3>
 
-      Calendar API: https://www.googleapis.com/calendar/v3/calendars/secavans@gmail.com/events
-      Refresh token: 1/Capy9gSUUiS3HEWDCrc8AQjSoBg3uPz79JtOvSVw5kk
+      <p>Bij Google hebben we een OAuth client geregistreerd en de volgende gegevens gekregen:</p>
 
-      ... Wat is de geheime code? <input></input> 20 punten
+      <code style="display: block;">
+      Client id: 353772107173-61n4eq2n32u1idevgh5uochsehd19uf4.apps.googleusercontent.com<br>
+      Client secret: O4Q1RRRH81XdPe5iTHvlpkuT<br>
+      Refresh token: 1/Capy9gSUUiS3HEWDCrc8AQjSoBg3uPz79JtOvSVw5kk<br></code>
+
+      <p>Met deze gegevens kunnen we weer een POST doen naar de token endpoint (voor Google: https://accounts.google.com/o/oauth2/token) om een access token te genereren. Dit keer hoeven we geen redirect_uri mee te sturen en moeten we de grant_type parameter op 'refresh_token' zetten:</p>
+
+      <img src="static/img/oauth_google_refresh.png" class="screenshot" style="width: 70%; margin: 20px; display: block">
+
+      <p>Gebruik de access token die je krijgt om een API call te doen naar <span class="url">https://www.googleapis.com/calendar/v3/calendars/secavans@gmail.com/events</span>. Vergeet niet weer de juiste Authorization header te gebruiken om je access token in te zetten! Als je het goed doet krijg je alle events uit onze Google Calender te zien in JSON formaat.</p>
+
+      <img src="static/img/oauth_google_call_api.png" class="screenshot" style="width: 70%; margin: 20px; display: block">
+
+      <div class="question">
+        <span class="question-string">Wat is de code die in de Geheime afspraak staat? </span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="oauth_calendar_secret_code" value="{{ answers.oauth_calendar_secret_code }}"></input>
+      </div>
+
+      <p>Genoeg tutorial, tijd voor het echte werk! We gaan handmatig het hele OAuth proces doorlopen voor een Google API. Dat mag weer de <a href="https://developers.google.com/google-apps/calendar/v3/reference/events/list" target="_blank">Google Calendar API</a> zijn maar dan voor je eigen Google Calendar. Maar je mag ook een <a href="https://developers.google.com/apis-explorer/" target="_blank">andere API</a> kiezen zoals <a href="https://developers.google.com/gmail/api/" target="_blank">Gmail</a> of <a href="https://developers.google.com/drive/v2/reference/" target="_blank">Google Drive</a>.</p>
+
+      <p>Details over Google OAuth 2.0 kan je vinden op <a href="https://developers.google.com/identity/protocols/OAuth2" target="_blank">deze pagina</a>. Let op dat je API's eerst moet activeren in de <a href="http://console.developers.google.com/">Developer Console</a>. Dat is ook de plek waar je je Client ID en Client secret krijgt, die maak je aan onder APIs &amp; auth > Credentials. Maak een nieuwe client aan voor een standaard web applicatie.</p>
+
+      <p>Gebruik de authorisatie URL zoals die <a href="https://developers.google.com/identity/protocols/OAuth2WebServer#formingtheurl">hier</a> staat gedocumenteerd.</p>
 
 
-      Gebruik je eigen Google account om iets uit een Google API te halen. Denk bijvoorbeeld aan je laatst ontvangen gmail mailtje, een overzicht van bestanden op Google Drive,
-
+      <div class="question">
+        <span class="question-string">Beschrijf de HTTP requests die je hebt gemaakt om de token te krijgen en de API te gebruiken (en ook de uitkomst van die requests). Gevoelige data mag je met ***** censureren.</span>
+        <div class="points"><span class="question-points">15</span> punten</div>
+        <textarea class="question-input" name="oauth_google_requests" value="{{ answers.oauth_google_requests }}" style="height: 200px"></textarea>
+      </div>
       Beschrijf alle GET en POST requests die je hebt gedaan om tot de .<input></input>
 
-      <h3>Eigen API</h3>
+      <h3>Mini webapp</h3>
 
-      Maak een kleine webapplicatie waarmee je alle evenementen op je Google calendar kan inzien. Je mag hierbij gebruik maken van een framework.
-      <input></input> 30 punten
+      <p>Maak een kleine webapplicatie in PHP waarmee je de requests uit de vorige opdracht automatisch uitvoert (je mag ook een OAuth framework gebruiken)</p>
 
+      <img src="static/img/webapp1.png" class="screenshot" style="width: 40%">
+      <img src="static/img/webapp2.png" class="screenshot" style="width: 40%">
 
-
-
-
-
+      <div class="question">
+        <span class="question-string">Plak de broncode van je webapplicatie in het tekstvak</span>
+        <div class="points"><span class="question-points">20</span> punten</div>
+        <textarea class="question-input" name="oauth_google_requests" value="{{ answers.oauth_google_requests }}" style="height: 200px"></textarea>
+      </div>
 
 {% endblock %}

@@ -86,7 +86,6 @@ def save_data(data, user):
             answer.save()
 
 def home(request, url):
-    #return HttpResponse('home2')
     if not request.user.is_authenticated():
         return avans_login(request)
 
