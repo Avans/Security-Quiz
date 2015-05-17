@@ -94,7 +94,7 @@ figure img {
       <div class="question">
         <span class="question-string">Wat is de client_id die je hebt geregistreerd?</span>
         <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_oauth_client_id" value="{{ answers.answer_oauth_client_id }}"></input>
+        <input class="question-input" name="answer_oauth_client_id" value="{{ answers.answer_oauth_client_id.string }}"></input>
       </div>
 
       <p>Elke OAuth server heeft twee endpoints (lees: URL's): de authorisatie endpoint en de token endpoint. Hieronder zie je de endpoints van een aantal bekende servers:</p>
@@ -145,13 +145,13 @@ figure img {
       <div class="question">
         <span class="question-string">Authoriseer met je eigen client id. Welke access token heb je gekregen?</span>
         <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_oauth_implicit_access_token" value="{{ answers.answer_oauth_implicit_access_token }}"></input>
+        <input class="question-input" name="answer_oauth_implicit_access_token" value="{{ answers.answer_oauth_implicit_access_token.string }}"></input>
       </div>
 
       <div class="question">
         <span class="question-string">Hoeveel seconden is deze token code geldig?</span>
         <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_oauth_implicit_access_token_expires" value="{{ answers.answer_oauth_implicit_access_token_expires }}"></input>
+        <input class="question-input" name="answer_oauth_implicit_access_token_expires" value="{{ answers.answer_oauth_implicit_access_token_expires.string }}"></input>
       </div>
 
       <p>De access token kan je nu gebruiken om een request te doen naar <a href="/api/hello">/api/hello</a>. De token geef je mee door de volgende HTTP header mee te sturen:</p>
@@ -165,7 +165,7 @@ figure img {
       <div class="question">
         <span class="question-string">Wat is de geheime code die gestuurd wordt als je de API aanroept?</span>
         <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" name="answer_oauth_api_hello" value="{{ answers.answer_oauth_api_hello }}"></input>
+        <input class="question-input" name="answer_oauth_api_hello" value="{{ answers.answer_oauth_api_hello.string }}"></input>
       </div>
 
 
@@ -188,7 +188,7 @@ figure img {
       <div class="question">
         <span class="question-string">Welke authorisatie code heb je gekregen?</span>
         <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_oauth_authorization_code" value="{{ answers.answer_oauth_authorization_code }}"></input>
+        <input class="question-input" name="answer_oauth_authorization_code" value="{{ answers.answer_oauth_authorization_code.string }}"></input>
       </div>
 
       <img src="static/img/oauth_authorization_code.png" style="width: 25%; float: right">
@@ -211,7 +211,7 @@ figure img {
       <div class="question">
         <span class="question-string">Copy paste de response die je hebt gekregen waar de refresh token in staat</span>
         <div class="points"><span class="question-points">5</span> punten</div>
-        <textarea class="question-input" name="answer_oauth_refresh_token" value="{{ answers.answer_oauth_refresh_token }}"></textarea>
+        <textarea class="question-input" name="answer_oauth_refresh_token">{{ answers.answer_oauth_refresh_token.string }}</textarea>
       </div>
 
       <img src="static/img/oauth_refresh_token.png" style="float: right; width: 25%">
@@ -239,7 +239,7 @@ figure img {
       <div class="question">
         <span class="question-string">Wat is de code die in de Geheime afspraak staat? </span>
         <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" name="answer_oauth_calendar_secret_code" value="{{ answers.answer_oauth_calendar_secret_code }}"></input>
+        <input class="question-input" name="answer_oauth_calendar_secret_code" value="{{ answers.answer_oauth_calendar_secret_code.string }}"></input>
       </div>
 
       <p>Genoeg tutorial, tijd voor het echte werk! We gaan handmatig het hele OAuth proces doorlopen voor een Google API. Dat mag weer de <a href="https://developers.google.com/google-apps/calendar/v3/reference/events/list" target="_blank">Google Calendar API</a> zijn maar dan voor je eigen Google Calendar. Maar je mag ook een <a href="https://developers.google.com/apis-explorer/" target="_blank">andere API</a> kiezen zoals <a href="https://developers.google.com/gmail/api/" target="_blank">Gmail</a> of <a href="https://developers.google.com/drive/v2/reference/" target="_blank">Google Drive</a>.</p>
@@ -252,7 +252,7 @@ figure img {
       <div class="question">
         <span class="question-string">Beschrijf de HTTP requests die je hebt gemaakt om de token te krijgen en de API te gebruiken (en ook de uitkomst van die requests). Gevoelige data mag je met ***** censureren.</span>
         <div class="points"><span class="question-points">15</span> punten</div>
-        <textarea class="question-input" name="answer_oauth_google_requests" value="{{ answers.answer_oauth_google_requests }}" style="height: 200px"></textarea>
+        <textarea class="question-input" name="answer_oauth_google_requests" style="height: 200px">{{ answers.answer_oauth_google_requests.string }}</textarea>
       </div>
 
       <h3>Mini webapp</h3>
@@ -265,7 +265,7 @@ figure img {
       <div class="question">
         <span class="question-string">Plak de broncode van je webapplicatie in het tekstvak</span>
         <div class="points"><span class="question-points">20</span> punten</div>
-        <textarea class="question-input" name="answer_oauth_google_requests" value="{{ answers.answer_oauth_google_requests }}" style="height: 200px"></textarea>
+        <textarea class="question-input" name="answer_oauth_web_app" style="height: 200px">{{ answers.answer_oauth_web_app.string }}</textarea>
       </div>
 
 {% endblock %}
