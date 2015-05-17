@@ -209,9 +209,9 @@ figure img {
       <img src="static/img/oauth_exchange_auth_code.png" class="screenshot" style="margin: 20px; width: 80%; margin-left: auto; margin-right: auto;">
 
       <div class="question">
-        <span class="question-string">Welke refresh token heb je gekregen?</span>
+        <span class="question-string">Copy paste de response die je hebt gekregen waar de refresh token in staat</span>
         <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="oauth_refresh_token" value="{{ answers.oauth_refresh_token }}"></input>
+        <textarea class="question-input" name="oauth_refresh_token" value="{{ answers.oauth_refresh_token }}"></textarea>
       </div>
 
       <img src="static/img/oauth_refresh_token.png" style="float: right; width: 25%">
@@ -254,7 +254,6 @@ figure img {
         <div class="points"><span class="question-points">15</span> punten</div>
         <textarea class="question-input" name="oauth_google_requests" value="{{ answers.oauth_google_requests }}" style="height: 200px"></textarea>
       </div>
-      Beschrijf alle GET en POST requests die je hebt gedaan om tot de .<input></input>
 
       <h3>Mini webapp</h3>
 
