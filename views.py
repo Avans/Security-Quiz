@@ -11,7 +11,7 @@ import oauth2 as oauth, cgi, json, base64, urlparse, subprocess
 from oauth2_provider.views.generic import ProtectedResourceView
 import securityquiz.secrets as secrets
 import securityquiz.settings as settings
-import datetime
+import datetime, pytz
 
 AVANS_KEY = secrets.AVANS_KEY
 AVANS_SECRET = secrets.AVANS_SECRET
@@ -85,7 +85,7 @@ def save_data(data, user):
             answer, created = Answer.objects.get_or_create(user=user, question=key)
             if answer.string <> data[key]:
                 answer.string = data[key]
-                answer.submitted = datetime.datetime.now()
+                answer.submitted = pytz.timezone("CET").localize(datetime.datetime.now())
                 answer.save()
 
 def home(request, url):
