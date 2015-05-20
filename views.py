@@ -85,7 +85,9 @@ def save_data(data, user):
             answer, created = Answer.objects.get_or_create(user=user, question=key)
             if answer.string <> data[key]:
                 answer.string = data[key]
-                answer.submitted = pytz.timezone("CET").localize(datetime.datetime.now())
+                answer.submitted = pytz.utc.localize(datetime.datetime.utcnow())
+                answer.points = None
+                answer.comment = None
                 answer.save()
 
 def home(request, url):
