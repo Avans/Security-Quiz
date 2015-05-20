@@ -11,7 +11,7 @@ class Answer(models.Model):
     points = models.IntegerField(null=True)
     comment = models.TextField(null=True)
 
-    submitted = models.DateField(auto_now_add=True, null=True)
+    submitted = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:
         unique_together = ('user', 'question')

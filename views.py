@@ -11,6 +11,7 @@ import oauth2 as oauth, cgi, json, base64, urlparse, subprocess
 from oauth2_provider.views.generic import ProtectedResourceView
 import securityquiz.secrets as secrets
 import securityquiz.settings as settings
+import datetime
 
 AVANS_KEY = secrets.AVANS_KEY
 AVANS_SECRET = secrets.AVANS_SECRET
@@ -82,8 +83,10 @@ def save_data(data, user):
     for key in data:
         if key.startswith('answer'):
             answer, created = Answer.objects.get_or_create(user=user, question=key)
-            answer.string = data[key]
-            answer.save()
+            if answer.string <> data[key]:
+                answer.string = data[key]
+                answer.submitted = datetime.datetime.now()
+                answer.save()
 
 def home(request, url):
     if not request.user.is_authenticated():
