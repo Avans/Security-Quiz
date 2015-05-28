@@ -114,8 +114,8 @@ def home(request, url):
         template = 'path.html'
     elif url == 'wachtwoorden':
         template = 'wachtwoorden.html'
-    elif url == 'openssl':
-        template = 'openssl.html'
+    elif url == 'certificaten':
+        template = 'certificaten.html'
     elif url == 'bonus':
         template = 'bonus.html'
     elif url == 'oauth':

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+      <h1>Certificaten</h1>
+
+      <p>Deze week gaan we aan de slag met certificaten. De tool die we daarvoor gaan gebruiken is OpenSSL.
+          Dit is een veelgebruikt programma waar je vele cryptografische dingen mee kunt doen.</p>
+
+      <p>Op Linux en Mac OS X is deze tool al geïnstalleerd, Windows gebruikers moeten deze nog installeren. Als je <a href="http://google.nl/?q=openssl+windows+install" target="_blank">zoekt op het internet</a> vindt je verschillende mogelijkheden om dat te doen. Bijvoorbeeld de v.1.0.2a Light versie op <a href="http://slproweb.com/products/Win32OpenSSL.html">deze website</a>. Let op dat je dan op de Windows command line het hele pad moet gebruiken in plaats van alleen 'openssl'. Bijvoorbeeld: <span class="argument">C:\OpenSSL-Win32\bin\openssl.exe</span></p>
+
+      <hr>
+
+      <blockquote>Wie ben jij? En waarom zou ik jou vertrouwen dat je bent wie je zegt dat je bent?</blockquote>
+
+      <p>Dat zijn vragen die webbrowsers elke dag moeten beantwoorden. Een site kan wel vinden dat het www.rabobank.nl is, maar daarmee weet een browser nog niet zeker dat het ook daadwerkelijk de webserver van de Rabobank is. Misschien zit je eigenlijk te communiceren met een server ergens in Rusland van een persoon die maar al te graag je inlogcodes wil weten.</p>
+
+      <p>Om dit probleem op te lossen zijn er certificaten bedacht en vastgelegd in de <a href="http://en.wikipedia.org/wiki/X.509">X.509</a> standaard. Certificaten zijn kleine bestandjes waarin een identiteit staat beschreven. Dit is bijvoorbeeld een certificaat van Paul Wagener:</p>
+
+      <img src="/static/img/certificaat.png" class="center-block" style="border: 1px solid black">
+
+      <p>Nu wil jij natuurlijk meteen een eigen certificaat voor jezelf hebben, en dat kan! Met dit alles-in-1 commando maak je een certificaat dat helemaal van jou is:</p>
+
+      <code class="terminal">openssl req -x509 -nodes -newkey rsa:2048 -keyout sleutel.key -out certificaat.crt</code>
+
+      <p>Dit commando doet een paar dingen tegelijk waar we later op terugkomen. <b>Vul bij emailadres je Avans mailadres in</b>. Nadat je de gevraagde informatie hebt ingevuld staat er in het bestand certificaat.crt jouw certificaat. Met dit commando kan je je nieuwe certificaat bewonderen:</p>
+
+      <code class="terminal">openssl x509 -text -in certificaat.crt</code>
+
+      <div class="question">
+        <span class="question-string">Kopieer/plak de inhoud van certificaat.crt (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_openssl_selfsigned_certificate">{{ answers.answer_openssl_selfsigned_certificate }}</textarea>
+      </div>
+
+      <p>Een certificaat heeft ook altijd een <em>verstrekker</em> (issuer). Dit is de persoon of bedrijf die het certificaat heeft gemaakt en daarmee garant staat dat de identiteit die op het certificaat staat ook klopt. In jouw certificaat staat dat je over jezelf hebt gezegd dat je bent wie je zegt dat je bent. Niet echt betrouwbare informatie dus... Iedereen zou precies datzelfde certificaat kunnen maken.</p>
+
+      <p>Het wordt pas interessant en betrouwbaar als andere partijen het certificaat verstrekken en zo kunnen zeggen dat ze de gegevens van het certificaat gecontroleerd hebben.
+         Als jij die verstrekker vertrouwt dat hij zijn werk goed doet met de correctheid van certificaten controleren. Dan vertrouw je ook indirect de gegevens op het certificaat.
+         Zo hoef je maar een handjevol verstrekkers te vertrouwen om bijna alle websites op het internet te kunnen vertrouwen.</p>
+
+      <p>Elke besturingssysteem heeft een lijst van basis verstrekkers die ze impliciet vertrouwen, deze lijst kan je bekijken en veranderen door in je geavanceerde browserinstellingen op zoek te gaan naar een knop 'Beheer certificaten' (te vinden in het Security tabblad in Firefox).</p>
+
+      <p>
+
+      <div class="question">
+        <span class="question-string">Hoeveel basis verstrekkers vertrouwt jouw systeem? (je mag ook ongeveer een antwoord als het lastig tellen is)</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_openssl_number_of_issuers" value="{{ answers.answer_openssl_number_of_issuers }}">
+      </div>
+
+      <div class="question">
+        <span class="question-string">Bekijk het certificaat van <a href="https://facebook.com/">Facebook</a>, welk bedrijf heeft dit certificaat verstrekt?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_openssl_facebook_issuer" value="{{ answers.answer_openssl_facebook_issuer }}">
+      </div>
+
+      <p class="hint">Hint: Het certificaat kan je in alle browsers bekijken door op het slot-ikoontje te klikken</p>
+
+      <h2>Mag ik uw handtekening?</h2>
+
+      <p>Zo'n certificaat wat je aan jezelf hebt verstrekt vertrouwd natuurlijk niemand. We moeten eerst iemand vinden die jouw certificaat wil ondertekenen.</p>
+
+      <p>Er is een speciaal bestandsformaat om aan een verstrekker te vragen of hij jouw certificaat wil ondertekenen: <b>.csr</b>. Dat staat voor Certificate Signing Request. Een soort van bedelbrief die je rond kan sturen met je certificaat waar nog een verstrekker bij moet.</p>
+
+      <p>Je kan onderstaand commando gebruiken om je eigen gemaakte certificaat als basis te gebruiken voor zo'n Certificate Signing Request:</p>
+
+      <code class="terminal">openssl x509 -x509toreq -in certificaat.crt -signkey sleutel.key -out certificaat_verzoek.csr</code>
+
+      <p>Zo'n verzoekje kan je vervolgens bij een certificaat autoriteit zoals Thawte of VeriSign inleveren. Voor een paar honderd euro zijn ze dan bereid om hun handtekening eronder te zetten.</p>
+
+      <p>Om deze les relatief goedkoop te houden heeft deze site ook een certificaat autoriteit waar je certificaten kan laten ondertekenen: <a href="/sign">Certificaat Autoriteit</a>. Gebruik deze site om jouw certificaat te laten ondertekenen</p>
+
+      <div class="question">
+        <span class="question-string">Bekijk het certificaat wat je hebt teruggekregen. Welke persoon heeft dit certificaat aan jou verstrekt?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_openssl_site_issuer" value="{{ answers.answer_openssl_site_issuer }}">
+      </div>
+
+      <div class="question">
+        <span class="question-string">Plak jouw ondertekende certificaat in onderstaand tekstveld (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_openssl_signed_cert">{{ answers.answer_openssl_signed_cert }}</textarea>
+      </div>
+
+      <h2>Websites beveiligen</h2>
+
+      <p>Leuk die certificaten, maar laten we niet vergeten dat we er ook nog wat nuttigs mee kunnen doen. Namelijk onze internetverbindingen beveiligen. Om hiermee te oefenen hebben we een Ubuntu VM klaargezet op BlackBoard met een paar wijzigingen:</p>
+
+      <ul>
+        <li>We hebben <a href="/sign">deze verstrekker</a> als vertrouwd toegevoegd aan het systeem</li>
+        <li>Er is een default Apache installatie aanwezig.</li>
+        <li>www.security2.nl wijst naar de geïnstalleerde Apache op localhost.</li>
+      </ul>
+
+      <p>Controleer eerst of de site http://www.security2.nl in jouw VM te bereiken is, en via http<b>s</b>://www.security2.nl/ nog niet te bereiken is. Je gaat de site in de volgende opgaven beveiligen met SSL, om dat te doen moeten we eerst SSL aanzetten in Apache met de volgende commando's:</p>
+
+      <code class="terminal">sudo a2enmod ssl<br>
+sudo a2ensite default-ssl</code>
+
+      <p>Voer vervolgens de volgende stappen uit:</p>
+
+      <ol>
+        <li>Maak een geheel nieuw certificaat aan met het commando bovenaan de pagina. Je mag alles invullen zoals je wil, behalve de Common Name / Server FQDN. Die moet <code>www.security2.nl</code> zijn.</li>
+        <li>Laat het certificaat <a href="/sign">hier</a> weer ondertekenen</li>
+        <li>Kopieer het sleutel bestand en het ondertekende certificaat naar de server</li>
+        <li>Voer het volgende commando uit: <code class="terminal">sudo gedit /etc/apache2/sites-available/default-ssl.conf</code> om de standaard SSL configuratie aan te passen.</li>
+        <li>Verander in dit bestand de <code>SSLCertificateFile</code> en <code>SSLCertificateKeyFile</code> zodat ze naar jouw bestanden wijzen</li>
+        <li>Maak je wijzigingen actief door de configuratie opnieuw in te laden: <code class="terminal">sudo service apache2 reload</code></li>
+      </ol>
+
+      <p>Als je alles goed hebt gedaan is de site nu met SSL beveiligd! Controleer of je de site in de VM nu kan bereiken via https://www.security2.nl/ . Als je een groen slotje krijgt mag je de volgende vraag beantwoorden:</p>
+
+      <div class="question">
+        <span class="question-string">Plak de inhoud van het .crt bestand dat je hebt gebruikt om de website te beveiligen. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
+        <div class="points"><span class="question-points">15</span> punten</div>
+        <textarea class="question-input" name="answer_openssl_ssl_cert">{{ answers.answer_openssl_ssl_cert }}</textarea>
+      </div>
+
+      <h2>Zelf verstrekken</h2>
+
+      <blockquote>Sometimes, the only one you can trust is yourself.</blockquote>
+
+      <p>Om zelf verstrekker te spelen heb je helemaal geen speciale certificaten nodig. Je kan namelijk gewoon je eigen certificaat en sleutel gebruiken om andere certificaten te ondertekenen. Vraag een medestudent om een Certificate Signing Request van zijn certificaat te geven en onderteken dat met je eigen certificaat. Zoek op internet het commando op waarmee je dat kan doen.</p>
+
+      <div class="question">
+        <span class="question-string">Plak de inhoud van een certificaat waar je zelf verstrekker van het certificaat van een medestudent. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_openssl_ssl_cert">{{ answers.answer_openssl_ssl_cert }}</textarea>
+      </div>
+
+{% endblock %}
