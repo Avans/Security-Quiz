@@ -44,7 +44,7 @@
       <p>
 
       <div class="question">
-        <span class="question-string">Hoeveel basis verstrekkers vertrouwt jouw systeem? (je mag ook ongeveer een antwoord als het lastig tellen is)</span>
+        <span class="question-string">Hoeveel basis verstrekkers vertrouwt jouw systeem? (je mag ook ongeveer een antwoord geven als het lastig tellen is)</span>
         <div class="points"><span class="question-points">5</span> punten</div>
         <input class="question-input" name="answer_openssl_number_of_issuers" value="{{ answers.answer_openssl_number_of_issuers }}">
       </div>
@@ -85,12 +85,12 @@
 
       <h2>Websites beveiligen</h2>
 
-      <p>Leuk die certificaten, maar laten we niet vergeten dat we er ook nog wat nuttigs mee kunnen doen. Namelijk onze internetverbindingen beveiligen. Om hiermee te oefenen hebben we een Ubuntu VM klaargezet op BlackBoard met een paar wijzigingen:</p>
+      <p>Leuk die certificaten, maar laten we niet vergeten dat we er ook nog wat nuttigs mee kunnen doen. Namelijk onze internetverbindingen beveiligen. Om hiermee te oefenen hebben we een Ubuntu VM klaargezet op BlackBoard. Het wachtwoord van deze VM is <b><i>sec2</i></b>. We hebben een aantal dingen gewijzigd hierin:</p>
 
       <ul>
-        <li>We hebben <a href="/sign">deze verstrekker</a> als vertrouwd toegevoegd aan het systeem</li>
         <li>Er is een default Apache installatie aanwezig.</li>
         <li>www.security2.nl wijst naar de geïnstalleerde Apache op localhost.</li>
+        <li>We hebben <a href="/sign">deze verstrekker</a> als vertrouwd toegevoegd aan het systeem</li>
       </ul>
 
       <p>Controleer eerst of de site http://www.security2.nl in jouw VM te bereiken is, en via http<b>s</b>://www.security2.nl/ nog niet te bereiken is. Je gaat de site in de volgende opgaven beveiligen met SSL, om dat te doen moeten we eerst SSL aanzetten in Apache met de volgende commando's:</p>
@@ -98,35 +98,49 @@
       <code class="terminal">sudo a2enmod ssl<br>
 sudo a2ensite default-ssl</code>
 
-      <p>Voer vervolgens de volgende stappen uit:</p>
+      <p class="hint">Hint: Commando's vul je in in het programma 'Terminal'</p>
+
+      <p>De site is nu ook via https:// bereikbaar, maar Apache heeft een ongeldig dummy certificaat gebruikt om de site te beveiligen. Om het werkend te krijgen moeten we eerst de volgende stappen uitvoeren:</p>
 
       <ol>
-        <li>Maak een geheel nieuw certificaat aan met het commando bovenaan de pagina. Je mag alles invullen zoals je wil, behalve de Common Name / Server FQDN. Die moet <code>www.security2.nl</code> zijn.</li>
+        <li>Maak een geheel nieuwe certificaat/sleutel combo aan met het commando bovenaan de pagina. Je mag alles invullen zoals je wil, behalve de Common Name / Server FQDN. Die moet <code>www.security2.nl</code> zijn.</li>
         <li>Laat het certificaat <a href="/sign">hier</a> weer ondertekenen</li>
-        <li>Kopieer het sleutel bestand en het ondertekende certificaat naar de server</li>
+        <li>Kopieer het sleutel bestand en het ondertekende certificaat naar de VM</li>
         <li>Voer het volgende commando uit: <code class="terminal">sudo gedit /etc/apache2/sites-available/default-ssl.conf</code> om de standaard SSL configuratie aan te passen.</li>
-        <li>Verander in dit bestand de <code>SSLCertificateFile</code> en <code>SSLCertificateKeyFile</code> zodat ze naar jouw bestanden wijzen</li>
+        <li>Verander in dit bestand de <code>SSLCertificateFile</code> en <code>SSLCertificateKeyFile</code> zodat ze naar jouw certificaat en sleutel bestand wijzen</li>
         <li>Maak je wijzigingen actief door de configuratie opnieuw in te laden: <code class="terminal">sudo service apache2 reload</code></li>
       </ol>
 
       <p>Als je alles goed hebt gedaan is de site nu met SSL beveiligd! Controleer of je de site in de VM nu kan bereiken via https://www.security2.nl/ . Als je een groen slotje krijgt mag je de volgende vraag beantwoorden:</p>
 
       <div class="question">
-        <span class="question-string">Plak de inhoud van het .crt bestand dat je hebt gebruikt om de website te beveiligen. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
+        <span class="question-string">Plak de inhoud van het .crt bestand dat je hebt gebruikt om de website te beveiligen met een groen slotje. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
         <div class="points"><span class="question-points">15</span> punten</div>
         <textarea class="question-input" name="answer_openssl_ssl_cert">{{ answers.answer_openssl_ssl_cert }}</textarea>
       </div>
+
+      <div class="question">
+        <span class="question-string">Maak een screenshot van het groene slotje en de details van het certificaat en upload die naar <a href="http://imgur.com">imgur</a>. Plak de URL naar die screenshot als antwoord.</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_openssl_screenshot" type="url" value="{{ answers.answer_openssl_screenshot }}">
+      </div>
+
+      <img src="/static/img/slotje_certificaat_vm.png" class="center-block screenshot" style="width: 60%" >
+
+      <p>Tip: Heb je zelf een website die je wil beveiligen? <a href="http://startssl.com/">Start SSL</a> is één van de weinige bedrijven die gratis certificaten ondertekenen. Later dit jaar kan het ook via <a href="http://letsencrypt.org/" target="_blank">Let's Encrypt</a></p>
 
       <h2>Zelf verstrekken</h2>
 
       <blockquote>Sometimes, the only one you can trust is yourself.</blockquote>
 
-      <p>Om zelf verstrekker te spelen heb je helemaal geen speciale certificaten nodig. Je kan namelijk gewoon je eigen certificaat en sleutel gebruiken om andere certificaten te ondertekenen. Vraag een medestudent om een Certificate Signing Request van zijn certificaat te geven en onderteken dat met je eigen certificaat. Zoek op internet het commando op waarmee je dat kan doen.</p>
+      <p>Om zelf verstrekker te spelen heb je helemaal geen speciale certificaten nodig. Je kan namelijk gewoon je eigen certificaat en sleutel gebruiken die je aan het begin van de les hebt gemaakt. Vraag een medestudent om een Certificate Signing Request van zijn certificaat te geven en onderteken dat met je eigen certificaat. Zoek op internet het commando op waarmee je dat kan doen.</p>
 
       <div class="question">
-        <span class="question-string">Plak de inhoud van een certificaat waar je zelf verstrekker van het certificaat van een medestudent. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
+        <span class="question-string">Plak de inhoud van het certificaat van een medestudent, waar je zelf verstrekker van bent. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
         <div class="points"><span class="question-points">10</span> punten</div>
         <textarea class="question-input" name="answer_openssl_ssl_cert">{{ answers.answer_openssl_ssl_cert }}</textarea>
       </div>
+
+      <p>Tip: zorg ervoor dat jouw certificaat standaard wordt geinstalleerd op alle besturingsystemen. Dan kan je goud geld verdienen met het ondertekenen van andere certificaten ;)</p>
 
 {% endblock %}
