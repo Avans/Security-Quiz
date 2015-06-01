@@ -30,7 +30,7 @@
       <div class="question">
         <span class="question-string">Kopieer/plak de inhoud van certificaat.crt (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
         <div class="points"><span class="question-points">10</span> punten</div>
-        <textarea class="question-input" name="answer_openssl_selfsigned_certificate">{{ answers.answer_openssl_selfsigned_certificate }}</textarea>
+        <textarea class="question-input" name="answer_openssl_selfsigned_certificate">{{ answers.answer_openssl_selfsigned_certificate.string }}</textarea>
       </div>
 
       <p>Een certificaat heeft ook altijd een <em>verstrekker</em> (issuer). Dit is de persoon of bedrijf die het certificaat heeft gemaakt en daarmee garant staat dat de identiteit die op het certificaat staat ook klopt. In jouw certificaat staat dat je over jezelf hebt gezegd dat je bent wie je zegt dat je bent. Niet echt betrouwbare informatie dus... Iedereen zou precies datzelfde certificaat kunnen maken.</p>
@@ -46,13 +46,13 @@
       <div class="question">
         <span class="question-string">Hoeveel basis verstrekkers vertrouwt jouw systeem? (je mag ook ongeveer een antwoord geven als het lastig tellen is)</span>
         <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_openssl_number_of_issuers" value="{{ answers.answer_openssl_number_of_issuers }}">
+        <input class="question-input" name="answer_openssl_number_of_issuers" value="{{ answers.answer_openssl_number_of_issuers.string }}">
       </div>
 
       <div class="question">
         <span class="question-string">Bekijk het certificaat van <a href="https://facebook.com/">Facebook</a>, welk bedrijf heeft dit certificaat verstrekt?</span>
         <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_openssl_facebook_issuer" value="{{ answers.answer_openssl_facebook_issuer }}">
+        <input class="question-input" name="answer_openssl_facebook_issuer" value="{{ answers.answer_openssl_facebook_issuer.string }}">
       </div>
 
       <p class="hint">Hint: Het certificaat kan je in alle browsers bekijken door op het slot-ikoontje te klikken</p>
@@ -74,13 +74,13 @@
       <div class="question">
         <span class="question-string">Bekijk het certificaat wat je hebt teruggekregen. Welke persoon heeft dit certificaat aan jou verstrekt?</span>
         <div class="points"><span class="question-points">5</span> punten</div>
-        <input class="question-input" name="answer_openssl_site_issuer" value="{{ answers.answer_openssl_site_issuer }}">
+        <input class="question-input" name="answer_openssl_site_issuer" value="{{ answers.answer_openssl_site_issuer.string }}">
       </div>
 
       <div class="question">
         <span class="question-string">Plak jouw ondertekende certificaat in onderstaand tekstveld (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
         <div class="points"><span class="question-points">10</span> punten</div>
-        <textarea class="question-input" name="answer_openssl_signed_cert">{{ answers.answer_openssl_signed_cert }}</textarea>
+        <textarea class="question-input" name="answer_openssl_signed_cert">{{ answers.answer_openssl_signed_cert.string }}</textarea>
       </div>
 
       <h2>Websites beveiligen</h2>
@@ -116,13 +116,13 @@ sudo a2ensite default-ssl</code>
       <div class="question">
         <span class="question-string">Plak de inhoud van het .crt bestand dat je hebt gebruikt om de website te beveiligen met een groen slotje. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
         <div class="points"><span class="question-points">15</span> punten</div>
-        <textarea class="question-input" name="answer_openssl_ssl_cert">{{ answers.answer_openssl_ssl_cert }}</textarea>
+        <textarea class="question-input" name="answer_openssl_ssl_cert">{{ answers.answer_openssl_ssl_cert.string }}</textarea>
       </div>
 
       <div class="question">
         <span class="question-string">Maak een screenshot van het groene slotje en de details van het certificaat en upload die naar <a href="http://imgur.com">imgur</a>. Plak de URL naar die screenshot als antwoord.</span>
         <div class="points"><span class="question-points">10</span> punten</div>
-        <input class="question-input" name="answer_openssl_screenshot" type="url" value="{{ answers.answer_openssl_screenshot }}">
+        <input class="question-input" name="answer_openssl_screenshot" type="url" value="{{ answers.answer_openssl_screenshot.string }}">
       </div>
 
       <img src="/static/img/slotje_certificaat_vm.png" class="center-block screenshot" style="width: 60%" >
@@ -138,7 +138,7 @@ sudo a2ensite default-ssl</code>
       <div class="question">
         <span class="question-string">Plak de inhoud van het certificaat van een medestudent, waar je zelf verstrekker van bent. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
         <div class="points"><span class="question-points">10</span> punten</div>
-        <textarea class="question-input" name="answer_openssl_ssl_cert">{{ answers.answer_openssl_ssl_cert }}</textarea>
+        <textarea class="question-input" name="answer_openssl_ssl_cert">{{ answers.answer_openssl_ssl_cert.string }}</textarea>
       </div>
 
       <p>Tip: zorg ervoor dat jouw certificaat standaard wordt geinstalleerd op alle besturingsystemen. Dan kan je goud geld verdienen met het ondertekenen van andere certificaten ;)</p>
