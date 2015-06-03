@@ -94,13 +94,14 @@
       <ul>
         <li>Er is een default Apache installatie aanwezig.</li>
         <li>www.security2.nl wijst naar de geïnstalleerde Apache op localhost.</li>
-        <li>We hebben <a href="/sign">deze verstrekker</a> als vertrouwd toegevoegd aan het systeem</li>
+        <li>We hebben <a href="/sign">deze verstrekker</a> als vertrouwd toegevoegd aan het systeem (dit kan je terugvinden als je in je browser gaat kijken naar alle certificaten die zijn geïnstalleerd)</li>
       </ul>
 
       <p>Controleer eerst of de site http://www.security2.nl in jouw VM te bereiken is, en via http<b>s</b>://www.security2.nl/ nog niet te bereiken is. Je gaat de site in de volgende opgaven beveiligen met SSL, om dat te doen moeten we eerst SSL aanzetten in Apache met de volgende commando's:</p>
 
       <code class="terminal">sudo a2enmod ssl<br>
-sudo a2ensite default-ssl</code>
+sudo a2ensite default-ssl<br>
+sudo service apache2 reload</code>
 
       <p class="hint">Hint: Commando's vul je in in het programma 'Terminal'</p>
 
@@ -115,7 +116,7 @@ sudo a2ensite default-ssl</code>
         <li>Maak je wijzigingen actief door de configuratie opnieuw in te laden: <code class="terminal">sudo service apache2 reload</code></li>
       </ol>
 
-      <p>Als je alles goed hebt gedaan is de site nu met SSL beveiligd! Controleer of je de site in de VM nu kan bereiken via https://www.security2.nl/ . Als je een groen slotje krijgt mag je de volgende vraag beantwoorden:</p>
+      <p>Als je alles goed hebt gedaan is de site nu met SSL beveiligd! Controleer of je de site in de VM nu kan bereiken via https://www.security2.nl/ (Alleen Chrome werkt, certificaat is niet aan Firefox toegevoegd). Als je een groen slotje krijgt mag je de volgende vraag beantwoorden:</p>
 
       <div class="question">
         <span class="question-string">Plak de inhoud van het .crt bestand dat je hebt gebruikt om de website te beveiligen met een groen slotje. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
