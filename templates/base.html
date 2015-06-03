@@ -3,6 +3,7 @@
   <head>
     <title>Security 1</title>
     <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="/static/js/jquery-2.1.0.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery.base64.min.js"></script>
@@ -13,7 +14,7 @@
       {% csrf_token %}
 
       <div class="row-fluid">
-        <div class="well span3" style="position: fixed">
+        <div class="well span3" id="menu">
           <p>Ingelogd als <strong>{{ user }}</strong>.</p>
 
           <h5>Security 1</h5>
