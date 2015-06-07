@@ -116,6 +116,8 @@ def home(request, url):
         template = 'wachtwoorden.html'
     elif url == 'certificaten':
         template = 'certificaten.html'
+    elif url == 'encryptie':
+        template = 'encryptie.html'
     elif url == 'bonus':
         template = 'bonus.html'
     elif url == 'oauth':

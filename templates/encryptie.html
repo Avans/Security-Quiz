@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+      <h1>Encryptie &amp; Signen</h1>
+
+      <p>Deze week gaan we nog een laagje dieper en kijken naar (a)symmetrische encryptie, sleutels, signen en PGP.</p>
+
+      <h2>Symmetrische encryptie</h2>
+
+      <p>Dat encryptie betekent dat je bestandjes of tekst versleuteld wist je waarschijnlijk al, maar wist je ook dat er twee soorten encryptie zijn? Symmetrische en assymetrische encryptie zijn verschillende technieken die je beide in tandem kan gebruiken om je bestanden, berichten en verbindingen te beveiligen.</p>
+
+      <p>Stel, Alice wil een geheim bericht versturen naar Bob. Alice kan het bericht geheim maken door het door een encryptiealgoritme te halen. Dit neemt het bericht van Alice en een geheime sleutel als input. De sleutel is in dit geval een random string die alleen Alice weet. Het algoritme encrypt het bericht naar een gecodeerde versie. Zonder de sleutel te hebben is het onmogelijk om terug te rekenen wat het originele bericht was. Alice stuurt met een gerust hart dit gecodeerde bericht via internet delen, zonder bang te zijn dat iemand het kan lezen.</p>
+
+      <img src="static/img/sym_encryptie.png">
+
+      <p>Alice wil het bericht aan Bob sturen, om ervoor te zorgen dat Bob het bericht kan ontcijferen heeft Alice hem de geheime sleutel van tevoren gegeven. Bob kan het gecodeerde bericht samen met <b>dezelfde</b> geheime sleutel die Alice heeft gebruikt door het bijbehorende decryptie algoritme halen om de originele data weer terug te krijgen.</p>
+
+      <p>Bob kan op dezelfde manier ook berichten naar Alice sturen die Alice weer kan ontcijferen. Zolang de sleutel geheim blijft kunnen Alice en Bob veilig met elkaar communiceren.</p>
+
+      <img src="static/img/sym_decryptie.png">
+<!--
+      Opdrachten:
+
+      == Asymmetrische encryptie ==
+
+      - GPG public key inleveren, verstuur naar sec1.aii.avans.nl keyserver
+      - Ontsleutel deze ciphertekst met onze public key
+      - Versleutel deze tekst met onze public key
+
+
+      - Verstuur een PGP email?
+      - Sign sleutel van iemand anders, en verstuur dat naar de keyserver
+
+
+      - Maak miniwebapplicatie, zorg ervoor dat je zelf niet kan ontsleutelen alleen met die van gebruiker
+      - Host de site ergens, leg kort uit welke technieken je hebt gebruikt
+-->
+
+      <p>We kunnen met OpenSSL (zie vorige week als je dat nog niet hebt geinstalleerd) ook encrypten en decrypten met verschillende soorten encryptie algoritmes. Met onderstaande commando kunnen we bijvoorbeeld een bestand ontsleutelen.</p>
+
+      <code class="terminal">openssl enc -aes-256-cbc -base64 -d -in geheim.aes256 -out nietmeergeheim.txt</code>
+
+      <p>Een hele mond vol, laten we eens kijken wat alle argumenten betekenen:</p>
+
+      <ul>
+        <li><span class="argument">openssl</span> Het programma zelf</li>
+        <li><span class="argument">enc</span> Een command van OpenSSL waarmee we aangeven dat we data willen versleutelen of ontsleutelen</li>
+        <li><span class="argument">-aes-256-cbc</span> Het encryptie algoritme wat we gebruiken.
+          <ul>
+            <li><b>aes</b> staat voor <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Advanced Encryption Standard</a>, een veel gebruikt algoritme.</li>
+            <li><b>256</b> is het aantal bits van de sleutel. OpenSSL vult je wachtwoord aan tot deze hoeveelheid bits.</li>
+            <li><b>cbc</b> staat voor <a href="https://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Cipher-block_chaining_.28CBC.29.">Cipher-block chaining</a>. Een techniek om het lastiger te maken informatie af te leiden uit de versleutelde data.</li>
+          </ul>
+        </li>
+        <li><span class="argument">-base64</span> lees en schrijf de versleutelde data als <a href="http://en.wikipedia.org/wiki/Base64">base64</a>. Dit maakt bestandjes groter, maar de data ook makkelijker te knippen/plakken in mailtjes of invoervelden op websites.</li>
+        <li><span class="argument">-d</span> decryptie modus. Met dit argument geef je aan dat de invoer de versleutelde data is en de uitvoer de oorspronkelijke data moet zijn.
+            Als je deze optie niet mee geeft zit je in encryptie modus, de invoer is dan de oorspronkelijke data en de uitvoer wordt dan de versleutelde data</li>
+        <li><span class="argument">-in geheim.txt</span> het invoerbestand</li>
+        <li><span class="argument">-out decrypted.txt</span> het uitvoerbestand</li>
+      </ul>
+
+      <img src="/static/img/encryptie.jpg" class="center-block" style="margin-top: 1em; margin-bottom: 1em">
+
+      <p>Een systeembeheerder heeft een geheim staan in dit <a href="/static/geheim.aes256">bestandje</a> wat hij met aes-256-cbc heeft versleuteld. Helaas voor hem heeft hij een niet zo hele sterke sleutel gekozen: <code>Ab12345</code>. Gebruik OpenSSL om dit bestandje te ontsleutelen.</p>
+
+      <div class="question">
+        <span class="question-string">Wat is de geheime code die in dit versleutelde bestandje staat?</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <input class="question-input" name="answer_encryption_decrypt" value="{{ answers.answer_encryption_decrypt }}"></input>
+      </div>
+
+      <div class="question">
+        <span class="question-string">Versleutel de tekst "<em>Avans Hogeschool</em>" met het aes-256-cbc algoritme in base64 mode. Plak de versleutelde tekst in het tekstveld, gebruik <code>Ab12345</code> als wachtwoord.</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_encryption_encrypt">{{ answers.answer_encryption_encrypt }}</textarea>
+      </div>
+
+      <p class="hint">Hint: Je kan dit commando gebruiken: <code class="terminal">openssl enc -aes-256-cbc -base64 -in avans.txt -out avansgeheim.aes256.txt</code></p>
+
+      <h2>Asymmetrische encryptie</h2>
+
+      <p>Bij symmetrische encryptie gebruiken Alice en Bob allebei dezelfde sleutel om het bestand te versleutelen en te ontsleutelen. Maar hun communicatie is alleen veilig als ze de sleutel in het geheim afspreken en zolang ze de sleutel geheim houden. Dit probleem is opgelost bij asymmetrische encryptie algoritmes, waarbij je twee sleutels gebruikt. Eén publieke en één privé sleutel.</p>
+
+      <p>Bij een asymmetrisch encryptiealgoritme kan je niet zelf een random sleutel kiezen, deze moet je genereren met een speciaal key-generation algoritme. Deze geeft random twee sleutels terug die een opmerkelijke relatie met elkaar hebben. Om ze uit elkaar te halen noemen we ze hier de groene en de rode sleutel, maar het maakt in de praktijk niet uit welke sleutel welke is.</p>
+
+      <img src="static/img/sleutels_genereren.png">
+
+      <p>Om een bestandje te versleutelen nemen we bijvoorbeeld de groene sleutel en encrypten het met het algoritme. Maar we kunnen het bestand nu niet meer ontsleutelen met de groene sleutel. <b>Met alleen de bijbehorende rode sleutel kan je nu het bestand ontsleutelen</b>. Andersom werkt ook, bestanden die je met de rode sleutel versleuteld, zijn enkel en alleen met de groene sleutel te ontsleutelen.</p>
+
+      <img src="static/img/asym_encryptie.png">
+
+      <p>Dit lijkt allemaal wat omslachtig en onhandig, en asymmetrische encryptie is ook nog eens honderden keren langzamer dan symmetrische encryptie. Waarom zouden we dit gebruiken?</p>
+
+      <p>Asymmetrische encryptie vormt de basis van het public-private key systeem. Nadat we een sleutel-paartje hebben gegenereerd geven we één sleutel weg aan alles en iedereen, dat is de publieke sleutel die iedereen kan gebruiken. De andere bijbehorende sleutel bewaren we op de geheimste plek die je maar kan bedenken en geef je onder geen enkele omstandigheid aan iemand anders.</p>
+
+      <img src="static/img/publicprivatekey.png">
+
+      <p>Als Alice nu een geheim bericht aan Bob wil versturen kan ze dit versleutelen door gebruik te maken van Bob's publieke sleutel. Het versleutelde bericht is enkel en alleen te ontsleutelen met Bob's bijbehorende private sleutel. Alice weet dus zeker dat alleen Bob het kan lezen.</p>
+
+      <img src="static/img/asym_alicebob.png">
+
+      <p>Als Alice het bericht met haar private key zou versleutelen ontstaat er een andere interessante eigenschap: Iedereen kan het bericht ontsleutelen, dat is te doen met de bijbehorende publieke sleutel. Maar je weet dan wel zeker dat het bericht van Alice afkomstig is, want alleen zij heeft de private sleutel waarmee het bericht in de eerste plaats versleuteld is.
+
+
+      <div class="question">
+        <span class="question-string">Hoe kan Alice een bericht naar Bob versturen zodat:
+        <ol>
+         <li>Alleen Bob het bericht kan lezen</li>
+         <li>Bob zeker weet dat het bericht van Alice is</li>
+         <li>Niemand het bericht kan onderscheppen en lezen</li>
+        </ol>
+        Leg uit in welke volgorde Alice en Bob encrypten, decrypten en versturen en met welke sleutels. Je mag er van uit gaan dat ze (alleen) elkaars publieke sleutel weten.
+        </span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_encryption_securesend">{{ answers.answer_encryption_securesend }}</textarea>
+      </div>
+
+      <img src="static/img/bleep.png">
+
+      <p>Deze screenshot hebben we op internet gevonden van een app die beweert dat alle chatberichten 100% geheim blijven en dat het bedrijf zelf niet de berichten kan lezen.</p>
+
+      <div class="question">
+        <span class="question-string">Leg kort uit hoe de app deze claim kan waarmaken, waarom daar de QR code voor nodig is en hoe beveiligde berichten waarschijnlijk verstuurd worden.</span>
+        <div class="points"><span class="question-points">10</span> punten</div>
+        <textarea class="question-input" name="answer_encryption_bleem">{{ answers.answer_encryption_bleem }}</textarea>
+      </div>
+
+
+      <h2>GPG</h2>
+
+      <p>Genoeg theorie, we gaan aan de slag met concrete encryptiealgoritmes. En wel met de <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy#OpenPGP">OpenPGP</a> (Pretty Good Privacy) standaard. Een veel gebruikt open source programma die deze standaard is <a href="http://en.wikipedia.org/wiki/GNU_Privacy_Guard">GPG</a> (GNU Privacy Guard). Met dit programma kunnen we sleutelparen maken, bestanden encrypten/decrypten en versleutelde berichten versturen.</p>
+
+      <p>Om het makkelijker te maken om publieke sleutels uit te wisselen kan GPG gebruik maken van een <b>keyserver</b>. Dit is een speciale server die een lijst van publieke sleutels bijhoud. Voor onderstaande opdrachten hebben we onze eigen keyserver ingericht op sec1.aii.avans.nl. <b>Deze werkt niet als je de opdrachten thuis maakt</b>. De Avans firewall blokkeert poort 11371 waarop deze server werkt. Als je thuis de opdrachten wil maken kan je het beste <a href="https://vmview-1.aii.avans.nl/">inloggen</a> op een PANO-box VM. Daar werkt het wel.</p>
+
+      <p>GPG kan je <a href="http://www.gpg4win.org/">hier</a> voor Windows downloaden, na het installeren kan je in je CMD alle commando's typen. Als je Linux of Mac OS X gebruikt hoef je niks te doen, GPG is standaard geïnstalleerd.</p>
+
+      <img src="static/img/gpg.png">
+
+      <code class="terminal">gpg --help</code>
+
+      <p>Met bovenstaande commando zie je alle dingen die je met GPG kan doen. We gaan niet meer alle commando's voorkauwen, je bent inmiddels handig genoeg om die zelf te bedenken. Een paar handige opties om te onthouden:</p>
+
+      <ul>
+        <li><b>--gen-key</b> Maak een nieuw publiek/private sleutelpaar.</li>
+        <li><b>--list-keys</b> Bekijk alle sleutels die je lokaal hebt.</li>
+        <li><b>--sign</b> Gebruik je eigen private sleutel gebruiken om een bestand te encrypten.</li>
+        <li><b>--encrypt</b> Gebruik iemand anders publieke sleutel om een bestand te encrypten.</li>
+        <li><b>--recv-keys --keyserver sec1.aii.avans.nl <i>sleutel-ID</i></b> Haal een publieke sleutel op van de onze keyserver</li>
+        <li><b>--send-keys --keyserver sec1.aii.avans.nl <i>sleutel-ID</i></b> Verstuur een publieke sleutel naar onze keyserver</li>
+        <li><b>-a</b> Output in ASCII base64 formaat</li>
+      <p>
+
+      <p>Haal van de keyserver onze publieke sleutel op met sleutel-ID <b>FA9E1C5A</b>. We hebben met onze private sleutel een tekst versleuteld in <a href="static/secret.txt.asc">dit bestand</a>. Gebruik de publieke sleutel om dit bestand te ontsleutelen.</p>
+
+      <div class="question">
+        <span class="question-string">Welke zin hebben we versleuteld?</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <input class="question-input" name="answer_encryption_decrypt_public_key" value="{{ answers.answer_encryption_decrypt_public_key }}">
+      </div>
+
+      <p>Gebruik onze publieke sleutel om zelf een tekstbestandje te versleutelen. Zorg ervoor dat ergens in de tekst van dit bestandje de geheime code "555-0690" en je Avans e-mailadres staat.</p>
+
+      <div class="question">
+        <span class="question-string">Plak de inhoud van het versleutelde bestand (inclusief begin en einde <code>-----BEGIN PGP MESSAGE-----</code>)</span>
+        <div class="points"><span class="question-points">5</span> punten</div>
+        <textarea class="question-input" name="answer_encryption_encrypt_public_key">{{ answers.answer_encryption_decrypt_public_key }}</textarea>
+      </div>
+
+
+
+
+      <p>Tijd om je zelf wat te encrypten! Maak je eigen publieke/private sleutelpaar en verstuur de publieke sleutel naar de sec1.aii.avans.nl keyserver. <b>Gebruik je Avans e-mailadres</b>.</p>
+
+
+
+
+
+
+
+      <p>
+{% endblock %}
