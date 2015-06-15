@@ -7,7 +7,7 @@
       <p>Deze week gaan we aan de slag met certificaten. De tool die we daarvoor gaan gebruiken is OpenSSL.
           Dit is een veelgebruikt programma waar je vele cryptografische dingen mee kunt doen.</p>
 
-      <p>Op Linux en Mac OS X is deze tool al geïnstalleerd, Windows gebruikers moeten deze nog installeren. Als je <a href="http://google.nl/?q=openssl+windows+install" target="_blank">zoekt op het internet</a> vindt je verschillende mogelijkheden om dat te doen. Bijvoorbeeld de v.1.0.2a Light versie op <a href="http://slproweb.com/products/Win32OpenSSL.html">deze website</a>. Let op dat je dan op de Windows command line het hele pad moet gebruiken in plaats van alleen 'openssl'. Bijvoorbeeld: <span class="argument">C:\OpenSSL-Win32\bin\openssl.exe</span></p>
+      <p>Op Linux en Mac OS X is deze tool al geïnstalleerd, Windows gebruikers moeten deze nog installeren. Als je <a href="http://google.nl/?q=openssl+windows+install" target="_blank">zoekt op het internet</a> vindt je verschillende mogelijkheden om dat te doen. Bijvoorbeeld de v.1.0.2a Light versie op <a href="http://slproweb.com/products/Win32OpenSSL.html" target="_blank">deze website</a>. Let op dat je dan op de Windows command line het hele pad moet gebruiken in plaats van alleen 'openssl'. Bijvoorbeeld: <span class="argument">C:\OpenSSL-Win32\bin\openssl.exe</span></p>
 
       <p>Als je bij het gebruik van OpenSSL errors krijgt, probeer dan eerst je command prompt als Administrator te openen. En als dat ook niet werkt om het volgende commando uit te voeren:</p>
 
@@ -54,7 +54,7 @@
       </div>
 
       <div class="question">
-        <span class="question-string">Bekijk het certificaat van <a href="https://facebook.com/">Facebook</a>, welk bedrijf heeft dit certificaat verstrekt?</span>
+        <span class="question-string">Bekijk het certificaat van <a href="https://facebook.com/" target="_blank">Facebook</a>, welk bedrijf heeft dit certificaat verstrekt?</span>
         <div class="points"><span class="question-points">5</span> punten</div>
         <input class="question-input" name="answer_openssl_facebook_issuer" value="{{ answers.answer_openssl_facebook_issuer.string }}">
       </div>
@@ -73,7 +73,7 @@
 
       <p>Zo'n verzoekje kan je vervolgens bij een certificaat autoriteit zoals Thawte of VeriSign inleveren. Voor een paar honderd euro zijn ze dan bereid om hun handtekening eronder te zetten.</p>
 
-      <p>Om deze les relatief goedkoop te houden heeft deze site ook een certificaat autoriteit waar je certificaten kan laten ondertekenen: <a href="/sign">Certificaat Autoriteit</a>. Gebruik deze site om jouw certificaat te laten ondertekenen</p>
+      <p>Om deze les relatief goedkoop te houden heeft deze site ook een certificaat autoriteit waar je certificaten kan laten ondertekenen: <a href="/sign" target="signen">Certificaat Autoriteit</a>. Gebruik deze site om jouw certificaat te laten ondertekenen</p>
 
       <div class="question">
         <span class="question-string">Bekijk het certificaat wat je hebt teruggekregen. Welke persoon heeft dit certificaat aan jou verstrekt?</span>
@@ -94,7 +94,7 @@
       <ul>
         <li>Er is een default Apache installatie aanwezig.</li>
         <li>www.security2.nl wijst naar de geïnstalleerde Apache op localhost.</li>
-        <li>We hebben <a href="/sign">deze verstrekker</a> als vertrouwd toegevoegd aan het systeem (dit kan je terugvinden als je in je browser gaat kijken naar alle certificaten die zijn geïnstalleerd)</li>
+        <li>We hebben <a href="/sign" target="signen">deze verstrekker</a> als vertrouwd toegevoegd aan het systeem (dit kan je terugvinden als je in je browser gaat kijken naar alle certificaten die zijn geïnstalleerd)</li>
       </ul>
 
       <p>Controleer eerst of de site http://www.security2.nl in jouw VM te bereiken is, en via http<b>s</b>://www.security2.nl/ nog niet te bereiken is. Je gaat de site in de volgende opgaven beveiligen met SSL, om dat te doen moeten we eerst SSL aanzetten in Apache met de volgende commando's:</p>
@@ -109,7 +109,7 @@ sudo service apache2 reload</code>
 
       <ol>
         <li>Maak een geheel nieuwe certificaat/sleutel combo aan met het commando bovenaan de pagina. Je mag alles invullen zoals je wil, behalve de Common Name / Server FQDN. Die moet <code>www.security2.nl</code> zijn.</li>
-        <li>Laat het certificaat <a href="/sign">hier</a> weer ondertekenen</li>
+        <li>Laat het certificaat <a href="/sign" target="signen">hier</a> weer ondertekenen</li>
         <li>Kopieer het sleutel bestand en het ondertekende certificaat naar de VM</li>
         <li>Voer het volgende commando uit: <code class="terminal">sudo gedit /etc/apache2/sites-available/default-ssl.conf</code> om de standaard SSL configuratie aan te passen.</li>
         <li>Verander in dit bestand de <code>SSLCertificateFile</code> en <code>SSLCertificateKeyFile</code> zodat ze naar jouw certificaat en sleutel bestand wijzen</li>
@@ -125,14 +125,14 @@ sudo service apache2 reload</code>
       </div>
 
       <div class="question">
-        <span class="question-string">Maak een screenshot van het groene slotje en de details van het certificaat en upload die naar <a href="http://imgur.com">imgur</a>. Plak de URL naar die screenshot als antwoord.</span>
+        <span class="question-string">Maak een screenshot van het groene slotje en de details van het certificaat en upload die naar <a href="http://imgur.com" target="_blank">imgur</a>. Plak de URL naar die screenshot als antwoord.</span>
         <div class="points"><span class="question-points">10</span> punten</div>
         <input class="question-input" name="answer_openssl_screenshot" type="url" value="{{ answers.answer_openssl_screenshot.string }}">
       </div>
 
       <img src="/static/img/slotje_certificaat_vm.png" class="center-block screenshot" style="width: 60%" >
 
-      <p>Tip: Heb je zelf een website die je wil beveiligen? <a href="http://startssl.com/">Start SSL</a> is één van de weinige bedrijven die gratis certificaten ondertekenen. Later dit jaar kan het ook via <a href="http://letsencrypt.org/" target="_blank">Let's Encrypt</a></p>
+      <p>Tip: Heb je zelf een website die je wil beveiligen? <a href="http://startssl.com/" target="_blank">Start SSL</a> is één van de weinige bedrijven die gratis certificaten ondertekenen. Medio 2015 kan het ook via <a href="http://letsencrypt.org/" target="_blank">Let's Encrypt</a></p>
 
       <h2>Zelf verstrekken</h2>
 
