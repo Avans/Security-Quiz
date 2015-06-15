@@ -31,12 +31,12 @@
         <li><span class="argument">enc</span> Een command van OpenSSL waarmee we aangeven dat we data willen versleutelen of ontsleutelen</li>
         <li><span class="argument">-aes-256-cbc</span> Het encryptie algoritme wat we gebruiken.
           <ul>
-            <li><b>aes</b> staat voor <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Advanced Encryption Standard</a>, een veel gebruikt algoritme.</li>
+            <li><b>aes</b> staat voor <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank">Advanced Encryption Standard</a>, een veel gebruikt algoritme.</li>
             <li><b>256</b> is het aantal bits van de sleutel. OpenSSL vult je wachtwoord aan tot deze hoeveelheid bits.</li>
-            <li><b>cbc</b> staat voor <a href="https://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Cipher-block_chaining_.28CBC.29.">Cipher-block chaining</a>. Een techniek om het lastiger te maken informatie af te leiden uit de versleutelde data.</li>
+            <li><b>cbc</b> staat voor <a href="https://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Cipher-block_chaining_.28CBC.29." target="_blank">Cipher-block chaining</a>. Een techniek om het lastiger te maken informatie af te leiden uit de versleutelde data.</li>
           </ul>
         </li>
-        <li><span class="argument">-base64</span> lees en schrijf de versleutelde data als <a href="http://en.wikipedia.org/wiki/Base64">base64</a>. Dit maakt bestandjes groter, maar de data ook makkelijker te knippen/plakken in mailtjes of invoervelden op websites.</li>
+        <li><span class="argument">-base64</span> lees en schrijf de versleutelde data als <a href="http://en.wikipedia.org/wiki/Base64" target="_blank">base64</a>. Dit maakt bestandjes groter, maar de data ook makkelijker te knippen/plakken in mailtjes of invoervelden op websites.</li>
         <li><span class="argument">-d</span> decryptie modus. Met dit argument geef je aan dat de invoer de versleutelde data is en de uitvoer de oorspronkelijke data moet zijn.
             Als je deze optie niet mee geeft zit je in encryptie modus, de invoer is dan de oorspronkelijke data en de uitvoer wordt dan de versleutelde data</li>
         <li><span class="argument">-in geheim.txt</span> het invoerbestand</li>
@@ -45,7 +45,7 @@
 
       <img src="/static/img/encryptie.jpg" class="center-block" style="margin-top: 1em; margin-bottom: 1em">
 
-      <p>Een systeembeheerder heeft een geheim staan in dit <a href="/static/geheim.aes256">bestandje</a> wat hij met aes-256-cbc heeft versleuteld. Helaas voor hem heeft hij een niet zo hele sterke sleutel gekozen: <code>Ab12345</code>. Gebruik OpenSSL om dit bestandje te ontsleutelen.</p>
+      <p>Een systeembeheerder heeft een geheim staan in dit <a href="/static/geheim.aes256" target="_blank">bestandje</a> wat hij met aes-256-cbc heeft versleuteld. Helaas voor hem heeft hij een niet zo hele sterke sleutel gekozen: <code>Ab12345</code>. Gebruik OpenSSL om dit bestandje te ontsleutelen.</p>
 
       <div class="question">
         <span class="question-string">Wat is de geheime code die in dit versleutelde bestandje staat?</span>
@@ -112,11 +112,11 @@
 
       <h2>GPG</h2>
 
-      <p>Genoeg theorie, we gaan aan de slag met concrete encryptiealgoritmes. En wel met de <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy#OpenPGP">OpenPGP</a> (Pretty Good Privacy) standaard. Een veel gebruikt open source programma die deze standaard is <a href="http://en.wikipedia.org/wiki/GNU_Privacy_Guard">GPG</a> (GNU Privacy Guard). Met dit programma kunnen we sleutelparen maken, bestanden encrypten/decrypten en versleutelde berichten versturen.</p>
+      <p>Genoeg theorie, we gaan aan de slag met concrete encryptiealgoritmes. En wel met de <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy#OpenPGP" target="_blank">OpenPGP</a> (Pretty Good Privacy) standaard. Een veel gebruikt open source programma die deze standaard is <a href="http://en.wikipedia.org/wiki/GNU_Privacy_Guard" target="_blank">GPG</a> (GNU Privacy Guard). Met dit programma kunnen we sleutelparen maken, bestanden encrypten/decrypten en versleutelde berichten versturen.</p>
 
-      <p>Om het makkelijker te maken om publieke sleutels uit te wisselen kan GPG gebruik maken van een <b>keyserver</b>. Dit is een speciale server die een lijst van publieke sleutels bijhoud. Voor onderstaande opdrachten hebben we onze eigen keyserver ingericht op sec1.aii.avans.nl. <b>Deze werkt niet als je de opdrachten thuis maakt</b>. De Avans firewall blokkeert poort 11371 waarop deze server werkt. Als je thuis de opdrachten wil maken kan je het beste <a href="https://vmview-1.aii.avans.nl/">inloggen</a> op een PANO-box VM. Daar werkt het wel.</p>
+      <p>Om het makkelijker te maken om publieke sleutels uit te wisselen kan GPG gebruik maken van een <b>keyserver</b>. Dit is een speciale server die een lijst van publieke sleutels bijhoud. Voor onderstaande opdrachten hebben we onze eigen keyserver ingericht op sec1.aii.avans.nl. <b>Deze werkt niet als je de opdrachten thuis maakt</b>. De Avans firewall blokkeert poort 11371 waarop deze server werkt. Als je thuis de opdrachten wilt maken kan je het beste <a href="https://vmview-1.aii.avans.nl/" target="_blank">inloggen</a> op een PANO-box VM. Daar werkt het wel.</p>
 
-      <p>GPG kan je <a href="http://www.gpg4win.org/">hier</a> voor Windows downloaden, na het installeren kan je in je CMD alle commando's typen. Als je Linux of Mac OS X gebruikt hoef je niks te doen, GPG is standaard geïnstalleerd.</p>
+      <p>GPG kan je <a href="http://www.gpg4win.org/" target="_blank">hier</a> voor Windows downloaden, na het installeren kan je in je CMD alle commando's typen. Als je Linux of Mac OS X gebruikt hoef je niks te doen, GPG is standaard geïnstalleerd.</p>
 
       <img src="static/img/gpg.png">
 
@@ -136,7 +136,7 @@
         <li><b>-a</b> Output in ASCII base64 formaat</li>
       <p>
 
-      <p>Haal van de keyserver onze publieke sleutel op met sleutel-ID <b>FA9E1C5A</b>. We hebben met onze private sleutel een tekst versleuteld in <a href="static/secret.txt.asc">dit bestand</a>. Gebruik de publieke sleutel om dit bestand te ontsleutelen.</p>
+      <p>Haal van de keyserver onze publieke sleutel op met sleutel-ID <b>FA9E1C5A</b>. We hebben met onze private sleutel een tekst versleuteld in <a href="static/secret.txt.asc" target="_blank">dit bestand</a>. Gebruik de publieke sleutel om dit bestand te ontsleutelen.</p>
 
       <div class="question">
         <span class="question-string">Welke zin hebben we versleuteld?</span>
@@ -166,7 +166,7 @@
 
       <p>Probleempje: elke mafketel kan sleutels aanmaken en daar elke naam bij zetten die hij maar wil. Hoe zorgen we ervoor dat de naam en e-mailadres die bij een sleutel staan ook echt klopt? Dit probleem heeft GPG opgelost door het mogelijk te maken om met jouw private sleutel een <b>handtekening</b> (signature) te maken voor een publieke sleutel van iemand anders. Je geeft daarmee aan dat je gecontroleerd hebt dat de naam die bij een sleutel staat klopt en dat je die persoon vertrouwd.</p>
 
-      <p>Op die manier ontstaat er een web van vertrouwensrelaties. En als jij Tony vertrouwd, en Tony vertrouwd Steve. Dan kan je indirect ervan uitgaan dat de naam van de sleutel van Steve klopt. Op die manier kan je indirect een hele hoop sleutels vertrouwen. Op onze keyserver zie je bijvoorbeeld<a href="http://sec1.aii.avans.nl:11371/pks/lookup?op=vindex&search=0XD555F2F5FA9E1C5A">wie er allemaal direct onze sleutel vertrouwd.</a></p>
+      <p>Op die manier ontstaat er een web van vertrouwensrelaties. En als jij Tony vertrouwd, en Tony vertrouwd Steve. Dan kan je indirect ervan uitgaan dat de naam van de sleutel van Steve klopt. Op die manier kan je indirect een hele hoop sleutels vertrouwen. Op onze keyserver zie je bijvoorbeeld <a href="http://sec1.aii.avans.nl:11371/pks/lookup?op=vindex&search=0XD555F2F5FA9E1C5A" target="_blank">wie er allemaal direct onze sleutel vertrouwd.</a></p>
 
       <img src="static/img/web_of_trust.gif">
 
@@ -178,9 +178,9 @@
         <input class="question-input" name="answer_encryption_sign_keys" value="{{ answers.answer_encryption_sign_keys.string }}">
       </div>
 
-      <p>Heb je de smaak te pakken? Dan kan je je eigen publieke sleutel ook doorsturen naar andere <a href="http://en.wikipedia.org/wiki/Key_server_%28cryptographic%29">keyservers</a> en laten ondertekenen bij hippe <a href="http://en.wikipedia.org/wiki/Key_signing_party">key signing parties</a>.</p>
+      <p>Heb je de smaak te pakken? Dan kan je je eigen publieke sleutel ook doorsturen naar andere <a href="http://en.wikipedia.org/wiki/Key_server_%28cryptographic%29" target="_blank">keyservers</a> en laten ondertekenen bij hippe <a href="http://en.wikipedia.org/wiki/Key_signing_party" target="_blank">key signing parties</a>.</p>
 
-      <a href="http://xkcd.com/364/"><img src="http://imgs.xkcd.com/comics/responsible_behavior.png"></a>
+      <a href="http://xkcd.com/364/" target="_blank"><img src="http://imgs.xkcd.com/comics/responsible_behavior.png"></a>
 
       <h3>Laatste opdracht</h3>
 
