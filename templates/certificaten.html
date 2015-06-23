@@ -33,7 +33,7 @@
 
       <div class="question">
         <span class="question-string">Kopieer/plak de inhoud van certificaat.crt (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
+        {% include "points.html" with points=answers.answer_openssl_selfsigned_certificate.points max="10" %}
         <textarea class="question-input" name="answer_openssl_selfsigned_certificate">{{ answers.answer_openssl_selfsigned_certificate.string }}</textarea>
       </div>
 
@@ -49,13 +49,13 @@
 
       <div class="question">
         <span class="question-string">Hoeveel basis verstrekkers vertrouwt jouw systeem? (je mag ook ongeveer een antwoord geven als het lastig tellen is)</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_openssl_number_of_issuers.points max="5" %}
         <input class="question-input" name="answer_openssl_number_of_issuers" value="{{ answers.answer_openssl_number_of_issuers.string }}">
       </div>
 
       <div class="question">
         <span class="question-string">Bekijk het certificaat van <a href="https://facebook.com/" target="_blank">Facebook</a>, welk bedrijf heeft dit certificaat verstrekt?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_openssl_facebook_issuer.points max="5" %}
         <input class="question-input" name="answer_openssl_facebook_issuer" value="{{ answers.answer_openssl_facebook_issuer.string }}">
       </div>
 
@@ -77,13 +77,13 @@
 
       <div class="question">
         <span class="question-string">Bekijk het certificaat wat je hebt teruggekregen. Welke persoon heeft dit certificaat aan jou verstrekt?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_openssl_site_issuer.points max="5" %}
         <input class="question-input" name="answer_openssl_site_issuer" value="{{ answers.answer_openssl_site_issuer.string }}">
       </div>
 
       <div class="question">
         <span class="question-string">Plak jouw ondertekende certificaat in onderstaand tekstveld (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
+        {% include "points.html" with points=answers.answer_openssl_signed_cert.points max="10" %}
         <textarea class="question-input" name="answer_openssl_signed_cert">{{ answers.answer_openssl_signed_cert.string }}</textarea>
       </div>
 
@@ -120,13 +120,13 @@ sudo service apache2 reload</code>
 
       <div class="question">
         <span class="question-string">Plak de inhoud van het .crt bestand dat je hebt gebruikt om de website te beveiligen met een groen slotje. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
-        <div class="points"><span class="question-points">15</span> punten</div>
+        {% include "points.html" with points=answers.answer_openssl_ssl_cert.points max="15" %}
         <textarea class="question-input" name="answer_openssl_ssl_cert">{{ answers.answer_openssl_ssl_cert.string }}</textarea>
       </div>
 
       <div class="question">
         <span class="question-string">Maak een screenshot van het groene slotje en de details van het certificaat en upload die naar <a href="http://imgur.com" target="_blank">imgur</a>. Plak de URL naar die screenshot als antwoord.</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
+        {% include "points.html" with points=answers.answer_openssl_screenshot.points max="10" %}
         <input class="question-input" name="answer_openssl_screenshot" type="url" value="{{ answers.answer_openssl_screenshot.string }}">
       </div>
 
@@ -142,7 +142,7 @@ sudo service apache2 reload</code>
 
       <div class="question">
         <span class="question-string">Plak de inhoud van het certificaat van een medestudent, waar je zelf verstrekker van bent. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
+        {% include "points.html" with points=answers.answer_openssl_sign_other.points max="10" %}
         <textarea class="question-input" name="answer_openssl_sign_other">{{ answers.answer_openssl_sign_other.string }}</textarea>
       </div>
 

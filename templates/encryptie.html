@@ -49,13 +49,13 @@
 
       <div class="question">
         <span class="question-string">Wat is de geheime code die in dit versleutelde bestandje staat?</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
+        {% include "points.html" with points=answers.answer_encryption_decrypt.points max="10" %}
         <input class="question-input" name="answer_encryption_decrypt" value="{{ answers.answer_encryption_decrypt.string }}"></input>
       </div>
 
       <div class="question">
         <span class="question-string">Versleutel de tekst "<em>Avans Hogeschool</em>" met het aes-256-cbc algoritme in base64 mode. Plak de versleutelde tekst in het tekstveld, gebruik <code>Ab12345</code> als wachtwoord.</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
+        {% include "points.html" with points=answers.answer_encryption_encrypt.points max="10" %}
         <textarea class="question-input" name="answer_encryption_encrypt">{{ answers.answer_encryption_encrypt.string }}</textarea>
       </div>
 
@@ -95,7 +95,7 @@
         </ol>
         Leg uit in welke volgorde Alice en Bob encrypten, decrypten en versturen en met welke sleutels. Je mag er van uit gaan dat ze (alleen) elkaars publieke sleutel weten.
         </span>
-        <div class="points"><span class="question-points">10</span> punten</div>
+        {% include "points.html" with points=answers.answer_encryption_securesend.points max="10" %}
         <textarea class="question-input" name="answer_encryption_securesend">{{ answers.answer_encryption_securesend.string }}</textarea>
       </div>
 
@@ -105,7 +105,7 @@
 
       <div class="question">
         <span class="question-string">Leg kort uit hoe de app deze claim kan waarmaken, waarom daar de QR code voor nodig is en hoe beveiligde berichten waarschijnlijk verstuurd worden (niet alleen maar: 'het wordt versleuteld').</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
+        {% include "points.html" with points=answers.answer_encryption_bleep.points max="10" %}
         <textarea class="question-input" name="answer_encryption_bleep">{{ answers.answer_encryption_bleep.string }}</textarea>
       </div>
 
@@ -140,7 +140,7 @@
 
       <div class="question">
         <span class="question-string">Welke zin hebben we versleuteld?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_encryption_decrypt_public_key.points max="5" %}
         <input class="question-input" name="answer_encryption_decrypt_public_key" value="{{ answers.answer_encryption_decrypt_public_key.string }}">
       </div>
 
@@ -148,7 +148,7 @@
 
       <div class="question">
         <span class="question-string">Plak de inhoud van het versleutelde bestand (inclusief begin en einde <code>-----BEGIN PGP MESSAGE-----</code>)</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_encryption_encrypt_public_key.points max="5" %}
         <textarea class="question-input" name="answer_encryption_encrypt_public_key">{{ answers.answer_encryption_encrypt_public_key.string }}</textarea>
       </div>
 
@@ -158,7 +158,7 @@
 
       <div class="question">
         <span class="question-string">Versleutel een bestandje met de tekst "Security 2" met je eigen private sleutel. Plak de versleutelde tekst in het tekstveld</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_encryption_encrypt_with_own_private.points max="5" %}
         <textarea class="question-input" name="answer_encryption_encrypt_with_own_private">{{ answers.answer_encryption_encrypt_with_own_private.string }}</textarea>
       </div>
 
@@ -174,7 +174,7 @@
 
       <div class="question">
         <span class="question-string">Gebruik je eigen sleutel om onze sleutel (sleutel-ID: FA9E1C5A) en de sleutel van drie medestudenten te ondertekenen. Upload je ondertekening terug naar de keyserver. Plak je eigen sleutel-ID als antwoord hier.</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_encryption_sign_keys.points max="5" %}
         <input class="question-input" name="answer_encryption_sign_keys" value="{{ answers.answer_encryption_sign_keys.string }}">
       </div>
 
@@ -198,7 +198,7 @@
 
       <div class="question">
         <span class="question-string">Plak hier de link naar je GitHub project</span>
-        <div class="points"><span class="question-points">25</span> punten</div>
+        {% include "points.html" with points=answers.answer_encryption_github_project.points max="25" %}
         <input type="url" class="question-input" name="answer_encryption_github_project" value="{{ answers.answer_encryption_github_project.string }}">
       </div>
 

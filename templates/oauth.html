@@ -74,7 +74,7 @@
 
       <div class="question">
         <span class="question-string">Wat is de client_id die je hebt geregistreerd?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_oauth_client_id.points max="5" %}
         <input class="question-input" name="answer_oauth_client_id" value="{{ answers.answer_oauth_client_id.string }}"></input>
       </div>
 
@@ -125,13 +125,13 @@
 
       <div class="question">
         <span class="question-string">Authoriseer met je eigen client id. Welke access token heb je gekregen?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_oauth_implicit_access_token.points max="5" %}
         <input class="question-input" name="answer_oauth_implicit_access_token" value="{{ answers.answer_oauth_implicit_access_token.string }}"></input>
       </div>
 
       <div class="question">
         <span class="question-string">Hoeveel seconden is deze token code geldig?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_oauth_implicit_access_token_expires.points max="5" %}
         <input class="question-input" name="answer_oauth_implicit_access_token_expires" value="{{ answers.answer_oauth_implicit_access_token_expires.string }}"></input>
       </div>
 
@@ -145,7 +145,7 @@
 
       <div class="question">
         <span class="question-string">Wat is de geheime code die gestuurd wordt als je de API aanroept?</span>
-        <div class="points"><span class="question-points">10</span> punten</div>
+        {% include "points.html" with points=answers.answer_oauth_api_hello.points max="10" %}
         <input class="question-input" name="answer_oauth_api_hello" value="{{ answers.answer_oauth_api_hello.string }}"></input>
       </div>
 
@@ -168,7 +168,7 @@
 
       <div class="question">
         <span class="question-string">Welke authorisatie code heb je gekregen?</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_oauth_authorization_code.points max="5" %}
         <input class="question-input" name="answer_oauth_authorization_code" value="{{ answers.answer_oauth_authorization_code.string }}"></input>
       </div>
 
@@ -191,7 +191,7 @@
 
       <div class="question">
         <span class="question-string">Copy paste de response die je hebt gekregen waar de refresh token in staat</span>
-        <div class="points"><span class="question-points">5</span> punten</div>
+        {% include "points.html" with points=answers.answer_oauth_refresh_token.points max="5" %}
         <textarea class="question-input" name="answer_oauth_refresh_token">{{ answers.answer_oauth_refresh_token.string }}</textarea>
       </div>
 
@@ -219,7 +219,7 @@
 
       <div class="question">
         <span class="question-string">Wat is de code die in de Geheime afspraak staat? </span>
-        <div class="points"><span class="question-points">10</span> punten</div>
+        {% include "points.html" with points=answers.answer_oauth_calendar_secret_code.points max="10" %}
         <input class="question-input" name="answer_oauth_calendar_secret_code" value="{{ answers.answer_oauth_calendar_secret_code.string }}"></input>
       </div>
 
@@ -232,7 +232,7 @@
 
       <div class="question">
         <span class="question-string">Beschrijf de HTTP requests die je hebt gemaakt om de token te krijgen en de API te gebruiken (en ook de uitkomst van die requests). Gevoelige data mag je met ***** censureren.</span>
-        <div class="points"><span class="question-points">15</span> punten</div>
+        {% include "points.html" with points=answers.answer_oauth_google_requests.points max="15" %}
         <textarea class="question-input" name="answer_oauth_google_requests" style="height: 200px">{{ answers.answer_oauth_google_requests.string }}</textarea>
       </div>
 
@@ -245,7 +245,7 @@
 
       <div class="question">
         <span class="question-string">Plak de broncode van je webapplicatie in het tekstvak</span>
-        <div class="points"><span class="question-points">20</span> punten</div>
+        {% include "points.html" with points=answers.answer_oauth_web_app.points max="20" %}
         <textarea class="question-input" name="answer_oauth_web_app" style="height: 200px">{{ answers.answer_oauth_web_app.string }}</textarea>
       </div>
 
