@@ -14,5 +14,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^save$', 'views.save'),
     url(r'^sign$', 'views.sign'),
+    url(r'^letsencrypt$', 'views.letsencrypt'),
+    url(r'^\.well-known/acme-challenge/(.+)', 'views.letsencrypt_challenge'),
     url(r'^(.*)$', 'views.home', name='home'),
 )

@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from quiz.models import Answer
+from quiz.models import Answer, LetsEncryptChallenge
 import oauth2 as oauth, cgi, json, base64, urlparse, subprocess
 from oauth2_provider.views.generic import ProtectedResourceView
 import securityquiz.secrets as secrets
@@ -131,6 +131,59 @@ def home(request, url):
 class SecurityApi(ProtectedResourceView):
     def get(self, request, *args, **kwargs):
         return HttpResponse("Geheime code: abguvatgbfrrurerzbirnybat")
+
+def letsencrypt(request):
+    template_vars = {}
+    if request.method == 'POST':
+        try:
+            challengeresponse = request.POST['challenge-response']
+
+            if challengeresponse.strip() == '':
+                raise Exception('Geen data opgegeven')
+
+            if not '.' in challengeresponse:
+                raise Exception('Verkeerde code opgegeven. De code die je moet opgeven is met een puntje er in.')
+            print challengeresponse.split('.')
+            if len(challengeresponse.split('.')) <> 2:
+                raise Exception('De code moet maar 1 puntje bevatten')
+
+            challenge, response = challengeresponse.split('.')
+
+            if len(challenge) < 40 or len(response) < 40:
+                raise Exception('De code is te kort')
+
+            expiry_date = pytz.utc.localize(datetime.datetime.utcnow() + datetime.timedelta(minutes=10))
+            challengeresponse, created = LetsEncryptChallenge.objects.get_or_create(challenge=challenge, defaults={
+                'response': response,
+                'expiry_date': expiry_date
+                })
+
+            challengeresponse.response = response
+            challengeresponse.expiry_date = expiry_date
+            challengeresponse.save()
+
+            template_vars['challenge'] = challenge
+            template_vars['response'] = response
+        except str as e:
+            template_vars['error'] = e.message
+            raise e
+
+    return render(request, 'letsencrypt.html', template_vars)
+
+def letsencrypt_challenge(request, challenge):
+    try:
+        # Delete old challenges
+        LetsEncryptChallenge.objects.filter(expiry_date__lte=datetime.datetime.utcnow()).delete()
+
+        challengeresponse = LetsEncryptChallenge.objects.get(challenge=challenge)
+
+        response = HttpResponse(challengeresponse.challenge + "." + challengeresponse.response)
+        response['Content-Type'] = 'text/plain'
+        return response
+    except LetsEncryptChallenge.DoesNotExist:
+        return HttpResponseNotFound('404')
+
+
 
 def sign(request):
     if request.method == 'POST':
