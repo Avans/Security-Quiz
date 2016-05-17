@@ -15,7 +15,7 @@
 
       <h3>Simpele authenticatie</h3>
 
-      <p>Een simpele manier om de saldo API te implementeren is om rechtstreeks je gebruikersnaam en wachtwoord mee te geven in de API request. De server checkt of de inloggegevens correct zijn en geeft de saldo informatie terug van die gebruiker terug. Uiteraard moet dit alles over een beveiligde verbinding gebeuren, maar als dat zo is is het in theorie een veilige oplossing.</p>
+      <p>Een simpele manier om de saldo API te implementeren is om rechtstreeks je gebruikersnaam en wachtwoord mee te geven in de API request. De server checkt of de inloggegevens correct zijn en geeft de saldo informatie van die gebruiker terug. Uiteraard moet dit alles over een beveiligde verbinding gebeuren, maar als dat zo is is het in theorie een veilige oplossing.</p>
 
       <figure>
             <img src="static/img/auth_basic.png">
@@ -207,7 +207,7 @@
       <code style="display: block;">
       Client id: 799427728270-ahr6bg713mtkh2htskbmqko8hpheq1md.apps.googleusercontent.com<br>
       Client secret: 3W9FcQefBmhX7CT1FgzqiCdR<br>
-      Refresh token: 1/HJDF6uiwgUKdfSTsZxdeDu-9iSpgIa2D3ShoIwr5hE0<br></code>
+      Refresh token: 1/WfdEEjWgj5Lm8p6wZzoTCeirQz7e4hMDIxvOkdvSjsU<br></code>
 
       <p>Met deze gegevens kunnen we weer een POST doen naar de token endpoint (voor Google: https://accounts.google.com/o/oauth2/token) om een access token te genereren. Dit keer hoeven we geen redirect_uri mee te sturen en moeten we de grant_type parameter op 'refresh_token' zetten:</p>
 
