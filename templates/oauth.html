@@ -185,7 +185,7 @@
         <li><b>client_secret</b>: De client secret die je hebt verzonnen</li>
       </ul>
 
-      <p>Doe er niet te lang over, authorisatie codes verlopen vaak al na enkele minuten. Als je het goed doet krijg je een response met daarin de refresh_token (en een gratis access_token!). Als je een <code>invalid_grant</code> error krijgt betekent dat dat jouw code verlopen is en dat je een nieuwe moet aanvragen. Als je een <code>invalid_client</code> error krijgt moet je goed controleren of je redirect_uri, client_id en client_secret allemaal goed staan ingesteld.</p>
+      <p>Doe er niet te lang over, authorisatie codes verlopen vaak al na enkele minuten. Als je het goed doet krijg je een response met daarin de refresh_token (en een gratis access_token!). Als je een <code>invalid_grant</code> error krijgt betekent dat dat jouw code verlopen is en dat je een nieuwe moet aanvragen. Als je een <code>invalid_client</code> error krijgt moet je goed controleren of je redirect_uri, client_id en client_secret allemaal goed staan ingesteld. En als je een <code>access_denied</code> krijgt moet je nog een keer heel goed controleren of je redirect_uri echt <i>exact</i> hetzelfde is als toen je je app hebt geregistreerd.</code></p>
 
       <img src="static/img/oauth_exchange_auth_code.png" class="screenshot" style="margin: 20px; width: 80%; margin-left: auto; margin-right: auto;">
 
