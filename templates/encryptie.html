@@ -99,20 +99,24 @@
         <textarea class="question-input" name="answer_encryption_securesend">{{ answers.answer_encryption_securesend.string }}</textarea>
       </div>
 
-      <img src="static/img/bleep.png">
+      <img src="static/img/whatsapp.png" class="screenshot center-block" style="width: 70%">
 
-      <p>Deze screenshot hebben we op internet gevonden van een app die beweert dat alle chatberichten 100% geheim blijven en dat het bedrijf zelf niet de berichten kan lezen. De berichten worden wel verstuurd via de servers van Bleep. Als je een geheime chat wil beginnen moet je eerst elkaars QR code scannen.</p>
+      <p>WhatsApp beweert dat alle berichten end-to-end versleuteld verstuurd worden. Daarmee zou niemand de berichten kunnen lezen die via hun servers verstuurd worden, zelfs zij zelf niet. Alleen de afzender en de ontvanger kunnen de berichten lezen.</p>
+
+      <p>Om dat te controleren kan je bij de contactinformatie van elke chat klikken op 'Encryptie', je krijgt dan een QR code en een lijst van cijfers. Als de cijfers allemaal hetzelfde zijn zou je zeker moeten weten dat berichtjes alleen door jou en de andere persoon gelezen kunnen worden.</p>
+
+      <img src="static/img/whatsapp_qr.png" class="screenshot center-block" style="width: 50%">
 
       <div class="question">
-        <span class="question-string">Leg kort uit hoe de app deze claim kan waarmaken, waarom daar de QR code voor nodig is en hoe beveiligde berichten waarschijnlijk verstuurd worden (niet alleen maar: 'het wordt versleuteld').</span>
-        {% include "points.html" with points=answers.answer_encryption_bleep.points max="10" %}
-        <textarea class="question-input" name="answer_encryption_bleep">{{ answers.answer_encryption_bleep.string }}</textarea>
+        <span class="question-string">Leg uit welke informatie er waarschijnlijk in de QR-code / cijfers staat en hoe WhatsApp kan garanderen dat als deze hetzelfde zijn dat de chat dan veilig is.</span>
+        {% include "points.html" with points=answers.answer_encryption_whatsapp.points max="10" %}
+        <textarea class="question-input" name="answer_encryption_whatsapp">{{ answers.answer_encryption_whatsapp.string }}</textarea>
       </div>
 
 
       <h2>GPG</h2>
 
-      <p>Genoeg theorie, we gaan aan de slag met concrete encryptiealgoritmes. En wel met de <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy#OpenPGP" target="_blank">OpenPGP</a> (Pretty Good Privacy) standaard. Een veel gebruikt open source programma die deze standaard is <a href="http://en.wikipedia.org/wiki/GNU_Privacy_Guard" target="_blank">GPG</a> (GNU Privacy Guard). Met dit programma kunnen we sleutelparen maken, bestanden encrypten/decrypten en versleutelde berichten versturen.</p>
+      <p>Genoeg theorie, we gaan aan de slag met concrete encryptiealgoritmes. En wel met de <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy#OpenPGP" target="_blank">OpenPGP</a> (Pretty Good Privacy) standaard. Een veel gebruikt open source programma die deze standaard implementeert is <a href="http://en.wikipedia.org/wiki/GNU_Privacy_Guard" target="_blank">GPG</a> (GNU Privacy Guard). Met dit programma kunnen we sleutelparen maken, bestanden encrypten/decrypten en versleutelde berichten versturen.</p>
 
       <p>Om het makkelijker te maken om publieke sleutels uit te wisselen kan GPG gebruik maken van een <b>keyserver</b>. Dit is een speciale server die een lijst van publieke sleutels bijhoud. Voor onderstaande opdrachten hebben we onze eigen keyserver ingericht op sec1.aii.avans.nl. <b>Deze werkt niet als je de opdrachten thuis maakt</b>. De Avans firewall blokkeert poort 11371 waarop deze server werkt. Als je thuis de opdrachten wilt maken kan je het beste <a href="https://vmview-1.aii.avans.nl/" target="_blank">inloggen</a> op een PANO-box VM. Daar werkt het wel.</p>
 
