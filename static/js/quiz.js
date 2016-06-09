@@ -8,9 +8,14 @@ $(function() {
 
     $('#save-button').click(function() {
         var data = $.base64.encode($('#form-quiz').serialize())
-        console.log(data);
+
+        $('#busy').show();
+        $('#save-button').prop('disabled', true);
 
         $.post('save', data, function(data) {
+            $('#busy').hide();
+            $('#save-button').prop('disabled', false);
+
             if(data == 'ok') {
                 $('#js-message').text('Antwoorden zijn opgeslagen').slideDown().delay(1000).slideUp();
                 changed = false;
