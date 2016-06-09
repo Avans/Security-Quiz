@@ -208,8 +208,8 @@ sudo service apache2 reload</code>
 
       <div class="question">
         <span class="question-string">Maak een screenshot van het groene slotje en de details van het certificaat (zoals hierboven, maar natuurlijk niet letterlijk dat plaatje, dat hebben we door) en upload die naar <a href="http://imgur.com" target="_blank">imgur</a>. Plak de URL naar die screenshot als antwoord.</span>
-        {% include "points.html" with points=answers.answer_openssl_screenshot.points max="10" %}
-        <input class="question-input" name="answer_openssl_screenshot" type="url" value="{{ answers.answer_openssl_screenshot.string }}">
+        {% include "points.html" with points=answers.answer_openssl_letsencrypt_screenshot.points max="10" %}
+        <input class="question-input" name="answer_openssl_letsencrypt_screenshot" type="url" value="{{ answers.answer_openssl_letsencrypt_screenshot.string }}">
       </div>
 
 {% endblock %}
