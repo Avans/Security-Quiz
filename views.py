@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.db import connection
 from quiz.models import Answer, LetsEncryptChallenge
 import oauth2 as oauth, cgi, json, base64, urlparse, subprocess
 from oauth2_provider.views.generic import ProtectedResourceView
@@ -264,3 +265,20 @@ tq9DcELddZK2gJXaXpL1wOL+Ex5RzzRmjqKmmkkn1//ikn+nrZU=
         return response
 
     return render(request, 'sign.html')
+
+def graderhelper(request):
+    cursor = connection.cursor()
+    if request.GET['mode'] == 'oauth_app':
+        cursor.execute("SELECT COUNT(id) FROM oauth2_provider_application WHERE client_id = %s", [request.GET['answer']])
+        return HttpResponse(cursor.fetchone())
+
+    elif request.GET['mode'] == 'access_token':
+        cursor.execute("SELECT COUNT(id) FROM oauth2_provider_accesstoken WHERE token = %s", [request.GET['answer']])
+        return HttpResponse(cursor.fetchone())
+
+    elif request.GET['mode'] == 'auth_code':
+        cursor.execute("SELECT COUNT(id) FROM oauth2_provider_grant WHERE code = %s", [request.GET['answer']])
+        return HttpResponse(cursor.fetchone())
+
+
+    return HttpResponse('404')
