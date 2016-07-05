@@ -129,6 +129,8 @@
         <input class="question-input" name="answer_oauth_implicit_access_token" value="{{ answers.answer_oauth_implicit_access_token.string }}"></input>
       </div>
 
+      <p class="hint"><strong>Hint:</strong> Let je wel op dat er een slash staat achter <code>authorize</code> in de URL?</p>
+
       <div class="question">
         <span class="question-string">Hoeveel seconden is deze token code geldig?</span>
         {% include "points.html" with points=answers.answer_oauth_implicit_access_token_expires.points max="5" %}
@@ -148,6 +150,8 @@
         {% include "points.html" with points=answers.answer_oauth_api_hello.points max="10" %}
         <input class="question-input" name="answer_oauth_api_hello" value="{{ answers.answer_oauth_api_hello.string }}"></input>
       </div>
+
+      <p class="hint"><strong>Hint:</strong> Let op dat je de Authorization data als <i>header</i> meestuurt. Via de POST form-data of als URL parameter gaat niet werken!</p>
 
 
       <h3>Web applicaties</h3>
@@ -185,7 +189,7 @@
         <li><b>client_secret</b>: De client secret die je hebt verzonnen</li>
       </ul>
 
-      <p>Doe er niet te lang over, authorisatie codes verlopen vaak al na enkele minuten. Als je het goed doet krijg je een response met daarin de refresh_token (en een gratis access_token!). Als je een <code>invalid_grant</code> error krijgt betekent dat dat jouw code verlopen is en dat je een nieuwe moet aanvragen. Als je een <code>invalid_client</code> error krijgt moet je goed controleren of je redirect_uri, client_id en client_secret allemaal goed staan ingesteld. En als je een <code>access_denied</code> krijgt moet je nog een keer heel goed controleren of je redirect_uri echt <i>exact</i> hetzelfde is als toen je je app hebt geregistreerd.</code></p>
+      <p>Doe er niet te lang over, authorisatie codes verlopen vaak al na enkele minuten. Als je het goed doet krijg je een response met daarin de refresh_token (en een gratis access_token!). Als je een <code>invalid_grant</code> error krijgt betekent dat dat jouw code verlopen is en dat je een nieuwe moet aanvragen. Als je een <code>invalid_client</code> error krijgt moet je goed controleren of je redirect_uri, client_id en client_secret allemaal goed staan ingesteld. En als je een <code>access_denied</code> krijgt moet je nog een keer heel goed controleren of je redirect_uri echt <i>exact</i> hetzelfde is als toen je je app hebt geregistreerd.</code>. Krijg je een andere error? Controleer dan nog een keer extra goed of de URL eindigt op <code>/token/</code> (die laatste slash is belangrijk!) en dat je alle data verstuurd als form data via POST.</p>
 
       <img src="static/img/oauth_exchange_auth_code.png" class="screenshot" style="margin: 20px; width: 80%; margin-left: auto; margin-right: auto;">
 
@@ -211,6 +215,8 @@
 
       <p>Met deze gegevens kunnen we weer een POST doen naar de token endpoint (voor Google: https://accounts.google.com/o/oauth2/token) om een access token te genereren. Dit keer hoeven we geen redirect_uri mee te sturen en moeten we de grant_type parameter op 'refresh_token' zetten:</p>
 
+      <p class="hint"><strong>Hint:</strong> Deze keer geen slash achteraan de token URL endpoint, goed opletten!</p>
+
       <img src="static/img/oauth_google_refresh.png" class="screenshot" style="width: 70%; margin: 20px; display: block">
 
       <p>Gebruik de access token die je krijgt om een API call te doen naar <span class="url">https://www.googleapis.com/calendar/v3/calendars/secavans@gmail.com/events</span>. Vergeet niet weer de juiste Authorization header te gebruiken om je access token in te zetten! Als je het goed doet krijg je alle events uit onze Google Calender te zien in JSON formaat.</p>
@@ -229,9 +235,11 @@
 
       <p>Gebruik de authorisatie URL zoals die <a href="https://developers.google.com/identity/protocols/OAuth2WebServer#formingtheurl" target="_blank">hier</a> staat gedocumenteerd.</p>
 
+      <p class="hint"><strong>Hint: </strong>Vergeet niet de juiste scope te gebruiken zodat de gebruiker ook echt toestemming kan geven voor een bepaalde API. Bij Google zijn de scopes meestal URL's. Voor Google Calendar kan je de scope bijvoorbeeld <a href="https://developers.google.com/google-apps/calendar/auth">hier</a> vinden</p>
+
 
       <div class="question">
-        <span class="question-string">Beschrijf de HTTP requests die je hebt gemaakt om de token te krijgen en de API te gebruiken (en ook de uitkomst van die requests). Gevoelige data mag je met ***** censureren.</span>
+        <span class="question-string">Beschrijf de HTTP requests die je hebt gemaakt om de token te krijgen EN de API te gebruiken (en ook de uitkomst van die requests). Gevoelige data mag je met ***** censureren.</span>
         {% include "points.html" with points=answers.answer_oauth_google_requests.points max="15" %}
         <textarea class="question-input" name="answer_oauth_google_requests" style="height: 200px">{{ answers.answer_oauth_google_requests.string }}</textarea>
       </div>

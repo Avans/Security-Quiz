@@ -87,17 +87,18 @@
 
 
       <div class="question">
-        <span class="question-string">Hoe kan Alice een bericht naar Bob versturen zodat:
+        <span class="question-string">Hoe kan Alice een bericht naar Bob versturen zodat de volgende dingen tegelijkertijd gelden:
         <ol>
-         <li>Alleen Bob het bericht kan lezen</li>
-         <li>Bob zeker weet dat het bericht van Alice is</li>
-         <li>Niemand het bericht kan onderscheppen en lezen</li>
+         <li>Alleen Bob kan het bericht lezen</li>
+         <li>Bob weet zeker dat het bericht van Alice is</li>
         </ol>
-        Leg uit in welke volgorde Alice en Bob encrypten, decrypten en versturen en met welke sleutels. Je mag er van uit gaan dat ze (alleen) elkaars publieke sleutel weten.
+        Leg uit in welke volgorde Alice en Bob encrypten, decrypten en versturen en met welke sleutels. Je mag er van uit gaan dat ze elkaars publieke sleutel weten en die .
         </span>
         {% include "points.html" with points=answers.answer_encryption_securesend.points max="10" %}
         <textarea class="question-input" name="answer_encryption_securesend">{{ answers.answer_encryption_securesend.string }}</textarea>
       </div>
+
+      <p class="hint"><strong>Hint:</strong> het is natuurlijk mogelijk om een versleuteld bericht nog een keer te versleutelen.</p>
 
       <img src="static/img/whatsapp.png" class="screenshot center-block" style="width: 70%">
 
@@ -108,7 +109,7 @@
       <img src="static/img/whatsapp_qr.png" class="screenshot center-block" style="width: 50%">
 
       <div class="question">
-        <span class="question-string">Leg uit welke informatie er waarschijnlijk in de QR-code / cijfers staat en hoe WhatsApp kan garanderen dat als deze hetzelfde zijn dat de chat dan veilig is.</span>
+        <span class="question-string">Zoek op internet welke informatie er in de QR code staat. Hoe kan WhatsApp met die informatie garanderen dat alleen jullie twee de chat kan lezen?</span>
         {% include "points.html" with points=answers.answer_encryption_whatsapp.points max="10" %}
         <textarea class="question-input" name="answer_encryption_whatsapp">{{ answers.answer_encryption_whatsapp.string }}</textarea>
       </div>
@@ -156,12 +157,18 @@
         <textarea class="question-input" name="answer_encryption_encrypt_public_key">{{ answers.answer_encryption_encrypt_public_key.string }}</textarea>
       </div>
 
+      <p class="hint"><strong>Hint:</strong> Het is met GPG mogelijk om meerdere ontvangers op te geven. Dat hoeft voor deze opdracht niet. Als je alle (1 dus) ontvangers hebt opgegeven moet je een lege regel opgeven om aan te geven dat je verder wil gaan.</p>
+
+      <p class="hint"><strong>Hint:</strong> Gebruik onze sleutel-ID (ook wel user-id) die we eerder al hebben genoemd.</p>
+
+      <p class="hint"><strong>Hint:</strong> Krijg je een binair bestand? Dan ben je waarschijnlijk vergeten om de ASCII base64 optie aan te zetten (zie lijst van opties hierboven)</p>
+
       <p>Tijd om je eigen sleutels te gebruiken! Maak je eigen publieke/private sleutelpaar en verstuur de publieke sleutel naar de sec1.aii.avans.nl keyserver. <b>Gebruik je Avans e-mailadres voor het e-mailveld</b>.</p>
 
-      <p>Vergeet niet om je publieke sleutel naar de sec1.aii.avans.nl keyserver te sturen zodat anderen die kunnen opzoeken en geheime berichten naar je kunnen sturen (en zodat wij de opdrachten kunnen nakijken)</p>
+      <p>Vergeet niet om je publieke sleutel naar de sec1.aii.avans.nl keyserver te sturen zodat anderen die kunnen opzoeken en geheime berichten naar je kunnen sturen (en zodat wij de opdrachten kunnen nakijken, anders krijg je de punten voor onderstaande opdracht niet!)</p>
 
       <div class="question">
-        <span class="question-string">Versleutel een bestandje met de tekst "Security 2" met je eigen private sleutel. Plak de versleutelde tekst in het tekstveld</span>
+        <span class="question-string">Versleutel een bestandje met de tekst "Security 2" met je eigen private sleutel. Plak de versleutelde tekst in het tekstveld (inclusief begin en einde <code>-----BEGIN PGP MESSAGE-----</code>)</span>
         {% include "points.html" with points=answers.answer_encryption_encrypt_with_own_private.points max="5" %}
         <textarea class="question-input" name="answer_encryption_encrypt_with_own_private">{{ answers.answer_encryption_encrypt_with_own_private.string }}</textarea>
       </div>
@@ -181,6 +188,8 @@
         {% include "points.html" with points=answers.answer_encryption_sign_keys.points max="5" %}
         <input class="question-input" name="answer_encryption_sign_keys" value="{{ answers.answer_encryption_sign_keys.string }}">
       </div>
+
+      <p class="hint"><strong>Hint:</strong> Handtekeningen worden pas verstuurd als je de sleutel die je hebt ondertekend weer terugstuurt naar de server.</p>
 
       <p>Heb je de smaak te pakken? Dan kan je je eigen publieke sleutel ook doorsturen naar andere <a href="http://en.wikipedia.org/wiki/Key_server_%28cryptographic%29" target="_blank">keyservers</a> en laten ondertekenen bij hippe <a href="http://en.wikipedia.org/wiki/Key_signing_party" target="_blank">key signing parties</a>.</p>
 
