@@ -95,7 +95,7 @@
 
       <div class="question">
         <span class="question-string">Plak de inhoud van het certificaat van een medestudent, waar je zelf verstrekker van bent. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
-        {% include "points.html" with points=answers.answer_openssl_sign_other.points max="15" %}
+        {% include "points.html" with points=answers.answer_openssl_sign_other.points max="10" %}
         <textarea class="question-input" name="answer_openssl_sign_other">{{ answers.answer_openssl_sign_other.string }}</textarea>
       </div>
 
@@ -134,7 +134,7 @@ sudo service apache2 reload</code>
 
       <div class="question">
         <span class="question-string">Plak de inhoud van het .crt bestand dat je hebt gebruikt om de website te beveiligen met een groen slotje. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
-        {% include "points.html" with points=answers.answer_openssl_ssl_cert.points max="15" %}
+        {% include "points.html" with points=answers.answer_openssl_ssl_cert.points max="10" %}
         <textarea class="question-input" name="answer_openssl_ssl_cert">{{ answers.answer_openssl_ssl_cert.string }}</textarea>
       </div>
 
