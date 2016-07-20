@@ -23,11 +23,8 @@ SECRET_KEY = secrets.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-TEMPLATE_DEBUG = False
-
 if 'runserver' in sys.argv:
     DEBUG = True
-    TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['sec1.aii.avans.nl']
 
@@ -98,10 +95,22 @@ STATIC_URL = '/static/'
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__)) + '/..'
 MEDIA_ROOT = PROJECT_PATH + '/media/'
 
-# Additional locations of static files
-TEMPLATE_DIRS = (
-    PROJECT_PATH + '/templates',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'securityquiz.settings.closed',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 STATICFILES_DIRS = (
     PROJECT_PATH + '/static',
@@ -109,8 +118,3 @@ STATICFILES_DIRS = (
 
 def closed(request):
     return {'CLOSED': CLOSED}
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'securityquiz.settings.closed'
-)
