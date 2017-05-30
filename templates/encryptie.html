@@ -71,7 +71,7 @@
 
       <img src="static/img/sleutels_genereren.png">
 
-      <p>Om een bestandje te versleutelen nemen we bijvoorbeeld de groene sleutel en encrypten het met het algoritme. Maar we kunnen het bestand nu niet meer ontsleutelen met de groene sleutel. <b>Met alleen de bijbehorende rode sleutel kan je nu het bestand ontsleutelen</b>. Andersom werkt ook, bestanden die je met de rode sleutel versleuteld, zijn enkel en alleen met de groene sleutel te ontsleutelen.</p>
+      <p>Om een bestandje te versleutelen nemen we bijvoorbeeld de groene sleutel en gebruiken we die om het bestandje te versleutelen. Maar we kunnen het bestand nu niet meer ontsleutelen met de groene sleutel. <b>Met alleen de bijbehorende rode sleutel kan je nu het bestand ontsleutelen</b>. Andersom werkt ook, bestanden die je met de rode sleutel versleuteld, zijn enkel en alleen met de groene sleutel te ontsleutelen.</p>
 
       <img src="static/img/asym_encryptie.png">
 
@@ -89,32 +89,37 @@
 
 
       <div class="question">
-        <span class="question-string">Hoe kan Alice een bericht naar Bob versturen zodat:
+        <span class="question-string">Hoe kan Alice een bericht naar Bob versturen zodat de volgende dingen tegelijkertijd gelden:
         <ol>
-         <li>Alleen Bob het bericht kan lezen</li>
-         <li>Bob zeker weet dat het bericht van Alice is</li>
-         <li>Niemand het bericht kan onderscheppen en lezen</li>
+         <li>Alleen Bob kan het bericht lezen</li>
+         <li>Bob weet zeker dat het bericht van Alice is</li>
         </ol>
-        Leg uit in welke volgorde Alice en Bob encrypten, decrypten en versturen en met welke sleutels. Je mag er van uit gaan dat ze (alleen) elkaars publieke sleutel weten.
+        Leg uit in welke volgorde Alice en Bob encrypten, decrypten en versturen en met welke sleutels. Je mag er van uit gaan dat ze elkaars publieke sleutel weten en die .
         </span>
         {% include "points.html" with points=answers.answer_encryption_securesend.points max="10" %}
         <textarea class="question-input" name="answer_encryption_securesend">{{ answers.answer_encryption_securesend.string }}</textarea>
       </div>
 
-      <img src="static/img/bleep.png">
+      <p class="hint"><strong>Hint:</strong> het is natuurlijk mogelijk om een versleuteld bericht nog een keer te versleutelen.</p>
 
-      <p>Deze screenshot hebben we op internet gevonden van een app die beweert dat alle chatberichten 100% geheim blijven en dat het bedrijf zelf niet de berichten kan lezen. De berichten worden wel verstuurd via de servers van Bleep. Als je een geheime chat wil beginnen moet je eerst elkaars QR code scannen.</p>
+      <img src="static/img/whatsapp.png" class="screenshot center-block" style="width: 70%">
+
+      <p>WhatsApp beweert dat alle berichten end-to-end versleuteld verstuurd worden. Daarmee zou niemand de berichten kunnen lezen die via hun servers verstuurd worden, zelfs zij zelf niet. Alleen de afzender en de ontvanger kunnen de berichten lezen.</p>
+
+      <p>Om dat te controleren kan je bij de contactinformatie van elke chat klikken op 'Encryptie', je krijgt dan een QR code en een lijst van cijfers. Als de cijfers allemaal hetzelfde zijn zou je zeker moeten weten dat berichtjes alleen door jou en de andere persoon gelezen kunnen worden.</p>
+
+      <img src="static/img/whatsapp_qr.png" class="screenshot center-block" style="width: 50%">
 
       <div class="question">
-        <span class="question-string">Leg kort uit hoe de app deze claim kan waarmaken, waarom daar de QR code voor nodig is en hoe beveiligde berichten waarschijnlijk verstuurd worden (niet alleen maar: 'het wordt versleuteld').</span>
-        {% include "points.html" with points=answers.answer_encryption_bleep.points max="10" %}
-        <textarea class="question-input" name="answer_encryption_bleep">{{ answers.answer_encryption_bleep.string }}</textarea>
+        <span class="question-string">Zoek op internet welke informatie er in de QR code staat. Hoe kan WhatsApp met die informatie garanderen dat alleen jullie twee de chat kan lezen?</span>
+        {% include "points.html" with points=answers.answer_encryption_whatsapp.points max="10" %}
+        <textarea class="question-input" name="answer_encryption_whatsapp">{{ answers.answer_encryption_whatsapp.string }}</textarea>
       </div>
 
 
       <h2>GPG</h2>
 
-      <p>Genoeg theorie, we gaan aan de slag met concrete encryptiealgoritmes. En wel met de <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy#OpenPGP" target="_blank">OpenPGP</a> (Pretty Good Privacy) standaard. Een veel gebruikt open source programma die deze standaard is <a href="http://en.wikipedia.org/wiki/GNU_Privacy_Guard" target="_blank">GPG</a> (GNU Privacy Guard). Met dit programma kunnen we sleutelparen maken, bestanden encrypten/decrypten en versleutelde berichten versturen.</p>
+      <p>Genoeg theorie, we gaan aan de slag met concrete encryptiealgoritmes. En wel met de <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy#OpenPGP" target="_blank">OpenPGP</a> (Pretty Good Privacy) standaard. Een veel gebruikt open source programma die deze standaard implementeert is <a href="http://en.wikipedia.org/wiki/GNU_Privacy_Guard" target="_blank">GPG</a> (GNU Privacy Guard). Met dit programma kunnen we sleutelparen maken, bestanden encrypten/decrypten en versleutelde berichten versturen.</p>
 
       <p>Om het makkelijker te maken om publieke sleutels uit te wisselen kan GPG gebruik maken van een <b>keyserver</b>. Dit is een speciale server die een lijst van publieke sleutels bijhoud. Voor onderstaande opdrachten hebben we onze eigen keyserver ingericht op sec1.aii.avans.nl. <b>Deze werkt niet als je de opdrachten thuis maakt</b>. De Avans firewall blokkeert poort 11371 waarop deze server werkt. Als je thuis de opdrachten wilt maken kan je het beste <a href="https://vmview-1.aii.avans.nl/" target="_blank">inloggen</a> op een PANO-box VM. Daar werkt het wel.</p>
 
@@ -138,7 +143,7 @@
         <li><b>-a</b> Output in ASCII base64 formaat</li>
       <p>
 
-      <p>Haal van de keyserver onze publieke sleutel op met sleutel-ID <b>FA9E1C5A</b>. We hebben met onze private sleutel een tekst versleuteld in <a href="static/secret.txt.asc" target="_blank">dit bestand</a>. Gebruik de publieke sleutel om dit bestand te ontsleutelen.</p>
+      <p>Haal van de keyserver onze publieke sleutel op met sleutel-ID <b>FA9E1C5A</b> (GPG noemt dit ook wel de user-ID). We hebben met onze private sleutel een tekst versleuteld in <a href="static/secret.txt.asc" target="_blank">dit bestand</a>. Gebruik de publieke sleutel om dit bestand te ontsleutelen.</p>
 
       <div class="question">
         <span class="question-string">Welke zin hebben we versleuteld?</span>
@@ -154,12 +159,18 @@
         <textarea class="question-input" name="answer_encryption_encrypt_public_key">{{ answers.answer_encryption_encrypt_public_key.string }}</textarea>
       </div>
 
+      <p class="hint"><strong>Hint:</strong> Het is met GPG mogelijk om meerdere ontvangers op te geven. Dat hoeft voor deze opdracht niet. Als je alle (1 dus) ontvangers hebt opgegeven moet je een lege regel opgeven om aan te geven dat je verder wil gaan.</p>
+
+      <p class="hint"><strong>Hint:</strong> Gebruik onze sleutel-ID (ook wel user-id) die we eerder al hebben genoemd.</p>
+
+      <p class="hint"><strong>Hint:</strong> Krijg je een binair bestand? Dan ben je waarschijnlijk vergeten om de ASCII base64 optie aan te zetten (zie lijst van opties hierboven)</p>
+
       <p>Tijd om je eigen sleutels te gebruiken! Maak je eigen publieke/private sleutelpaar en verstuur de publieke sleutel naar de sec1.aii.avans.nl keyserver. <b>Gebruik je Avans e-mailadres voor het e-mailveld</b>.</p>
 
-      <p>Vergeet niet om je publieke sleutel naar de sec1.aii.avans.nl keyserver te sturen zodat anderen die kunnen opzoeken en geheime berichten naar je kunnen sturen (en zodat wij de opdrachten kunnen nakijken)</p>
+      <p>Vergeet niet om je publieke sleutel naar de sec1.aii.avans.nl keyserver te sturen zodat anderen die kunnen opzoeken en geheime berichten naar je kunnen sturen (en zodat wij de opdrachten kunnen nakijken, anders krijg je de punten voor onderstaande opdracht niet!)</p>
 
       <div class="question">
-        <span class="question-string">Versleutel een bestandje met de tekst "Security 2" met je eigen private sleutel. Plak de versleutelde tekst in het tekstveld</span>
+        <span class="question-string">Versleutel een bestandje met de tekst "Security 2" met je eigen private sleutel. Plak de versleutelde tekst in het tekstveld (inclusief begin en einde <code>-----BEGIN PGP MESSAGE-----</code>)</span>
         {% include "points.html" with points=answers.answer_encryption_encrypt_with_own_private.points max="5" %}
         <textarea class="question-input" name="answer_encryption_encrypt_with_own_private">{{ answers.answer_encryption_encrypt_with_own_private.string }}</textarea>
       </div>
@@ -179,6 +190,8 @@
         {% include "points.html" with points=answers.answer_encryption_sign_keys.points max="5" %}
         <input class="question-input" name="answer_encryption_sign_keys" value="{{ answers.answer_encryption_sign_keys.string }}">
       </div>
+
+      <p class="hint"><strong>Hint:</strong> Handtekeningen worden pas verstuurd als je de sleutel die je hebt ondertekend weer terugstuurt naar de server.</p>
 
       <p>Heb je de smaak te pakken? Dan kan je je eigen publieke sleutel ook doorsturen naar andere <a href="http://en.wikipedia.org/wiki/Key_server_%28cryptographic%29" target="_blank">keyservers</a> en laten ondertekenen bij hippe <a href="http://en.wikipedia.org/wiki/Key_signing_party" target="_blank">key signing parties</a>.</p>
 

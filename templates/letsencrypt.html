@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/semantic.min.css">
+    <style type="text/css">
+    body {
+      margin-top: 20px;
+    }
+    </style>
+  </head>
+
+  <body>
+    <h1 class="ui centered aligned header">Let's Encrypt</h1>
+
+    <div class="ui three column centered grid">
+      <div class="column ui">
+        <form method="POST" action="" class="ui form primary center aligned segment">
+          {% csrf_token %}
+
+          {% if challenge %}
+          <p>Vanaf<br>
+          <a href="http://sec1.aii.avans.nl/.well-known/acme-challenge/{{challenge}}">http://sec1.aii.avans.nl/.well-known/acme-challenge/{{challenge}}</a><br> wordt de komende 10 minuten de volgende tekst getoond:<br>
+          <code>{{challenge}}.{{response}}</code>
+
+          {% elif error %}
+          <div class="ui negative message">
+            <p>{{error}}</p>
+          </div>
+
+          {% else %}
+          <div class="field">
+            <label for="domain">Challenge-response</label>
+            <div class="ui huge input">
+              <textarea name="challenge-response" value="" style="text-align: center;" placeholder=""></textarea>
+            </div>
+            <p>Vul hier de code in die Let's Encrypt van je vraagt om te geven via <br><code>http://sec1.aii.avans.nl/.well-known/acme-challenge/</code></p>
+          </div>
+
+          <button type="submit" class="ui big blue submit button">Opslaan</button>
+
+          {% endif %}
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+  </body>
+</html>

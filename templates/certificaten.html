@@ -11,7 +11,7 @@
 
       <p>Als je bij het gebruik van OpenSSL errors krijgt, probeer dan eerst je command prompt als Administrator te openen. En als dat ook niet werkt om het volgende commando uit te voeren:</p>
 
-      <code class="terminal">SET OPENSSL_CONF=[pad naar bestand]\openssl.conf</code>
+      <code class="terminal">SET OPENSSL_CONF=[pad naar bestand]\openssl.cfg</code>
 
       <hr>
 
@@ -43,7 +43,7 @@
          Als jij die verstrekker vertrouwt dat hij zijn werk goed doet met de correctheid van certificaten controleren. Dan vertrouw je ook indirect de gegevens op het certificaat.
          Zo hoef je maar een handjevol verstrekkers te vertrouwen om bijna alle websites op het internet te kunnen vertrouwen.</p>
 
-      <p>Elke besturingssysteem heeft een lijst van basis verstrekkers die ze impliciet vertrouwen, deze lijst kan je bekijken en veranderen door in je geavanceerde browserinstellingen op zoek te gaan naar een knop 'Beheer certificaten' (te vinden in het Security tabblad in Firefox).</p>
+      <p>Elke besturingssysteem heeft een lijst van basis verstrekkers die ze impliciet vertrouwen, deze lijst kan je bekijken en veranderen door in je geavanceerde browserinstellingen op zoek te gaan naar een knop 'Beheer certificaten' (te vinden in het Advanced -> Certificates tabblad in Firefox).</p>
 
       <p>
 
@@ -87,14 +87,28 @@
         <textarea class="question-input" name="answer_openssl_signed_cert">{{ answers.answer_openssl_signed_cert.string }}</textarea>
       </div>
 
+      <h2>Zelf verstrekken</h2>
+
+      <blockquote>Sometimes, the only one you can trust is yourself.</blockquote>
+
+      <p>Om zelf verstrekker te spelen heb je helemaal geen speciale certificaten nodig. Je kan namelijk gewoon je eigen certificaat en sleutel gebruiken die je aan het begin van de les hebt gemaakt. Vraag een medestudent om een Certificate Signing Request van zijn certificaat te geven en onderteken dat met je eigen certificaat. Zoek op internet het commando op waarmee je dat kan doen.</p>
+
+      <div class="question">
+        <span class="question-string">Plak de inhoud van het certificaat van een medestudent, waar je zelf verstrekker van bent. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
+        {% include "points.html" with points=answers.answer_openssl_sign_other.points max="10" %}
+        <textarea class="question-input" name="answer_openssl_sign_other">{{ answers.answer_openssl_sign_other.string }}</textarea>
+      </div>
+
+      <p>Tip: zorg ervoor dat jouw certificaat standaard wordt geinstalleerd op alle besturingsystemen. Dan kan je goud geld verdienen met het ondertekenen van andere certificaten ;)</p>
+
       <h2>Websites beveiligen</h2>
 
-      <p>Leuk die certificaten, maar laten we niet vergeten dat we er ook nog wat nuttigs mee kunnen doen. Namelijk onze internetverbindingen beveiligen. Om hiermee te oefenen hebben we een Ubuntu VM klaargezet op BlackBoard. Het wachtwoord van deze VM is <b><i>sec2</i></b>. We hebben een aantal dingen gewijzigd hierin:</p>
+      <p>Leuk die certificaten, maar laten we niet vergeten dat we er ook nog wat nuttigs mee kunnen doen. Namelijk onze internetverbindingen beveiligen. Om hiermee te oefenen moet je <a href="/static/vm.zip">deze virtual machine</a> downloaden. Het wachtwoord van deze VM is <b><i>sec2</i></b>. We hebben een aantal dingen gewijzigd hierin:</p>
 
       <ul>
         <li>Er is een default Apache installatie aanwezig.</li>
-        <li>www.security2.nl wijst naar de geïnstalleerde Apache op localhost.</li>
-        <li>We hebben <a href="/sign" target="signen">deze verstrekker</a> als vertrouwd toegevoegd aan het systeem (dit kan je terugvinden als je in je browser gaat kijken naar alle certificaten die zijn geïnstalleerd)</li>
+        <li>www.security2.nl en sec1.aii.avans.nl wijzen naar de geïnstalleerde Apache op localhost.</li>
+        <li>We hebben <a href="/sign" target="signen">deze verstrekker</a> en het Let's Encrypt test certificaat als vertrouwd toegevoegd aan het systeem (dit kan je terugvinden als je in je browser gaat kijken naar alle certificaten die zijn geïnstalleerd)</li>
       </ul>
 
       <p>Controleer eerst of de site http://www.security2.nl in jouw VM te bereiken is, en via http<b>s</b>://www.security2.nl/ nog niet te bereiken is. Je gaat de site in de volgende opgaven beveiligen met SSL, om dat te doen moeten we eerst SSL aanzetten in Apache met de volgende commando's:</p>
@@ -120,7 +134,7 @@ sudo service apache2 reload</code>
 
       <div class="question">
         <span class="question-string">Plak de inhoud van het .crt bestand dat je hebt gebruikt om de website te beveiligen met een groen slotje. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
-        {% include "points.html" with points=answers.answer_openssl_ssl_cert.points max="15" %}
+        {% include "points.html" with points=answers.answer_openssl_ssl_cert.points max="10" %}
         <textarea class="question-input" name="answer_openssl_ssl_cert">{{ answers.answer_openssl_ssl_cert.string }}</textarea>
       </div>
 
@@ -132,20 +146,70 @@ sudo service apache2 reload</code>
 
       <img src="/static/img/slotje_certificaat_vm.png" class="center-block screenshot" style="width: 60%" >
 
-      <p>Tip: Heb je zelf een website die je wil beveiligen? <a href="http://startssl.com/" target="_blank">Start SSL</a> is één van de weinige bedrijven die gratis certificaten ondertekenen. Medio 2015 kan het ook via <a href="http://letsencrypt.org/" target="_blank">Let's Encrypt</a></p>
+      <h2>Let's Encrypt</h2>
 
-      <h2>Zelf verstrekken</h2>
+      <img src="/static/img/letsencrypt_logo.png" class="center-block">
 
-      <blockquote>Sometimes, the only one you can trust is yourself.</blockquote>
+      <p>Sinds 2015 is er <a href="https://letsencrypt.org/">een nieuwe speler</a> op de markt die gratis certificaten verstrekt, mits je kan bewijzen dat jouw website van jouw is natuurlijk. Dit gaat met behulp van de command-line <code>letsencrypt</code> tool die automatisch certificaten maakt en ondertekend voor jouw website. Deze tool hebben we al voor je geinstalleerd in de VM.</p>
 
-      <p>Om zelf verstrekker te spelen heb je helemaal geen speciale certificaten nodig. Je kan namelijk gewoon je eigen certificaat en sleutel gebruiken die je aan het begin van de les hebt gemaakt. Vraag een medestudent om een Certificate Signing Request van zijn certificaat te geven en onderteken dat met je eigen certificaat. Zoek op internet het commando op waarmee je dat kan doen.</p>
+      <p>We gaan nu sec1.aii.avans.nl beveiligen, niet deze website die je nu aan het bekijken bent, maar weer de localhost die in de VM draait. Maar nu gaan we hem met behulp van Let's Encrypt beveiligen.</p>
+
+      <p><i>Tip:</i>Je mag voor deze opdracht ook een eigen domein dat je hebt beveiligen! Let even op dat de commando's dan niet overal exact hetzelfde zijn. Zeker als je geen Apache gebruikt.</p>
+
+      <p>Controleer eerst dat <b>https</b>://sec1.aii.avans.nl/ in de VM een fout geeft, dat komt omdat het certificaat van de vorige opdracht nog steeds van www.security2.nl is (als je de vorige opdracht goed hebt gedaan, anders krijg je misschien een andere fout). De browser ziet dat dat niet hetzelfde domein is en geeft terecht een error.</p>
+
+      <p>We gaan beginnen met het aanvragen van een certificaat. Dit doen we met het volgende commando:
+
+      <code class="terminal">sudo letsencrypt certonly --manual --staging</code>
+
+      <p>Even een korte uitleg van dit commando:</p>
+
+      <ul>
+        <li><b>sudo</b>: letsencrypt heeft root rechten nodig, we moeten letsencrypt dus altijd met root rechten uitvoeren</li>
+        <li><b>letsencrypt</b>: de naam van het scriptje zelf. Als je dit op je eigen server wil doen moet je deze eerst installeren (instructies vind je op de <a href="https://letsencrypt.org/getting-started/">Let's Encrypt website</a> zelf). Afhankelijk van hoe letsencrypt is geinstalleerd kan het commando ook <code>letsencrypt-auto</code>, <code>certbot</code> of <code>certbot-auto</code> zijn.</li>
+        <li><b>certonly</b>: Standaard wil Let's Encrypt volledig automatisch Apache voor je herconfigureren, maar dat gaat bij ons niet werken omdat de VM niet <i>echt</i> sec1.aii.avans.nl is. Met de certonly optie geven we aan dat we alleen geinteresseerd zijn in het maken van nieuwe certificaten.</li>
+        <li><b>--manual</b>: De Let's Encrypt servers geven niet zomaar certificaten weg, ze willen altijd zeker weten dat het domein waar je een certificaat van aanvraagt ook echt van jou is. Er zijn verschillende manieren om dat te doen, maar ze komen er allemaal op neer dat je een specifiek bestandje moet hosten op je website. Met de manual optie moeten we onze webserver zelf goed configureren dat het bestandje te bereiken is via het domein. De andere opties (<code>--webroot</code>, <code>--apache</code>) proberen het bestandje automatisch te plaatsen en de webserver te configureren. Dat gaat voor deze opdracht niet werken omdat de echte sec1.aii.avans.nl veilig ergens draait en van buiten niet te configureren is.</li>
+        <li><b>--staging</b>: Deze optie zorgt ervoor dat je een certificaat krijgt van de test server in plaats van de echte server. Deze hebben we nodig omdat de echte server een limiet heeft van 5 certificaataanvragen per week per domein. En dat is voor dit vak niet handig. Nadeel van de testserver is dat de certificaten een ongeldige fake verstrekker hebben (in de VM hebben we die fake verstrekker toegevoegd als vertrouwd, zodat je alsnog een groen slotje krijgt.)</li>
+      </ul>
+
+      <p>Als je dit commando voor de eerste keer uitvoert wordt er gevraagd naar je e-mailadres, daar kan je invullen wat je wil. Voor het domein gaan we sec1.aii.avans.nl invullen. Als je je eigen domein wil beveiligen vul je hier uiteraard je eigen domein in.</p>
+
+      <img src="/static/img/letsencrypt_domain.png" class="center-block screenshot" style="width: 80%" >
+
+      <p>Let's Encrypt vraagt daarna om een bestandje op de server te zetten in een hele specifieke map (.well-known/acme-challenge) op de echte sec1.aii.avans.nl server. Normaliter zou dit een probleem zijn, want dat kan alleen als je toegang hebt tot de server. Maar speciaal voor jullie is er <a href="/letsencrypt">een pagina</a> waar je de code kan kopieren en er voor zorgen dat het bestandje 10 minuten lang op onze server wordt gehost!</p>
+
+      <img src="/static/img/letsencrypt_challenge.png" class="center-block screenshot" style="width: 80%" >
+
+      <p>Nadat de challenge is geslaagd zal Let's Encrypt nog een melding geven over dat de self-verification failed (in de VM wijst sec1.aii.avans.nl immers naar de localhost, en niet naar het bestandje op de echte server). Maar dat kan je negeren, als het goed is gegaan staan de certificaten nu in de map <code>/etc/letsencrypt/live/sec1.aii.avans.nl</code>!.
+
+      <img src="/static/img/letsencrypt_congrats.png" class="center-block screenshot" style="width: 80%" >
+
+      <p>Met dit commando kan je je nieuwe certificaat bekijken:</p>
+
+      <code class="terminal">sudo gedit /etc/letsencrypt/live/sec1.aii.avans.nl/fullchain.pem</code>
 
       <div class="question">
-        <span class="question-string">Plak de inhoud van het certificaat van een medestudent, waar je zelf verstrekker van bent. (inclusief begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
-        {% include "points.html" with points=answers.answer_openssl_sign_other.points max="10" %}
-        <textarea class="question-input" name="answer_openssl_sign_other">{{ answers.answer_openssl_sign_other.string }}</textarea>
+        <span class="question-string">Plak de inhoud van het <code>fullchain.pem</code> certificaat voor sec1.aii.avans.nl. (inclusief alle begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
+        {% include "points.html" with points=answers.answer_openssl_letsencrypt_fullchain.points max="10" %}
+        <textarea class="question-input" name="answer_openssl_letsencrypt_fullchain">{{ answers.answer_openssl_letsencrypt_fullchain.string }}</textarea>
       </div>
 
-      <p>Tip: zorg ervoor dat jouw certificaat standaard wordt geinstalleerd op alle besturingsystemen. Dan kan je goud geld verdienen met het ondertekenen van andere certificaten ;)</p>
+      <p>Stel het default-ssl.conf configuratie bestand van Apache nu zo in dat het de certificaten van Let's Encrypt gebruikt:</p>
+
+      <img src="/static/img/letsencrypt_conf.png" class="center-block screenshot" >
+
+      <p>Sla het bestand op, reload Apache en als het goed is heb je nu een beveiligde https://sec1.aii.avans.nl/, helemaal gratis en voor niets!</p>
+
+      <img src="/static/img/letsencrypt_chrome.png" class="center-block screenshot" style="width: 90%" >
+
+      <p>Het zal je misschien opvallen dat de verstrekker Fake is, dat komt omdat we de <code>--staging</code> optie hebben gebruikt. In de VM is deze toegevoegd als iets dat we kunnen vertrouwen (en dus een groen slotje oplevert), maar in de echte wereld is dat niet zo. Zorg er dus bij je eigen website zo dat je niet de --staging optie gebruikt als je voor de echie certificaten aan het maken bent</p>
+
+
+
+      <div class="question">
+        <span class="question-string">Maak een screenshot van het groene slotje en de details van het certificaat (zoals hierboven, maar natuurlijk niet letterlijk dat plaatje, dat hebben we door) en upload die naar <a href="http://imgur.com" target="_blank">imgur</a>. Plak de URL naar die screenshot als antwoord.</span>
+        {% include "points.html" with points=answers.answer_openssl_letsencrypt_screenshot.points max="10" %}
+        <input class="question-input" name="answer_openssl_letsencrypt_screenshot" type="url" value="{{ answers.answer_openssl_letsencrypt_screenshot.string }}">
+      </div>
 
 {% endblock %}

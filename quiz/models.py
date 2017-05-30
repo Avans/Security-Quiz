@@ -18,3 +18,8 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.question + ": " + self.string
+
+class LetsEncryptChallenge(models.Model):
+    challenge = models.CharField(max_length=128)
+    response = models.CharField(max_length=128)
+    expiry_date = models.DateTimeField()
