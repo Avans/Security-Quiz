@@ -53,6 +53,8 @@
         <input class="question-input" name="answer_encryption_decrypt" value="{{ answers.answer_encryption_decrypt.string }}"></input>
       </div>
 
+      <p class="hint">Hint: Als je een bad decrypt error krijgt heb je waarschijnlijk een OpenSSL versie die lager is dan 1.1.0. In dat geval moet je de optie `-md sha256` toevoegen.</code></p>
+
       <div class="question">
         <span class="question-string">Versleutel de tekst "<em>Avans Hogeschool</em>" met het aes-256-cbc algoritme in base64 mode. Plak de versleutelde tekst in het tekstveld, gebruik <code>Ab12345</code> als wachtwoord.</span>
         {% include "points.html" with points=answers.answer_encryption_encrypt.points max="10" %}
