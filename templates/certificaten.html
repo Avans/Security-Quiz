@@ -150,6 +150,8 @@ sudo service apache2 reload</code>
 
       <img src="/static/img/letsencrypt_logo.png" class="center-block">
 
+      <p><b><i>Let op, deze opdracht is dit jaar 0 punten waard omdat Avans een beveiliging heeft toegevoegd zodat het niet meer mogelijk is subdomeinen van avans.nl met Let's Encrypt te beveiligen.</i></b></p>
+
       <p>Sinds 2015 is er <a href="https://letsencrypt.org/">een nieuwe speler</a> op de markt die gratis certificaten verstrekt, mits je kan bewijzen dat jouw website van jouw is natuurlijk. Dit gaat met behulp van de command-line <code>letsencrypt</code> tool die automatisch certificaten maakt en ondertekend voor jouw website. Deze tool hebben we al voor je geinstalleerd in de VM.</p>
 
       <p>We gaan nu sec1.aii.avans.nl beveiligen, niet deze website die je nu aan het bekijken bent, maar weer de localhost die in de VM draait. Maar nu gaan we hem met behulp van Let's Encrypt beveiligen.</p>
@@ -190,7 +192,7 @@ sudo service apache2 reload</code>
 
       <div class="question">
         <span class="question-string">Plak de inhoud van het <code>fullchain.pem</code> certificaat voor sec1.aii.avans.nl. (inclusief alle begin en einde <code>-----BEGIN CERTIFICATE-----</code>)</span>
-        {% include "points.html" with points=answers.answer_openssl_letsencrypt_fullchain.points max="10" %}
+        {% include "points.html" with points=answers.answer_openssl_letsencrypt_fullchain.points max="0" %}
         <textarea class="question-input" name="answer_openssl_letsencrypt_fullchain">{{ answers.answer_openssl_letsencrypt_fullchain.string }}</textarea>
       </div>
 
@@ -208,7 +210,7 @@ sudo service apache2 reload</code>
 
       <div class="question">
         <span class="question-string">Maak een screenshot van het groene slotje en de details van het certificaat (zoals hierboven, maar natuurlijk niet letterlijk dat plaatje, dat hebben we door) en upload die naar <a href="http://imgur.com" target="_blank">imgur</a>. Plak de URL naar die screenshot als antwoord.</span>
-        {% include "points.html" with points=answers.answer_openssl_letsencrypt_screenshot.points max="10" %}
+        {% include "points.html" with points=answers.answer_openssl_letsencrypt_screenshot.points max="0" %}
         <input class="question-input" name="answer_openssl_letsencrypt_screenshot" type="url" value="{{ answers.answer_openssl_letsencrypt_screenshot.string }}">
       </div>
 
