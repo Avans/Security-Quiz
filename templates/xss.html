@@ -81,7 +81,7 @@ figcaption {
 
       <p>Als je geen eigen site hebt mag je voor de opdrachten waar je informatie moet doorsturen naar een eigen site aannemen dat http://evil.avans.nl/ jouw site is (met uitzondering van de Nieuws opdracht).</p>
 
-      <p>Voor de nieuws opdracht heb je een eigen website nodig. Als je niet een eigen website hebt kan je natuurlijk ook gebruik maken van de student.aii.avans.nl webruimte. Maar wellicht heb je al XAMPP of LAMP of WAMP ge&iuml;nstalleerd.</p>
+      <p>Voor de nieuws opdracht heb je een eigen website nodig. Als je niet een eigen website hebt kan je natuurlijk ook gebruik maken van de student.aii.avans.nl webruimte of eigen <a href="https://requestb.in">requestbin</a>. Maar wellicht heb je al XAMPP of LAMP of WAMP ge&iuml;nstalleerd.</p>
 
       <h2>Bank</h2>
       <p>We gaan opnieuw kijken naar de Bank website. Ze hebben tijdelijk hun login formulier uitgeschakeld, maar daarmee zijn ze nog steeds niet veilig van hun beveiligingsproblemen.</p>
@@ -160,7 +160,7 @@ figcaption {
 
       <p>Deze site heeft geen plekken waar we via de URL's javascript aan de pagina kunnen toevoegen. Bovendien zijn de administrators van deze site veel te slim om op rare links te klikken in vage e-mailtjes.  We gaan het via een stored XSS attack te doen.</p>
 
-      <p class="hint">1. Voeg via de reacties javascript aan de pagina toe die cookies steelt. Je moet deze cookies nu ook echt naar een eigen server sturen om de opdracht te kunnen maken. Zet op een eigen website een scriptje die alle requests in een bestandje/database logt zodat je daar later de cookies kunt uitlezen. Voorbeeld: student.aii.avans.nl/ICT/pwagener/logcookie.php?PHPSESSID=2394fh3dk</p>
+      <p class="hint">1. Voeg via de reacties javascript aan de pagina toe die cookies steelt. Je moet deze cookies nu ook echt naar een eigen server sturen om de opdracht te kunnen maken. Zet op een eigen website een scriptje die alle requests in een bestandje/database logt zodat je daar later de cookies kunt uitlezen. Voorbeeld: student.aii.avans.nl/ICT/pwagener/logcookie.php?PHPSESSID=2394fh3dk. Alternatief kun je de cookies opvangen in een requestbin</p>
 
       <p class="hint">2. Je kan nu een ingelogde administrator naar de pagina (met jouw javascript) laten kijken door een melding te maken. Onderaan de reactiepagina staat een link (je kan ook rechtstreeks naar /nieuws/admincheck.php).</p>
 
